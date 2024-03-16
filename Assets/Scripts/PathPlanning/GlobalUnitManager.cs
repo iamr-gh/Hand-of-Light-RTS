@@ -9,7 +9,7 @@ public class GlobalUnitManager : MonoBehaviour
     //we're doing singleton
     public static GlobalUnitManager singleton;
     //maps affiliation to unit type
-    private Dictionary<String,List<GameObject>> units;
+    private Dictionary<String,List<GameObject>> units = new();
     
     private GameObject [] allManaged;
 
@@ -32,15 +32,17 @@ public class GlobalUnitManager : MonoBehaviour
         
         //parse into specific types
         foreach (GameObject obj in allManaged){
-           if(obj.TryGetComponent(out UnitAffiliation unitaff)){
-                // units.Add()
-                if(units.TryGetValue(unitaff.affiliation, out List<GameObject> lst)){
-                    lst.Add(obj);
+            if(obj != null){
+                if(obj.TryGetComponent(out UnitAffiliation unitaff)){
+                    // units.Add()
+                    if(units.TryGetValue(unitaff.affiliation, out List<GameObject> lst)){
+                        lst.Add(obj);
+                    }
+                    else{
+                        units.Add(unitaff.affiliation,new List<GameObject>{obj});
+                    }
                 }
-                else{
-                    units.Add(unitaff.affiliation,new List<GameObject>{obj});
-                }
-           }
+            }
         }
     }
 
