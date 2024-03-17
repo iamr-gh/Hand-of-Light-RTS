@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2543286839879075723
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1119926752865351695, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1119926752865351695, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: aggroRange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1338495717678242494, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: canDealDamage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841198833165022926, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: maxvel
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841198833165022926, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: goal_weight
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841198833165022926, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: obav_radius
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841198833165022926, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: enemy_av_weight
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841198833165022926, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: friendly_av_weight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3057224176438652742, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2745f0553424f5b4d8f689805f094e82, type: 2}
+    - target: {fileID: 6420169907966883228, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7061191200054490331, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.583797
+      objectReference: {fileID: 0}
+    - target: {fileID: 7061191200054490331, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.3686327
+      objectReference: {fileID: 0}
+    - target: {fileID: 7061191200054490331, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6.961899
+      objectReference: {fileID: 0}
+    - target: {fileID: 7061191200054490331, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7061191200054490331, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7061191200054490331, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7061191200054490331, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7061191200054490331, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7061191200054490331, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7061191200054490331, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086569612669990502, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
+      propertyPath: m_Name
+      value: AttackerVulnerable Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
