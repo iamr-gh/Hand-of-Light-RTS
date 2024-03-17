@@ -57,11 +57,12 @@ public class PlannerAPF2D : Planner
                 {
                     enemy_av_offset += (1 / offset2d.sqrMagnitude) * offset2d.normalized;
                 }
-                continue;
+            }
+            else{
+                obav_offset += (1 / offset2d.sqrMagnitude) * offset2d.normalized;
             }
 
 
-            obav_offset += (1 / offset2d.sqrMagnitude) * offset2d.normalized;
         }
 
 
