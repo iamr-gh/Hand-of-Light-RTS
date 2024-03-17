@@ -19,8 +19,8 @@ public class Planner : MonoBehaviour
     public void changeWayPointXZ(Vector2 newGoal){
         //at some point might make more sense as a message passing system 
         goal = newGoal;
-        Debug.Log("Set new goal");
-        Debug.Log(goal);
+        // Debug.Log("Set new goal");
+        // Debug.Log(goal);
     }
     
 }
