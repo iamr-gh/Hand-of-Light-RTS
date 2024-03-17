@@ -58,10 +58,12 @@ public class GlobalUnitManager : MonoBehaviour
     public List<GameObject> FindNearby(Vector3 pos, float radius){
         var objs = new List<GameObject>();
         //eventually convert into a spatial hash to not be N^2
-        foreach(GameObject obj in allManaged){
+        foreach (GameObject obj in allManaged)
+        {
             //3d distance
-            if((obj.transform.position - pos).magnitude <= radius){
-               objs.Add(obj);
+            if ((obj.transform.position - pos).magnitude <= radius)
+            {
+                objs.Add(obj);
             }
         }
 
