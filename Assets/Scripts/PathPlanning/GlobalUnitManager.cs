@@ -72,7 +72,20 @@ public class GlobalUnitManager : MonoBehaviour
         var objs = new List<GameObject>();
         foreach (GameObject obj in allManaged) {
             var pos = obj.transform.position;
-            if (pos.x > bottomLeft.x && pos.x < topRight.x && pos.z > bottomLeft.z && pos.z < topRight.z) {
+            if (pos.x >= bottomLeft.x && pos.x <= topRight.x && pos.z >= bottomLeft.z && pos.z <= topRight.z) {
+                objs.Add(obj);
+            }
+        }
+        return objs;
+    }
+
+    public List<GameObject> FindInTrapezoid(Vector3 bottomLeft, Vector3 bottomRight, Vector3 topLeft, Vector3 topRight) {
+        var objs = new List<GameObject>();
+        foreach (GameObject obj in allManaged) {
+            var pos = obj.transform.position;
+            Func<float, float> leftLineF = y => ((topLeft - bottomLeft).normalized * (y - bottomLeft.z) + bottomLeft).x;
+            Func<float, float> rightLineF = y => ((topRight - bottomRight).normalized * (y - bottomRight.z) + bottomRight).x;
+            if (pos.z >= bottomLeft.z && pos.z <= topRight.z && pos.x >= leftLineF(pos.z) && pos.x <= rightLineF(pos.z)) {
                 objs.Add(obj);
             }
         }

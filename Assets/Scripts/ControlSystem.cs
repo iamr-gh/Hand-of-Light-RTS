@@ -46,6 +46,9 @@ public class ControlSystem : MonoBehaviour {
     }
 
     void OnMove() {
+        if (controlledUnits == null) {
+            return;
+        }
         var goalRay = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
         float goalEnter;
         groundPlane.Raycast(goalRay, out goalEnter);
@@ -67,6 +70,7 @@ public class ControlSystem : MonoBehaviour {
         if (clickResults.Count > 0) {
             return;
         }
+        selMenu.SetActive(false);
         StartCoroutine(SelectUnits());
     }
 
@@ -114,22 +118,39 @@ public class ControlSystem : MonoBehaviour {
     void UpdateSelections(Vector3 initialPos, Vector3 finalPos) {
         var initialPosViewport = cam.WorldToViewportPoint(initialPos);
         var finalPosViewport = cam.WorldToViewportPoint(finalPos);
-        selBoxTransform.anchorMin = new Vector2(
+        var bottomLeft = new Vector2(
             Mathf.Min(initialPosViewport.x, finalPosViewport.x),
             Mathf.Min(initialPosViewport.y, finalPosViewport.y)
         );
-        selBoxTransform.anchorMax = new Vector2(
+        var bottomRight = new Vector2(
+            Mathf.Max(initialPosViewport.x, finalPosViewport.x),
+            Mathf.Min(initialPosViewport.y, finalPosViewport.y)
+        );
+        var topLeft = new Vector2(
+            Mathf.Min(initialPosViewport.x, finalPosViewport.x),
+            Mathf.Max(initialPosViewport.y, finalPosViewport.y)
+        );
+        var topRight = new Vector2(
             Mathf.Max(initialPosViewport.x, finalPosViewport.x),
             Mathf.Max(initialPosViewport.y, finalPosViewport.y)
         );
-        var lowerLeftRay = cam.ViewportPointToRay(selBoxTransform.anchorMin);
-        var topRightRay = cam.ViewportPointToRay(selBoxTransform.anchorMax);
-        float lowerLeftEnter, topRightEnter;
-        groundPlane.Raycast(lowerLeftRay, out lowerLeftEnter);
+        selBoxTransform.anchorMin = bottomLeft;
+        selBoxTransform.anchorMax = topRight;
+        var bottomLeftRay = cam.ViewportPointToRay(bottomLeft);
+        var bottomRightRay = cam.ViewportPointToRay(bottomRight);
+        var topLeftRay = cam.ViewportPointToRay(topLeft);
+        var topRightRay = cam.ViewportPointToRay(topRight);
+        float bottomLeftEnter, bottomRightEnter, topLeftEnter, topRightEnter;
+        groundPlane.Raycast(bottomLeftRay, out bottomLeftEnter);
+        groundPlane.Raycast(bottomRightRay, out bottomRightEnter);
+        groundPlane.Raycast(topLeftRay, out topLeftEnter);
         groundPlane.Raycast(topRightRay, out topRightEnter);
-        var lowerLeftHit = lowerLeftRay.GetPoint(lowerLeftEnter);
+        var bottomLeftHit = bottomLeftRay.GetPoint(bottomLeftEnter);
+        var bottomRightHit = bottomRightRay.GetPoint(bottomRightEnter);
+        var topLeftHit = topLeftRay.GetPoint(topLeftEnter);
         var topRightHit = topRightRay.GetPoint(topRightEnter);
-        SetControlledUnits(globalUnitManager.FindInBox(lowerLeftHit, topRightHit));
+        // SetControlledUnits(globalUnitManager.FindInBox(bottomLeftHit, topRightHit));
+        SetControlledUnits(globalUnitManager.FindInTrapezoid(bottomLeftHit, bottomRightHit, topLeftHit, topRightHit));
     }
 
     void SetControlledUnits(List<GameObject> units) {
@@ -163,10 +184,10 @@ public class ControlSystem : MonoBehaviour {
     }
 
     public void SelectUnitType(int type) {
-        selMenu.SetActive(false);
         if (type != 0) {
             SetControlledUnits(globalUnitManager.FindByType(type - 1));
         }
+        selMenu.SetActive(false);
         selMenuDropdown.SetValueWithoutNotify(0);
     }
 }
