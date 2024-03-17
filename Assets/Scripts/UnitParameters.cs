@@ -42,6 +42,7 @@ public class UnitParameters : MonoBehaviour
     public float getAttackDamage() { return AttackDamage; }
     public float getMovementSpeed() { return MovementSpeed; }
     public float getAttackRate() { return AttackRate; }
+    public float getAttackRange() { return AttackRange; }
     public float getMana() { return Mana; }
     public float getHitboxSize() { return HitboxSize; }
     public float getNumberOfKills() { return NumberOfKills; }
