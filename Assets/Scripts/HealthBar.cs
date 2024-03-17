@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(UnitParameters))]
+//[RequireComponent(typeof(UnitParameters))]
 
 public class HealthBar : MonoBehaviour
 {
@@ -14,7 +14,7 @@ public class HealthBar : MonoBehaviour
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        parameters = GetComponent<UnitParameters>();
+        parameters = GetComponentInParent<UnitParameters>();
     }
 
     // Update is called once per frame

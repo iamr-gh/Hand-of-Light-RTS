@@ -23,10 +23,11 @@ public class DamageSystem : MonoBehaviour
         DamageSystem otherDamageSystem = objectCollidedWith.GetComponent<DamageSystem>();
         UnitParameters otherUnitParameters = objectCollidedWith.GetComponent<UnitParameters>();
         // If the other object does not have parameters or damage handling, do nothing
-        if (otherDamageSystem == null || otherUnitParameters == null) { return; } 
+        if (otherDamageSystem == null || otherUnitParameters == null) { return; }
+        Debug.Log("Collision: " + teamID + "-to-" + otherDamageSystem.teamID);
 
         // This object can deal damage and collided with an object of another team
-        if(teamID != otherDamageSystem.teamID && canDealDamage)
+        if (teamID != otherDamageSystem.teamID && canDealDamage)
         {
             // Deal Damage
             float newHP = otherUnitParameters.getHP() - parameters.getAttackDamage();
@@ -35,8 +36,12 @@ public class DamageSystem : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        
+        // Destroy dead unit
+        if(parameters.getHP() <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
