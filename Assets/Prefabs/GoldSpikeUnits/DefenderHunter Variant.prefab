@@ -187,7 +187,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 6d98098537e8d2a46a9a906e4e38244f, type: 2}
     - target: {fileID: 6656250676694451419, guid: c7fa1fefd637b5f40a5d65054c8e1e4d, type: 3}
       propertyPath: maxvel
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6656250676694451419, guid: c7fa1fefd637b5f40a5d65054c8e1e4d, type: 3}
       propertyPath: goal_weight

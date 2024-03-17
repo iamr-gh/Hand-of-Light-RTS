@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2841198833165022926, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
       propertyPath: maxvel
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2841198833165022926, guid: f1144cac1de6d1447ba595c9bf125d13, type: 3}
       propertyPath: goal_weight

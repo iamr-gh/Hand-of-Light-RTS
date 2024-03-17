@@ -189,6 +189,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3f681440309d8694ea303dacfbaea324, type: 2}
+    - target: {fileID: 6656250676694451419, guid: c7fa1fefd637b5f40a5d65054c8e1e4d, type: 3}
+      propertyPath: maxvel
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7644785610775646102, guid: c7fa1fefd637b5f40a5d65054c8e1e4d, type: 3}
       propertyPath: affiliation
       value: White
