@@ -481,6 +481,8 @@ MonoBehaviour:
   goal: {x: 0, y: 0}
   goal_weight: 1
   obav_weight: 1
+  friendly_av_weight: 1
+  enemy_av_weight: 0
   maxvel: 5
   obav_radius: 4
 --- !u!54 &445531520
@@ -801,6 +803,8 @@ MonoBehaviour:
   goal: {x: 0, y: 0}
   goal_weight: 1
   obav_weight: 1
+  friendly_av_weight: 1
+  enemy_av_weight: 0
   maxvel: 5
   obav_radius: 4
 --- !u!54 &711442526
@@ -966,6 +970,8 @@ MonoBehaviour:
   goal: {x: 0, y: 0}
   goal_weight: 1
   obav_weight: 1
+  friendly_av_weight: 1
+  enemy_av_weight: 0
   maxvel: 5
   obav_radius: 4
 --- !u!54 &775466819
@@ -1180,7 +1186,7 @@ Transform:
   m_GameObject: {fileID: 824642800}
   serializedVersion: 2
   m_LocalRotation: {x: 0.22363319, y: -0, z: -0, w: 0.9746734}
-  m_LocalPosition: {x: 0.000116825104, y: 9.2935915, z: -10.21}
+  m_LocalPosition: {x: 0.000116825104, y: 9.2935915, z: -10.500001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1330,6 +1336,8 @@ MonoBehaviour:
   goal: {x: 0, y: 0}
   goal_weight: 1
   obav_weight: 1
+  friendly_av_weight: 1
+  enemy_av_weight: 0
   maxvel: 5
   obav_radius: 4
 --- !u!54 &1011344721
@@ -1543,6 +1551,8 @@ MonoBehaviour:
   goal: {x: 0, y: 0}
   goal_weight: 1
   obav_weight: 1
+  friendly_av_weight: 1
+  enemy_av_weight: 0
   maxvel: 5
   obav_radius: 4
 --- !u!54 &1312173871
@@ -1708,6 +1718,8 @@ MonoBehaviour:
   goal: {x: 0, y: 0}
   goal_weight: 1
   obav_weight: 1
+  friendly_av_weight: 1
+  enemy_av_weight: 0
   maxvel: 5
   obav_radius: 4
 --- !u!54 &1393474622
@@ -2024,6 +2036,8 @@ MonoBehaviour:
   goal: {x: 0, y: 0}
   goal_weight: 1
   obav_weight: 1
+  friendly_av_weight: 1
+  enemy_av_weight: 0
   maxvel: 5
   obav_radius: 4
 --- !u!54 &1500448160
@@ -2556,6 +2570,8 @@ MonoBehaviour:
   goal: {x: 0, y: 0}
   goal_weight: 1
   obav_weight: 1
+  friendly_av_weight: 1
+  enemy_av_weight: 0
   maxvel: 5
   obav_radius: 4
 --- !u!54 &1714564713
@@ -2721,6 +2737,8 @@ MonoBehaviour:
   goal: {x: 0, y: 0}
   goal_weight: 1
   obav_weight: 1
+  friendly_av_weight: 1
+  enemy_av_weight: 0
   maxvel: 5
   obav_radius: 4
 --- !u!54 &1734279819
@@ -3087,6 +3105,8 @@ MonoBehaviour:
   goal: {x: 0, y: 0}
   goal_weight: 1
   obav_weight: 1
+  friendly_av_weight: 1
+  enemy_av_weight: 0
   maxvel: 5
   obav_radius: 4
 --- !u!54 &1832394666
@@ -3209,7 +3229,7 @@ Transform:
   m_GameObject: {fileID: 1832394664}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 0.466, z: -4}
+  m_LocalPosition: {x: -1, y: 0.466, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3359,6 +3379,8 @@ MonoBehaviour:
   goal: {x: 0, y: 0}
   goal_weight: 1
   obav_weight: 1
+  friendly_av_weight: 1
+  enemy_av_weight: 0
   maxvel: 5
   obav_radius: 4
 --- !u!54 &1928069176
@@ -3524,6 +3546,8 @@ MonoBehaviour:
   goal: {x: 0, y: 0}
   goal_weight: 1
   obav_weight: 1
+  friendly_av_weight: 1
+  enemy_av_weight: 0
   maxvel: 5
   obav_radius: 4
 --- !u!54 &1994937391
