@@ -9,6 +9,8 @@ public class DummyEnemyController : MonoBehaviour
 
     private List<GameObject> nearbyUnits;
     public bool hasAggro = false;
+    /*reference to gameobject - will delete once damage system destroys gameobject instead of setting to inactive*/
+    private GameObject targtetUnitObject;
     private Transform targetUnit;
     private float distanceToTarget;
 
@@ -38,8 +40,9 @@ public class DummyEnemyController : MonoBehaviour
         {
             if (nearbyUnits[i] != null && nearbyUnits[i].TryGetComponent(out UnitAffiliation unitaff))
             {
-                if(unitaff.affiliation != "Red") {
+                if(nearbyUnits[i].gameObject.activeSelf && unitaff.affiliation != "Red") {
                     targetUnit = nearbyUnits[i].gameObject.transform;
+                    targtetUnitObject = nearbyUnits[i].gameObject;
                     hasAggro = true;
                     break;
                 }
@@ -50,7 +53,8 @@ public class DummyEnemyController : MonoBehaviour
     private void MoveToTarget()
     {
         distanceToTarget = Vector3.Distance(targetUnit.position, transform.position);
-        if(distanceToTarget <= aggroRange)
+        Debug.Log(distanceToTarget);
+        if(targtetUnitObject.activeSelf && distanceToTarget <= aggroRange)
         {
             planner.changeWayPointXZ(new Vector2(targetUnit.position.x, targetUnit.position.z));
         }
