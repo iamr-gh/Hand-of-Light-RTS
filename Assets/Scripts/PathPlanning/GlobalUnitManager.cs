@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class GlobalUnitManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class GlobalUnitManager : MonoBehaviour
     private Dictionary<String,List<GameObject>> units = new();
     
     private GameObject [] allManaged;
+
+    private List<Type> unitTypes = new();
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +45,12 @@ public class GlobalUnitManager : MonoBehaviour
                         units.Add(unitaff.affiliation,new List<GameObject>{obj});
                     }
                 }
+                if (obj.TryGetComponent(out UnitController unitController)) {
+                    var type = unitController.GetType();
+                    if (!unitTypes.Contains(type)) {
+                        unitTypes.Add(type);
+                    }
+                }
             }
         }
     }
@@ -58,8 +67,34 @@ public class GlobalUnitManager : MonoBehaviour
 
         return objs;
     }
+
+    public List<GameObject> FindInBox(Vector3 bottomLeft, Vector3 topRight) {
+        var objs = new List<GameObject>();
+        foreach (GameObject obj in allManaged) {
+            var pos = obj.transform.position;
+            if (pos.x > bottomLeft.x && pos.x < topRight.x && pos.z > bottomLeft.z && pos.z < topRight.z) {
+                objs.Add(obj);
+            }
+        }
+        return objs;
+    }
+
+    public List<GameObject> FindByType(int idx) {
+        var objs = new List<GameObject>();
+        var type = unitTypes[idx];
+        foreach (GameObject obj in allManaged) {
+            if (obj.TryGetComponent(out UnitController unitController) && unitController.GetType() == type) {
+                objs.Add(obj);
+            }
+        }
+        return objs;
+    }
+
+    public List<Type> GetUnitTypes() {
+        return unitTypes;
+    }
     // void Update()
     // {
-        //eventually use a spatial hash    
+    //eventually use a spatial hash    
     // }
 }

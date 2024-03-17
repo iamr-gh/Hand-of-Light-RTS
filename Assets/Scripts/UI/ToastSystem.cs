@@ -9,8 +9,7 @@ using UnityEngine.Events;
 //message, duration
 [System.Serializable]
 public class ToastMessageEvent : UnityEvent<string, float> { }
-public class ToastSystem : MonoBehaviour
-{
+public class ToastSystem : MonoBehaviour {
     public ToastMessageEvent onRequest;
 
     public static ToastSystem Instance;
@@ -20,33 +19,29 @@ public class ToastSystem : MonoBehaviour
     //I don't need to store the queue myself, it will auto manage?
     // public List<ToastMessageEvent> 
     // Start is called before the first frame update
-    void Awake(){
-        if(Instance != null && Instance != this){
+    void Awake() {
+        if (Instance != null && Instance != this) {
             Destroy(gameObject);
-        }
-        else {
+        } else {
             Instance = this;
-            if(onRequest == null){
+            if (onRequest == null) {
                 onRequest = new ToastMessageEvent();
             }
         }
     }
-    void Start()
-    {
+    void Start() {
         TryGetComponent(out display);
         display.text = "";
 
     }
 
-    public void HandleMsg(string msg, float duration)
-    {
-        StartCoroutine(TempDisplay(msg,duration));
+    public void HandleMsg(string msg, float duration) {
+        StartCoroutine(TempDisplay(msg, duration));
     }
 
-    private IEnumerator TempDisplay(string msg, float duration)
-    {
+    private IEnumerator TempDisplay(string msg, float duration) {
         //could change this to an explicit wait list, but a spin lock is fine for rn
-        while(active){
+        while (active) {
             yield return null;
         }
 
@@ -59,12 +54,12 @@ public class ToastSystem : MonoBehaviour
         active = false;
     }
 
-    private void OnEnable(){
+    private void OnEnable() {
         onRequest.AddListener(HandleMsg);
-    }    
+    }
 
-    private void OnDisable(){
+    private void OnDisable() {
         onRequest.RemoveListener(HandleMsg);
-    }    
+    }
 
 }
