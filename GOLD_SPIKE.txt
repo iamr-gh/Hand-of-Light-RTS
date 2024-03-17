@@ -1,0 +1,2 @@
+Our gold spike is implementing basic RTS controls, army selection, and unit AI, allowing the player to control an army to fight an adversary.
+For the purposes of a minimal gold spike, the player controls two kinds of units, ones that need to run away from the opponent, and ones that need to attack the opponents vulnerable units.
