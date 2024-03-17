@@ -17,6 +17,7 @@ public class TutorialDialogue : MonoBehaviour
        ToastSystem.Instance.onRequest.Invoke("Hold and drag to box-select units",5f);
        ToastSystem.Instance.onRequest.Invoke("Right click to command your units to move!",5f);
        ToastSystem.Instance.onRequest.Invoke("Keep your weak units safe, and try to kill opponent's weak units",5f);
+       ToastSystem.Instance.onRequest.Invoke("Press 'S' To Start", 5f);
 
     }
 

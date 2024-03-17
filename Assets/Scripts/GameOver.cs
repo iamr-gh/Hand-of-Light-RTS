@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class GameOver : MonoBehaviour
         }
 
         // Print a Message
-        ToastSystem.Instance.onRequest.Invoke(message, 100);
+        ToastSystem.Instance.onRequest.Invoke(message, 5);
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload current scene
     }
 }
