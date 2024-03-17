@@ -8,8 +8,8 @@ public class DummyEnemyController : MonoBehaviour
     public float attackRange;
 
     private List<GameObject> nearbyUnits;
-    public bool hasAggro = false;
-    /*reference to gameobject - will delete once damage system destroys gameobject instead of setting to inactive*/
+    private bool hasAggro = false;
+    /* FIXME: reference to gameobject - remove once damage system destroys gameobject instead of setting to inactive*/
     private GameObject targtetUnitObject;
     private Transform targetUnit;
     private float distanceToTarget;
@@ -53,13 +53,13 @@ public class DummyEnemyController : MonoBehaviour
     private void MoveToTarget()
     {
         distanceToTarget = Vector3.Distance(targetUnit.position, transform.position);
-        Debug.Log(distanceToTarget);
         if(targtetUnitObject.activeSelf && distanceToTarget <= aggroRange)
         {
             planner.changeWayPointXZ(new Vector2(targetUnit.position.x, targetUnit.position.z));
         }
         else
         {
+            planner.changeWayPointXZ(new Vector2(transform.position.x, transform.position.z));
             hasAggro = false;
         }
     }

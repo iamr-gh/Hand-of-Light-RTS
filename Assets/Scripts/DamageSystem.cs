@@ -10,6 +10,7 @@ public class DamageSystem : MonoBehaviour
     public int teamID = 1;
 
     private UnitParameters parameters;
+    private float attackCooldown = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -17,8 +18,14 @@ public class DamageSystem : MonoBehaviour
         parameters = GetComponent<UnitParameters>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void Update()
     {
+        attackCooldown -= Time.deltaTime;
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+
         GameObject objectCollidedWith = collision.gameObject;
         DamageSystem otherDamageSystem = objectCollidedWith.GetComponent<DamageSystem>();
         UnitParameters otherUnitParameters = objectCollidedWith.GetComponent<UnitParameters>();
@@ -27,11 +34,12 @@ public class DamageSystem : MonoBehaviour
         Debug.Log("Collision: " + teamID + "-to-" + otherDamageSystem.teamID);
 
         // This object can deal damage and collided with an object of another team
-        if (teamID != otherDamageSystem.teamID && canDealDamage)
+        if (attackCooldown <= 0 && teamID != otherDamageSystem.teamID && canDealDamage)
         {
             // Deal Damage
             float newHP = otherUnitParameters.getHP() - parameters.getAttackDamage();
             otherUnitParameters.setHP(newHP);
+            attackCooldown = 0.75f;
         }
     }
 
