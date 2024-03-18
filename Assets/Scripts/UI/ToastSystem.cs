@@ -31,7 +31,7 @@ public class ToastSystem : MonoBehaviour {
     }
     void Start() {
         TryGetComponent(out display);
-        display.text = "";
+        // display.text = "";
 
     }
 
