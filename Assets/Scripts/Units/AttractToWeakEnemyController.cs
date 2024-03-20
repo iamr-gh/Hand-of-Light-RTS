@@ -41,8 +41,8 @@ public class AttractToWeakEnemyController : MonoBehaviour
             if (nearbyUnits[i] != null && nearbyUnits[i].TryGetComponent(out UnitAffiliation unitaff))
             {
                 if(nearbyUnits[i].gameObject.activeSelf && unitaff.affiliation != "Red") {
-                    if(nearbyUnits[i].TryGetComponent(out DamageSystem damageSystem)){
-                        if(!damageSystem.canDealDamage){
+                    if(nearbyUnits[i].TryGetComponent(out WeaponSystem weaponSystem)){
+                        if(!weaponSystem.canDealDamage){
                             targetUnit = nearbyUnits[i].gameObject.transform;
                             targtetUnitObject = nearbyUnits[i].gameObject;
                             hasAggro = true;

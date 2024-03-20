@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class DummyEnemyController : MonoBehaviour
 {
-    public float aggroRange;
-    public float attackRange;
+    private UnitParameters parameters;
 
     private List<GameObject> nearbyUnits;
     private bool hasAggro = false;
@@ -18,6 +17,7 @@ public class DummyEnemyController : MonoBehaviour
 
     private void Start()
     {
+        parameters = GetComponent<UnitParameters>();
         planner = GetComponent<PlannerAPF2D>();
     }
 
@@ -35,7 +35,7 @@ public class DummyEnemyController : MonoBehaviour
 
     private void CheckForTargets()
     {
-        nearbyUnits = GlobalUnitManager.singleton.FindNearby(transform.position, aggroRange);
+        nearbyUnits = GlobalUnitManager.singleton.FindNearby(transform.position, parameters.getAggroRange());
         for (int i = 0; i < nearbyUnits.Count; i++)
         {
             if (nearbyUnits[i] != null && nearbyUnits[i].TryGetComponent(out UnitAffiliation unitaff))
@@ -53,7 +53,7 @@ public class DummyEnemyController : MonoBehaviour
     private void MoveToTarget()
     {
         distanceToTarget = Vector3.Distance(targetUnit.position, transform.position);
-        if(targtetUnitObject.activeSelf && distanceToTarget <= aggroRange)
+        if(targtetUnitObject.activeSelf && distanceToTarget <= parameters.getAggroRange())
         {
             planner.changeWayPointXZ(new Vector2(targetUnit.position.x, targetUnit.position.z));
         }
