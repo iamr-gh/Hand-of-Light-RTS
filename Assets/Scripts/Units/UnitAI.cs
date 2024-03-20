@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class UnitAI : MonoBehaviour
 {
-    public int teamID = 1;
-    
     /* FIXME: reference to gameobject - remove once damage system destroys gameobject instead of setting to inactive*/
     private GameObject target = null;
     private UnitParameters parameters;
     private PlannerAPF2D planner;
+    private UnitAffiliation affiliation;
 
     private void Start()
     {
+        affiliation = GetComponent<UnitAffiliation>();
         parameters = GetComponent<UnitParameters>();
         planner = GetComponent<PlannerAPF2D>();
     }
@@ -47,11 +47,11 @@ public class UnitAI : MonoBehaviour
         List<GameObject> potentialEnemies = GlobalUnitManager.singleton.FindNearby(transform.position, parameters.getAggroRange());
         foreach (GameObject obj in potentialEnemies)
         {
-            UnitAI otherAI = obj.GetComponent<UnitAI>();
+            UnitAffiliation otherAff = obj.GetComponent<UnitAffiliation>();
             UnitParameters otherUnitParameters = obj.GetComponent<UnitParameters>();
             //If the other object does not have parameters or damage handling, do nothing
-            if (otherAI == null || otherUnitParameters == null) { continue; }
-            if (teamID != otherAI.teamID) { enemies.Add(obj); }
+            if (otherAff == null || otherUnitParameters == null) { continue; }
+            if (affiliation.affiliation != otherAff.affiliation) { enemies.Add(obj); }
         }
 
         // Find the closest enemy
