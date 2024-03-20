@@ -23,7 +23,7 @@ public class DamageSystem : MonoBehaviour
     private void Update()
     {
         attackCooldown -= Time.deltaTime;
-        if(target == null) { AcquireTarget(); }
+        if(target == null) { FindNextTarget(); }
         if(target != null && TargetInRange() && !isAttacking)
         {
             StartCoroutine(DoAttack());
@@ -55,10 +55,11 @@ public class DamageSystem : MonoBehaviour
         else { return false; }
     }
 
-    List<GameObject> FindEnemiesNearby()
+    GameObject FindNextTarget()
     {
-        List<GameObject> enemies = new List<GameObject>();
-        List<GameObject> potentialEnemies = GlobalUnitManager.singleton.FindNearby(transform.position, parameters.getAttackRange());
+        List<GameObject> enemies = new List<GameObject>(); // List of enemies within our aggro
+        // Get all objects within our aggro range
+        List<GameObject> potentialEnemies = GlobalUnitManager.singleton.FindNearby(transform.position, parameters.getAggroRange());
         foreach(GameObject obj in potentialEnemies) {
             DamageSystem otherDamageSystem = obj.GetComponent<DamageSystem>();
             UnitParameters otherUnitParameters = obj.GetComponent<UnitParameters>();
@@ -66,15 +67,19 @@ public class DamageSystem : MonoBehaviour
             if (otherDamageSystem == null || otherUnitParameters == null) { continue; }
             if (teamID != otherDamageSystem.teamID && canDealDamage) { enemies.Add(obj); }
         }
-        return enemies;
-    }
 
-    void AcquireTarget()
-    {
-        List<GameObject> potentialTargets = FindEnemiesNearby();
-        // TODO: find the one "in front" of the unit, use a dot product with the dot((enemyPos - pos), this->normalVector), use the enemy closest to 1
-        if (potentialTargets.Count != 0) { target = potentialTargets[0]; }
-        else { target = null; }
+        // Find the closest enemy
+        float minDistance = float.MaxValue;
+        GameObject priorityEnemy = null;
+        foreach (GameObject enemy in enemies)
+        {
+            float enemyDistance = (enemy.transform.position - transform.position).magnitude;
+            if (enemyDistance < minDistance) {
+                minDistance = enemyDistance;
+                priorityEnemy = enemy;
+            }
+        }
+        return priorityEnemy;
     }
 
     IEnumerator DoAttack() {
