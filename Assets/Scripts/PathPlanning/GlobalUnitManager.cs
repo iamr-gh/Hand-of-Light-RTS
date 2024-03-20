@@ -22,9 +22,11 @@ public class GlobalUnitManager : MonoBehaviour
         //there will be exactly one of these
         if(singleton == null){
             singleton = this;
+            DontDestroyOnLoad(gameObject);
         }
         else{
             Destroy(gameObject);
+            return;
         }
         
         
