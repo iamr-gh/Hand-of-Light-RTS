@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(UnitParameters))]
-
+[RequireComponent(typeof(UnitAI))]
 public class WeaponSystem : MonoBehaviour
 {
     public bool canDealDamage = true; // TODO: delete this, then fix dependency in AttractToWeakEnemyController
@@ -22,6 +22,7 @@ public class WeaponSystem : MonoBehaviour
 
     private void Update()
     {
+        
         // Get the target, then if not attacking and in range attack
         target = unitAI.getTarget();
         if (target != null && TargetInRange() && !isAttacking)
@@ -52,6 +53,7 @@ public class WeaponSystem : MonoBehaviour
     void LateUpdate()
     {
         // Destroy dead unit
+        // this should probably be moved
         if(parameters.getHP() <= 0)
         {
             gameObject.SetActive(false);

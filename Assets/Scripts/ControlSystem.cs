@@ -49,6 +49,8 @@ public class ControlSystem : MonoBehaviour {
         if (controlledUnits == null) {
             return;
         }
+        
+        Debug.Log("Moving unit");
         var goalRay = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
         float goalEnter;
         groundPlane.Raycast(goalRay, out goalEnter);
@@ -57,6 +59,7 @@ public class ControlSystem : MonoBehaviour {
         foreach (GameObject obj in controlledUnits) {
             if (obj != null) {
                 if (obj.TryGetComponent(out Planner plan)) {
+                    Debug.Log("Changing planners");
                     plan.changeWayPointXZ(goal);
                 }
             }

@@ -1,71 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using UnityEngine;
 
+[RequireComponent(typeof(UnitAffiliation))]
+[RequireComponent(typeof(Planner))]
+[RequireComponent(typeof(UnitParameters))]
 public class UnitAI : MonoBehaviour
 {
-    /* FIXME: reference to gameobject - remove once damage system destroys gameobject instead of setting to inactive*/
-    private GameObject target = null;
-    private UnitParameters parameters;
-    private PlannerAPF2D planner;
-    private UnitAffiliation affiliation;
+    //unit will monitor the behavior of one other agent, for the purpose of following/attack
+    protected GameObject target = null;
+    protected UnitParameters parameters;
+    protected Planner planner;
+    protected UnitAffiliation affiliation;
 
-    private void Start()
+    protected virtual void Start()
     {
-        affiliation = GetComponent<UnitAffiliation>();
-        parameters = GetComponent<UnitParameters>();
-        planner = GetComponent<PlannerAPF2D>();
+        TryGetComponent(out affiliation);
+        TryGetComponent(out parameters);
+        TryGetComponent(out planner);
+    }
+    
+    protected virtual void Update(){
+        
+    }
+    //create a standard set of commands or interfaces
+    // may add a unit mode/state in the future
+    // public virtual void AttackTarget(GameObject trg){
+    //     target = trg;
+    // }
+    
+    public virtual void MoveToCoordinate(Vector2 coord){
+        planner.changeWayPointXZ(coord);
+        //common extension will be move then attack once within a certain range
+    }
+    
+    public virtual void setTarget(GameObject tgt){
+        target = tgt;
     }
 
-    private void Update()
-    {
-        if (target == null || (Vector3.Distance(target.transform.position, transform.position) >= parameters.getAggroRange())) {
-            target = FindNextTarget();
-        }
-
-        MoveToTarget();
-    }
-
-    private void MoveToTarget()
-    {
-        // If not null then target is the closest enemy in aggroRange
-        if (target != null) { // REMOVED: targtetUnitObject.activeSelf check, maybe need to put it back in
-            planner.changeWayPointXZ(new Vector2(target.transform.position.x, target.transform.position.z));
-        }
-        // Target is null, so no enemy within aggro range, stop moving
-        else {
-            planner.changeWayPointXZ(new Vector2(transform.position.x, transform.position.z));
-        }
-    }
-
-    public GameObject getTarget() { return target; }
-
-    // Returns an enemy gameobject within aggro if one exists, otherwise returns null
-    private GameObject FindNextTarget() {
-        List<GameObject> enemies = new List<GameObject>(); // List of enemies within our aggro
-        // Get all objects within our aggro range
-        List<GameObject> potentialEnemies = GlobalUnitManager.singleton.FindNearby(transform.position, parameters.getAggroRange());
-        foreach (GameObject obj in potentialEnemies)
-        {
-            UnitAffiliation otherAff = obj.GetComponent<UnitAffiliation>();
-            UnitParameters otherUnitParameters = obj.GetComponent<UnitParameters>();
-            //If the other object does not have parameters or damage handling, do nothing
-            if (otherAff == null || otherUnitParameters == null) { continue; }
-            if (affiliation.affiliation != otherAff.affiliation) { enemies.Add(obj); }
-        }
-
-        // Find the closest enemy
-        float minDistance = float.MaxValue;
-        GameObject priorityEnemy = null;
-        foreach (GameObject enemy in enemies)
-        {
-            float enemyDistance = (enemy.transform.position - transform.position).magnitude;
-            if (enemyDistance < minDistance)
-            {
-                minDistance = enemyDistance;
-                priorityEnemy = enemy;
-            }
-        }
-        return priorityEnemy;
+    public virtual GameObject getTarget(){
+        return target;
     }
 }

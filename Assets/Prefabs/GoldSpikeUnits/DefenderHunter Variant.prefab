@@ -217,6 +217,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1831481207000925299, guid: c7fa1fefd637b5f40a5d65054c8e1e4d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2445095151123108119}
+    - targetCorrespondingSourceObject: {fileID: 1831481207000925299, guid: c7fa1fefd637b5f40a5d65054c8e1e4d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6171324410609383286}
   m_SourcePrefab: {fileID: 100100000, guid: c7fa1fefd637b5f40a5d65054c8e1e4d, type: 3}
 --- !u!4 &8111898000480824036 stripped
 Transform:
@@ -266,4 +269,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canDealDamage: 1
-  teamID: 2
+--- !u!114 &6171324410609383286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8301733046114412633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db372c3c15f94d3f8ce9ae8fcd16b09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

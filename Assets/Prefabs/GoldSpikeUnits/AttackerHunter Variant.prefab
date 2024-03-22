@@ -215,6 +215,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1831481207000925299, guid: c7fa1fefd637b5f40a5d65054c8e1e4d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6420169907966883228}
+    - targetCorrespondingSourceObject: {fileID: 1831481207000925299, guid: c7fa1fefd637b5f40a5d65054c8e1e4d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3746530716371003667}
+    - targetCorrespondingSourceObject: {fileID: 1831481207000925299, guid: c7fa1fefd637b5f40a5d65054c8e1e4d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -254134638482416949}
   m_SourcePrefab: {fileID: 100100000, guid: c7fa1fefd637b5f40a5d65054c8e1e4d, type: 3}
 --- !u!4 &7061191200054490331 stripped
 Transform:
@@ -264,7 +270,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canDealDamage: 1
-  teamID: 1
 --- !u!114 &1119926752865351695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,9 +282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a94ff533f3d9bb6448acb53692f7093a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aggroRange: 5
-  attackRange: 15
-  hasAggro: 0
 --- !u!114 &6420169907966883228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,3 +297,27 @@ MonoBehaviour:
   aggroRange: 20
   attackRange: 15
   hasAggro: 0
+--- !u!114 &3746530716371003667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7086569612669990502}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db372c3c15f94d3f8ce9ae8fcd16b09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-254134638482416949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7086569612669990502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8d15dbf0c576004593ba0c30371accd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
