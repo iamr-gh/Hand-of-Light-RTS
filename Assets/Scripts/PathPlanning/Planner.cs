@@ -8,6 +8,7 @@ public class Planner : MonoBehaviour
     //public interface for all kinds of planners
     public Vector2 goal;
     
+    public float maxvel;
     protected Rigidbody rb;
     //spawn units to stay where they are
     protected virtual void Start(){

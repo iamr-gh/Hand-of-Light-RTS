@@ -13,7 +13,6 @@ public class PlannerAPF_const_vel : Planner
     public float friendly_av_weight = 1;
     public float enemy_av_weight = 0;
     //the degree which above is automated is kind of strange
-    public float maxvel;
     public float obav_radius = 4;
 
     private UnitAffiliation unitAffiliation;

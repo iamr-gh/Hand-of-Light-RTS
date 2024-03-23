@@ -5,16 +5,16 @@ using UnityEngine;
 public class UnitParameters : MonoBehaviour
 {
     public float maxHP = 10.0f;
-    
-    private float HP = 10.0f;
-    private float AttackDamage = 2f;
-    private float MovementSpeed = 2f;
-    private float AttackRate = 1f; // Attacks / second
-    private float AggroRange = 10f;
-    private float SightRange = 10f; 
-    private float AttackRange =  2f; // Range from center of object
-    private float Mana = 100f; 
-    private float HitboxSize = 1f;
+
+    [SerializeField] private float HP = 10.0f;
+    [SerializeField] private float AttackDamage = 2f;
+    [SerializeField] private float MovementSpeed = 2f;
+    [SerializeField] private float AttackRate = 1f; // Attacks / second
+    [SerializeField] private float AggroRange = 10f;
+    [SerializeField] private float SightRange = 10f;
+    [SerializeField] private float AttackRange = 2f; // Range from center of object
+    [SerializeField] private float Mana = 100f;
+    [SerializeField] private float HitboxSize = 1f;
     private int NumberOfKills = 0;
 
     // Start is called before the first frame update

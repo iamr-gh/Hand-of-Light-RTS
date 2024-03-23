@@ -19,6 +19,7 @@ public class UnitAI : MonoBehaviour
         TryGetComponent(out affiliation);
         TryGetComponent(out parameters);
         TryGetComponent(out planner);
+        planner.maxvel = parameters.getMovementSpeed();
     }
     
     protected virtual void Update(){

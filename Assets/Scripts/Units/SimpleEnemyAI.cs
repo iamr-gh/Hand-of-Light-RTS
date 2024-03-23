@@ -40,7 +40,6 @@ public class SimpleEnemyAI : UnitAI
             if (affiliation.affiliation != otherAff.affiliation) { enemies.Add(obj); }
         }
 
-        // Find the closest enemy
         float minDistance = float.MaxValue;
         GameObject priorityEnemy = null;
         foreach (GameObject enemy in enemies)
