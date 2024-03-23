@@ -56,7 +56,8 @@ public class WeaponSystem : MonoBehaviour
         // this should probably be moved
         if(parameters.getHP() <= 0)
         {
-            gameObject.SetActive(false);
+            Destroy(gameObject);
+            // gameObject.SetActive(false);
         }
     }
 }

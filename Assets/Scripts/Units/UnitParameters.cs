@@ -6,7 +6,7 @@ public class UnitParameters : MonoBehaviour
 {
     public float maxHP = 10.0f;
 
-    [SerializeField] private float HP = 10.0f;
+    [SerializeField] public float HP = 10.0f;
     [SerializeField] private float AttackDamage = 2f;
     [SerializeField] private float MovementSpeed = 2f;
     [SerializeField] private float AttackRate = 1f; // Attacks / second

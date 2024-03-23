@@ -178,10 +178,12 @@ public class ControlSystem : MonoBehaviour {
     }
 
     void RegisterUnit(GameObject unit) {
+        if(unit == null)return;
         unit.transform.GetChild(0).gameObject.SetActive(true);
     }
 
     void UnregisterUnit(GameObject unit) {
+        if(unit == null)return;
         unit.transform.GetChild(0).gameObject.SetActive(false);
     }
 

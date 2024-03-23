@@ -12,7 +12,7 @@ public class GlobalUnitManager : MonoBehaviour
     //maps affiliation to unit type
     private Dictionary<String,List<GameObject>> units = new();
     
-    private GameObject [] allManaged;
+    public GameObject [] allManaged;
 
     private List<Type> unitTypes = new();
 
@@ -37,6 +37,7 @@ public class GlobalUnitManager : MonoBehaviour
         
         //parse into specific types
         foreach (GameObject obj in allManaged){
+            //might have null refs, but that's ok
             if(obj != null){
                 if(obj.TryGetComponent(out UnitAffiliation unitaff)){
                     // units.Add()
@@ -62,6 +63,7 @@ public class GlobalUnitManager : MonoBehaviour
         //eventually convert into a spatial hash to not be N^2
         foreach (GameObject obj in allManaged)
         {
+            if(obj == null)continue;
             //3d distance
             if ((obj.transform.position - pos).magnitude <= radius)
             {
@@ -75,6 +77,7 @@ public class GlobalUnitManager : MonoBehaviour
     public List<GameObject> FindInBox(Vector3 bottomLeft, Vector3 topRight) {
         var objs = new List<GameObject>();
         foreach (GameObject obj in allManaged) {
+            if(obj == null)continue;
             var pos = obj.transform.position;
             if (pos.x >= bottomLeft.x && pos.x <= topRight.x && pos.z >= bottomLeft.z && pos.z <= topRight.z) {
                 objs.Add(obj);
@@ -86,6 +89,7 @@ public class GlobalUnitManager : MonoBehaviour
     public List<GameObject> FindInTrapezoid(Vector3 bottomLeft, Vector3 bottomRight, Vector3 topLeft, Vector3 topRight) {
         var objs = new List<GameObject>();
         foreach (GameObject obj in allManaged) {
+            if(obj == null)continue;
             var pos = obj.transform.position;
             Func<float, float> leftLineF = y => ((topLeft - bottomLeft).normalized * (y - bottomLeft.z) + bottomLeft).x;
             Func<float, float> rightLineF = y => ((topRight - bottomRight).normalized * (y - bottomRight.z) + bottomRight).x;
@@ -100,6 +104,7 @@ public class GlobalUnitManager : MonoBehaviour
         var objs = new List<GameObject>();
         var type = unitTypes[idx];
         foreach (GameObject obj in allManaged) {
+            if(obj == null)continue;
             if (obj.TryGetComponent(out UnitController unitController) && unitController.GetType() == type) {
                 objs.Add(obj);
             }
