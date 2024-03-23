@@ -6,8 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(UnitAI))]
 public class WeaponSystem : MonoBehaviour
 {
-    public bool canDealDamage = true; // TODO: delete this, then fix dependency in AttractToWeakEnemyController
-
     private UnitParameters parameters;
     private bool isAttacking = false;
     private UnitAI unitAI;

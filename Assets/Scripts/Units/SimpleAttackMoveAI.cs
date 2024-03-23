@@ -1,9 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Analytics;
 
 public class SimpleAttackMove : UnitAI
 {
@@ -48,8 +44,8 @@ public class SimpleAttackMove : UnitAI
         else if (unitState == UnitState.Attacking)
         {
             //eventually have a tie in to dmg system/weapon 
-            var nextTgt = FindNextTarget(); // change logic based on who exactly you track 
-            if (nextTgt == null)
+            target = FindNextTarget(); // change logic based on who exactly you track 
+            if (target == null)
             {
 
                 var pos2d = new Vector2(transform.position.x, transform.position.z);
@@ -68,7 +64,8 @@ public class SimpleAttackMove : UnitAI
             else
             {
                 planner.enabled = true;
-                var otherpos2d = new Vector2(nextTgt.transform.position.x, nextTgt.transform.position.z);
+                var otherpos2d = new Vector2(target.transform.position.x, target.transform.position.z);
+                //weapon system not triggering
                 planner.goal = otherpos2d;
             }
         }

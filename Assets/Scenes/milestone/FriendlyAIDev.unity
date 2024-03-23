@@ -2575,6 +2575,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2529481807343769485, guid: 6f554028b995d1343a120fa880fcd6f7, type: 3}
+      propertyPath: canDealDamage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5543327296652340260, guid: 6f554028b995d1343a120fa880fcd6f7, type: 3}
       propertyPath: m_Name
       value: MeleeUnitEnemy (3)
@@ -2984,6 +2988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c1cac59b5af14940afd744a1ff34599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allManaged: []
 --- !u!114 &1401611422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3046,6 +3051,10 @@ PrefabInstance:
     - target: {fileID: 1459991206822065472, guid: ddfb39e0d1474644bb975e84a11e2c34, type: 3}
       propertyPath: AggroRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1459991206822065472, guid: ddfb39e0d1474644bb975e84a11e2c34, type: 3}
+      propertyPath: SightRange
+      value: 45.92
       objectReference: {fileID: 0}
     - target: {fileID: 2135229412296320970, guid: ddfb39e0d1474644bb975e84a11e2c34, type: 3}
       propertyPath: m_LocalPosition.x

@@ -31,6 +31,7 @@ public class AttractToWeakEnemyController : MonoBehaviour
         {
             CheckForTargets();
         }
+
     }
 
     private void CheckForTargets()
@@ -42,12 +43,13 @@ public class AttractToWeakEnemyController : MonoBehaviour
             {
                 if(nearbyUnits[i].gameObject.activeSelf && unitaff.affiliation != "Red") {
                     if(nearbyUnits[i].TryGetComponent(out WeaponSystem weaponSystem)){
-                        if(!weaponSystem.canDealDamage){
-                            targetUnit = nearbyUnits[i].gameObject.transform;
-                            targtetUnitObject = nearbyUnits[i].gameObject;
-                            hasAggro = true;
-                            break;
-                        }
+                        //this entire component is dep
+                        // if(!weaponSystem.canDealDamage){
+                        //     targetUnit = nearbyUnits[i].gameObject.transform;
+                        //     targtetUnitObject = nearbyUnits[i].gameObject;
+                        //     hasAggro = true;
+                        //     break;
+                        // }
                     }
                 }
             }
