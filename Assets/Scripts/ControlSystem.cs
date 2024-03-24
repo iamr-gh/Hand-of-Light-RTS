@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using TMPro;
 using UnityEngine.EventSystems;
 
@@ -58,6 +59,7 @@ public class ControlSystem : MonoBehaviour {
         StartCoroutine(MoveWhileHoldingInput());
     }
 
+    UnityEvent attachedEvent;
     GameObject lastWaypointIndicator;
 
     void MoveToMouse() {
@@ -70,17 +72,36 @@ public class ControlSystem : MonoBehaviour {
         groundPlane.Raycast(goalRay, out goalEnter);
         var goal3 = goalRay.GetPoint(goalEnter);
         var goal = new Vector2(goal3.x, goal3.z);
-        if (lastWaypointIndicator != null) {
-            Destroy(lastWaypointIndicator);
-        }
+        DestroyWaypointIndicator();
         lastWaypointIndicator = Instantiate(waypointIndicator, goal3, Quaternion.identity);
+        GameObject chosenUnit = null;
+        float chosenUnitDistance = 0f;
         foreach (GameObject obj in controlledUnits) {
             if (obj != null) {
                 if (obj.TryGetComponent(out UnitAI ai)) {
                     ai.MoveToCoordinate(goal);
+                    var distanceToGoal = (obj.transform.position - goal3).magnitude;
+                    if (distanceToGoal > chosenUnitDistance) {
+                        chosenUnit = obj;
+                        chosenUnitDistance = distanceToGoal;
+                    }
                     // plan.changeWayPointXZ(goal);
                 }
             }
+        }
+        if (chosenUnit != null && chosenUnit.TryGetComponent(out Planner planner)) {
+            attachedEvent = planner.reachedGoalEvent;
+            attachedEvent.AddListener(DestroyWaypointIndicator);
+        }
+    }
+
+    void DestroyWaypointIndicator() {
+        if (lastWaypointIndicator != null) {
+            Destroy(lastWaypointIndicator);
+        }
+        if (attachedEvent != null) {
+            attachedEvent.RemoveListener(DestroyWaypointIndicator);
+            attachedEvent = null;
         }
     }
 
@@ -241,6 +262,7 @@ public class ControlSystem : MonoBehaviour {
         foreach (var unit in controlledUnits) {
             UnregisterUnit(unit);
         }
+        DestroyWaypointIndicator();
         controlledUnits.Clear();
     }
 

@@ -11,10 +11,14 @@ public class cameraMovement : MonoBehaviour
     public float zoomSpeed = 5f; // Speed of camera zooming
     public float zoomSensitivity = 10f; // Sensitivity of zooming
 
+    public float maxZoomDistance = 5f;
+
     public Transform targetObject; // Reference to the object to center the camera on
     private float initialZoomDistance; // Initial distance of the camera from the target object
 
     public PlayerInput input;
+
+    float currentZoomValue;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +28,9 @@ public class cameraMovement : MonoBehaviour
         } else {
             initialZoomDistance = Camera.main.transform.position.y;
         }
+        currentZoomValue = 0f;
     }
+
 
     // Update is called once per frame
     void Update()
@@ -42,13 +48,10 @@ public class cameraMovement : MonoBehaviour
         float scrollInput = input.actions["Zoom Camera"].ReadValue<float>();
         float zoomAmount = scrollInput * zoomSpeed * zoomSensitivity * Time.deltaTime;
         Vector3 zoomDirection = transform.forward;
-        zoomDirection = new Vector3(Mathf.Abs(zoomDirection.x), Mathf.Abs(zoomDirection.y), Mathf.Abs(zoomDirection.z));
-        if (zoomAmount > 0 && transform.position.y <= initialZoomDistance + 5) {
+        // zoomDirection = new Vector3(Mathf.Abs(zoomDirection.x), Mathf.Abs(zoomDirection.y), Mathf.Abs(zoomDirection.z));
+        if ((zoomAmount > 0 && currentZoomValue < maxZoomDistance) || (zoomAmount < 0 && currentZoomValue > -maxZoomDistance)) {
             transform.position += zoomDirection * zoomAmount;
-        }
-        if (zoomAmount < 0 && transform.position.y >= initialZoomDistance - 5)
-        {
-            transform.position += zoomDirection * zoomAmount;
+            currentZoomValue += zoomAmount;
         }
 
         // Get the camera's forward and right directions

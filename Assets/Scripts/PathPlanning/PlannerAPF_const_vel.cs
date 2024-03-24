@@ -78,6 +78,18 @@ public class PlannerAPF_const_vel : Planner
 
         //note that AI now needs to be involved
         rb.velocity = next_vel;
+
+        if (!reachedGoal && Mathf.Approximately(next_vel.magnitude, 0)) {
+            reachedGoalEvent.Invoke();
+            reachedGoal = true;
+        }
+    }
+
+    void OnDisable() {
+        if (!reachedGoal) {
+            reachedGoalEvent.Invoke();
+            reachedGoal = true;
+        }
     }
 
 }

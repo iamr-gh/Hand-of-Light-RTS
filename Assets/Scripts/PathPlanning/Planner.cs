@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Planner : MonoBehaviour
@@ -9,6 +10,11 @@ public class Planner : MonoBehaviour
     public Vector2 goal;
     
     public float maxvel;
+
+    public UnityEvent reachedGoalEvent;
+
+    protected bool reachedGoal = true;
+    
     protected Rigidbody rb;
     //spawn units to stay where they are
     protected virtual void Start(){
@@ -20,6 +26,7 @@ public class Planner : MonoBehaviour
     public void changeWayPointXZ(Vector2 newGoal){
         //at some point might make more sense as a message passing system 
         goal = newGoal;
+        reachedGoal = false;
         // Debug.Log("Set new goal");
         // Debug.Log(goal);
     }

@@ -75,6 +75,17 @@ public class PlannerAPF2D : Planner
         Vector3 next_vel = new Vector3(overall.x, 0, overall.y);
         next_vel = Vector3.ClampMagnitude(next_vel, maxvel);
         rb.velocity = next_vel;
+
+        if (!reachedGoal && Mathf.Approximately(next_vel.magnitude, 0)) {
+            reachedGoalEvent.Invoke();
+            reachedGoal = true;
+        }
+    }
+    void OnDisable() {
+        if (!reachedGoal) {
+            reachedGoalEvent.Invoke();
+            reachedGoal = true;
+        }
     }
 
 }
