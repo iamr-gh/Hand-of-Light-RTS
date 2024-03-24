@@ -8,12 +8,9 @@ public class TutorialDialogue : MonoBehaviour
     public int level = 1;
 
     void Update(){
-
-        if(!started && Input.GetKeyDown(KeyCode.T)){
-            if(level == 1) { StartCoroutine(TutorialLevel1()); }
-            else if (level == 2) { StartCoroutine(TutorialLevel2()); }
-            else if (level == 3) { StartCoroutine(TutorialLevel3()); }
-        }
+        if(level == 1 && Input.GetKeyDown(KeyCode.T)) { StartCoroutine(TutorialLevel1()); }
+        else if(level == 2) { StartCoroutine(TutorialLevel2()); }
+        else if(level == 3) { StartCoroutine(TutorialLevel3()); }
     }
 
     public IEnumerator TutorialLevel1()
