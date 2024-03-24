@@ -43,6 +43,8 @@ public class WeaponSystem : MonoBehaviour
         float newHP = targetParameters.getHP() - parameters.getAttackDamage();
         targetParameters.setHP(newHP);
 
+        StartCoroutine(AttackFeedback());
+
         yield return new WaitForSeconds(1.0f / parameters.getAttackRate());
         isAttacking = false;
     }
@@ -57,5 +59,27 @@ public class WeaponSystem : MonoBehaviour
             Destroy(gameObject);
             // gameObject.SetActive(false);
         }
+    }
+
+    // TODO REMOVE THIS
+    IEnumerator AttackFeedback() {
+        AudioClip damageSound = Resources.Load<AudioClip>("Audio/DamageSound");
+        Transform targetTransform = target.transform;
+        SpriteRenderer otherSpriteRenderer = null;
+        for (int childIdx = 0; childIdx < targetTransform.childCount; childIdx++)
+        {
+            GameObject child = targetTransform.GetChild(childIdx).gameObject;
+            if (child.name == "RelativeRenderer")
+            {
+                otherSpriteRenderer = child.GetComponent<SpriteRenderer>();
+            }
+        }
+        AudioSource.PlayClipAtPoint(damageSound, Camera.main.transform.position);
+
+        // UI JUICE STUFF TODO: MOVE TO AN EVENT-BASED SYSTEM
+        float damageFlashPeriod = 0.1f; // Seconds
+        if (otherSpriteRenderer != null) { otherSpriteRenderer.color = Color.red; }
+        yield return new WaitForSeconds(damageFlashPeriod);
+        if (otherSpriteRenderer != null) { otherSpriteRenderer.color = Color.white; }
     }
 }

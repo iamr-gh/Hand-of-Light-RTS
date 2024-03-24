@@ -55,6 +55,7 @@ public class StationaryWeaponSystem : MonoBehaviour
         }
 
         StartCoroutine(DoDmg(target));
+        StartCoroutine(AttackFeedback()); // TODO: REMOVE THIS
 
         yield return new WaitForSeconds(1.0f / parameters.getAttackRate());
         isAttacking = false;
@@ -67,6 +68,29 @@ public class StationaryWeaponSystem : MonoBehaviour
         UnitParameters targetParameters = target.GetComponent<UnitParameters>();
         float newHP = targetParameters.getHP() - parameters.getAttackDamage();
         targetParameters.setHP(newHP);
+    }
+
+    // TODO REMOVE THIS
+    IEnumerator AttackFeedback()
+    {
+        AudioClip damageSound = Resources.Load<AudioClip>("Audio/DamageSound");
+        Transform targetTransform = target.transform;
+        SpriteRenderer otherSpriteRenderer = null;
+        for (int childIdx = 0; childIdx < targetTransform.childCount; childIdx++)
+        {
+            GameObject child = targetTransform.GetChild(childIdx).gameObject;
+            if (child.name == "RelativeRenderer")
+            {
+                otherSpriteRenderer = child.GetComponent<SpriteRenderer>();
+            }
+        }
+        AudioSource.PlayClipAtPoint(damageSound, Camera.main.transform.position);
+
+        // UI JUICE STUFF TODO: MOVE TO AN EVENT-BASED SYSTEM
+        float damageFlashPeriod = 0.1f; // Seconds
+        if (otherSpriteRenderer != null) { otherSpriteRenderer.color = Color.red; }
+        yield return new WaitForSeconds(damageFlashPeriod);
+        if (otherSpriteRenderer != null) { otherSpriteRenderer.color = Color.white; }
     }
 
     // Update is called once per frame
