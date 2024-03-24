@@ -53,7 +53,7 @@ public class RangedAttackMove : UnitAI
             {
 
                 
-                planner.goal = lastMoveGoal;                
+                planner.goal = lastMoveGoal;            
 
                 //turn off planner if we're fine
                 if ((pos2d - planner.goal).magnitude < moveTolerance)
