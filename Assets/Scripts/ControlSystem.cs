@@ -9,10 +9,12 @@ using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(PlayerInput))]
 public class ControlSystem : MonoBehaviour {
+    public GameObject waypointIndicator;
     public GameObject canvas;
     public GameObject selBox;
     public GameObject selMenu;
     public string affiliation;
+    public float doubleClickPeriod = 0.2f;
 
     GlobalUnitManager globalUnitManager;
     PlayerInput input;
@@ -25,6 +27,8 @@ public class ControlSystem : MonoBehaviour {
     TMP_Dropdown selMenuDropdown;
     GraphicRaycaster grc;
     PointerEventData clickData;
+    InputActionMap playerMap;
+    InputActionMap uiMap;
 
     // Start is called before the first frame update
     void Start() {
@@ -39,22 +43,27 @@ public class ControlSystem : MonoBehaviour {
         unitsLayerMask = LayerMask.GetMask("Units");
         selMenuDropdown = selMenu.GetComponentInChildren<TMP_Dropdown>();
         foreach (var unitType in globalUnitManager.GetUnitTypes()) {
-            selMenuDropdown.options.Add(new TMP_Dropdown.OptionData(unitType.Name.Replace("Controller", "")));
+            selMenuDropdown.options.Add(new TMP_Dropdown.OptionData(unitType.Name));
         }
         grc = canvas.GetComponent<GraphicRaycaster>();
         clickData = new PointerEventData(EventSystem.current);
+        controlledUnits = new List<GameObject>();
+        playerMap = input.actions.FindActionMap("Player");
+        uiMap = input.actions.FindActionMap("UI");
+        uiMap.Disable();
     }
 
     void OnMove() {
-        if (controlledUnits == null) {
+        if (controlledUnits.Count == 0) {
             return;
         }
-        
+
         var goalRay = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
         float goalEnter;
         groundPlane.Raycast(goalRay, out goalEnter);
         var goal3 = goalRay.GetPoint(goalEnter);
         var goal = new Vector2(goal3.x, goal3.z);
+        Instantiate(waypointIndicator, goal3, Quaternion.identity);
         foreach (GameObject obj in controlledUnits) {
             if (obj != null) {
                 if (obj.TryGetComponent(out UnitAI ai)) {
@@ -72,11 +81,15 @@ public class ControlSystem : MonoBehaviour {
         if (clickResults.Count > 0) {
             return;
         }
-        selMenu.SetActive(false);
+        HideSelMenu();
         StartCoroutine(SelectUnits());
     }
 
     void OnSelectOne() {
+        SelectOne(toggle: true);
+    }
+
+    bool SelectOne(bool toggle = false) {
         var ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, unitsLayerMask)) {
@@ -84,40 +97,70 @@ public class ControlSystem : MonoBehaviour {
             if (obj.TryGetComponent(out UnitAffiliation aff)) {
                 if (aff.affiliation == affiliation) {
                     if (controlledUnits.Contains(obj)) {
-                        UnregisterUnit(obj);
-                        controlledUnits.Remove(obj);
+                        if (toggle) {
+                            UnregisterUnit(obj);
+                            controlledUnits.Remove(obj);
+                        }
                     } else {
                         controlledUnits.Add(obj);
                         RegisterUnit(obj);
                     }
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     void OnSelectType() {
-        var pivot = cam.ScreenToViewportPoint(Mouse.current.position.ReadValue());
-        selMenuTransform.pivot = new Vector2(1 - pivot.x, 1 - pivot.y);
-        selMenu.SetActive(true);
+        UnregisterUnits();
+        if (SelectOne() && controlledUnits.Count == 1) {
+            SelectUnitsSharingType(controlledUnits.First());
+        }
     }
 
+    void SelectUnitsSharingType(GameObject unit) {
+        unit.TryGetComponent(out UnitAI unitAI);
+        var type = unitAI.GetType();
+        SetControlledUnits(globalUnitManager.FindByType(type));
+    }
+
+    void OnSelectTypeMenu() {
+        ShowSelMenu();
+    }
+
+    GameObject lastSelectedUnit;
+    float lastSelectedTime = -100f;
+
     IEnumerator SelectUnits() {
+        UnregisterUnits();
+        var selectedOne = SelectOne();
+        var selectedTime = Time.time;
         var mousePos = Mouse.current.position.ReadValue();
         var initialCamPos = cam.transform.position;
         var initialPos = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cam.nearClipPlane));
         var finalPos = initialPos;
-        UpdateSelections(initialPos, finalPos);
+        UpdateSelections(initialPos, finalPos, extend: selectedOne);
         selBox.SetActive(true);
         while (input.actions["Select"].IsPressed()) {
             mousePos = Mouse.current.position.ReadValue();
             finalPos = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cam.nearClipPlane));
-            UpdateSelections(initialPos + (cam.transform.position - initialCamPos), finalPos);
+            UpdateSelections(initialPos + (cam.transform.position - initialCamPos), finalPos, extend: selectedOne);
             yield return null;
         }
         selBox.SetActive(false);
+        if (selectedOne && controlledUnits.Count == 1) {
+            var selectedUnit = controlledUnits.First();
+            if (Time.time - lastSelectedTime <= doubleClickPeriod && lastSelectedUnit == selectedUnit) {
+                SelectUnitsSharingType(selectedUnit);
+            }
+            Debug.Log(Time.time - lastSelectedTime); ;
+            lastSelectedUnit = selectedUnit;
+            lastSelectedTime = selectedTime;
+        }
     }
 
-    void UpdateSelections(Vector3 initialPos, Vector3 finalPos) {
+    void UpdateSelections(Vector3 initialPos, Vector3 finalPos, bool extend = false) {
         var initialPosViewport = cam.WorldToViewportPoint(initialPos);
         var finalPosViewport = cam.WorldToViewportPoint(finalPos);
         var bottomLeft = new Vector2(
@@ -152,46 +195,63 @@ public class ControlSystem : MonoBehaviour {
         var topLeftHit = topLeftRay.GetPoint(topLeftEnter);
         var topRightHit = topRightRay.GetPoint(topRightEnter);
         // SetControlledUnits(globalUnitManager.FindInBox(bottomLeftHit, topRightHit));
-        SetControlledUnits(globalUnitManager.FindInTrapezoid(bottomLeftHit, bottomRightHit, topLeftHit, topRightHit));
+        SetControlledUnits(globalUnitManager.FindInTrapezoid(bottomLeftHit, bottomRightHit, topLeftHit, topRightHit), extend: extend);
     }
 
-    void SetControlledUnits(List<GameObject> units) {
-        UnregisterUnits();
-        controlledUnits = units.Where(unit => unit.TryGetComponent(out UnitAffiliation aff) && aff.affiliation == affiliation).ToList();
-        RegisterUnits();
+    void SetControlledUnits(List<GameObject> units, bool extend = false) {
+        var filteredUnits = units.Where(unit => unit.TryGetComponent(out UnitAffiliation aff) && aff.affiliation == affiliation).ToList();
+        if (extend) {
+            controlledUnits.AddRange(filteredUnits);
+            foreach (var unit in filteredUnits) {
+                RegisterUnit(unit);
+            }
+        } else {
+            UnregisterUnits();
+            controlledUnits = filteredUnits;
+            RegisterUnits();
+        }
     }
 
     void RegisterUnits() {
-        if (controlledUnits != null) {
-            foreach (var unit in controlledUnits) {
-                RegisterUnit(unit);
-            }
+        foreach (var unit in controlledUnits) {
+            RegisterUnit(unit);
         }
     }
 
     void UnregisterUnits() {
-        if (controlledUnits != null) {
-            foreach (var unit in controlledUnits) {
-                UnregisterUnit(unit);
-            }
+        foreach (var unit in controlledUnits) {
+            UnregisterUnit(unit);
         }
+        controlledUnits.Clear();
     }
 
     void RegisterUnit(GameObject unit) {
-        if(unit == null)return;
+        if (unit == null) return;
         unit.transform.GetChild(0).gameObject.SetActive(true);
     }
 
     void UnregisterUnit(GameObject unit) {
-        if(unit == null)return;
+        if (unit == null) return;
         unit.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     public void SelectUnitType(int type) {
         if (type != 0) {
-            SetControlledUnits(globalUnitManager.FindByType(type - 1));
+            SetControlledUnits(globalUnitManager.FindByTypeIdx(type - 1));
         }
+        HideSelMenu();
+    }
+
+    void ShowSelMenu() {
+        var pivot = cam.ScreenToViewportPoint(Mouse.current.position.ReadValue());
+        selMenuTransform.pivot = new Vector2(1 - pivot.x, 1 - pivot.y);
+        selMenu.SetActive(true);
+        uiMap.Enable();
+    }
+
+    void HideSelMenu() {
         selMenu.SetActive(false);
         selMenuDropdown.SetValueWithoutNotify(0);
+        uiMap.Disable();
     }
 }

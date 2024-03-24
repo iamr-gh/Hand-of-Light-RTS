@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class cameraMovement : MonoBehaviour
 {
@@ -13,17 +14,23 @@ public class cameraMovement : MonoBehaviour
     public Transform targetObject; // Reference to the object to center the camera on
     private float initialZoomDistance; // Initial distance of the camera from the target object
 
+    public PlayerInput input;
+
     // Start is called before the first frame update
     void Start()
     {
-        initialZoomDistance = Vector3.Distance(transform.position, targetObject.position);
+        if (targetObject != null) {
+            initialZoomDistance = Vector3.Distance(transform.position, targetObject.position);
+        } else {
+            initialZoomDistance = Camera.main.transform.position.y;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         Vector3 cameraLocation = transform.position;
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (input.actions["Center Camera"].WasPressedThisFrame())
         {
             if (targetObject != null)
             {
@@ -32,14 +39,14 @@ public class cameraMovement : MonoBehaviour
         }
 
         // Zoom in and out with scroll wheel
-        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+        float scrollInput = input.actions["Zoom Camera"].ReadValue<float>();
         float zoomAmount = scrollInput * zoomSpeed * zoomSensitivity * Time.deltaTime;
         Vector3 zoomDirection = transform.forward;
         zoomDirection = new Vector3(Mathf.Abs(zoomDirection.x), Mathf.Abs(zoomDirection.y), Mathf.Abs(zoomDirection.z));
-        if (zoomAmount > 0 && transform.position.y <= 10) {
+        if (zoomAmount > 0 && transform.position.y <= initialZoomDistance + 5) {
             transform.position += zoomDirection * zoomAmount;
         }
-        if (zoomAmount < 0 && transform.position.y >= 2)
+        if (zoomAmount < 0 && transform.position.y >= initialZoomDistance - 5)
         {
             transform.position += zoomDirection * zoomAmount;
         }
@@ -56,22 +63,24 @@ public class cameraMovement : MonoBehaviour
 
         // Check for mouse position
         Vector3 mouseMovement = Vector3.zero;
-        Vector3 mousePosition = Input.mousePosition;
+        Vector3 mousePosition = Mouse.current.position.ReadValue();
+
+        var kbdInput = input.actions["Pan Camera"].ReadValue<Vector2>();
 
         // Check for arrow key inputs
-        if (Input.GetKey(KeyCode.LeftArrow) && (transform.position.x >= -10f))
+        if (kbdInput.x < 0 && (transform.position.x >= -10f))
         {
             mouseMovement -= cameraRight;
         }
-        if (Input.GetKey(KeyCode.RightArrow) && (transform.position.x <= 10f))
+        if (kbdInput.x > 0 && (transform.position.x <= 10f))
         {
             mouseMovement += cameraRight;
         }
-        if (Input.GetKey(KeyCode.UpArrow) && (transform.position.z <= 10f))
+        if (kbdInput.y > 0 && (transform.position.z <= 10f))
         {
             mouseMovement += cameraForward;
         }
-        if (Input.GetKey(KeyCode.DownArrow) && (transform.position.z >= -10f))
+        if (kbdInput.y < 0 && (transform.position.z >= -10f))
         {
             mouseMovement -= cameraForward;
         }
