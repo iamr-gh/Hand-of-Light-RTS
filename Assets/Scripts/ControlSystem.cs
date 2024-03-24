@@ -15,6 +15,7 @@ public class ControlSystem : MonoBehaviour {
     public GameObject selMenu;
     public string affiliation;
     public float doubleClickPeriod = 0.2f;
+    // public float moveCommandRepeatPeriod = 0.1f;
 
     GlobalUnitManager globalUnitManager;
     PlayerInput input;
@@ -54,6 +55,12 @@ public class ControlSystem : MonoBehaviour {
     }
 
     void OnMove() {
+        StartCoroutine(MoveWhileHoldingInput());
+    }
+
+    GameObject lastWaypointIndicator;
+
+    void MoveToMouse() {
         if (controlledUnits.Count == 0) {
             return;
         }
@@ -63,7 +70,10 @@ public class ControlSystem : MonoBehaviour {
         groundPlane.Raycast(goalRay, out goalEnter);
         var goal3 = goalRay.GetPoint(goalEnter);
         var goal = new Vector2(goal3.x, goal3.z);
-        Instantiate(waypointIndicator, goal3, Quaternion.identity);
+        if (lastWaypointIndicator != null) {
+            Destroy(lastWaypointIndicator);
+        }
+        lastWaypointIndicator = Instantiate(waypointIndicator, goal3, Quaternion.identity);
         foreach (GameObject obj in controlledUnits) {
             if (obj != null) {
                 if (obj.TryGetComponent(out UnitAI ai)) {
@@ -71,6 +81,15 @@ public class ControlSystem : MonoBehaviour {
                     // plan.changeWayPointXZ(goal);
                 }
             }
+        }
+    }
+
+    IEnumerator MoveWhileHoldingInput() {
+        MoveToMouse();
+        while (input.actions["Move"].IsPressed()) {
+            // yield return new WaitForSeconds(moveCommandRepeatPeriod);
+            yield return null;
+            MoveToMouse();
         }
     }
 
