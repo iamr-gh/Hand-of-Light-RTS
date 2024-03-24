@@ -25,6 +25,8 @@ public class WeaponSystem : MonoBehaviour
         target = unitAI.getTarget();
         if (target != null && TargetInRange() && !isAttacking)
         {
+            Debug.Log("weapon system");
+            Debug.Log(target);
             StartCoroutine(Attack());
         }
     }
@@ -75,11 +77,12 @@ public class WeaponSystem : MonoBehaviour
             }
         }
         AudioSource.PlayClipAtPoint(damageSound, Camera.main.transform.position);
+        Color originalOtherColor = otherSpriteRenderer.color;
 
         // UI JUICE STUFF TODO: MOVE TO AN EVENT-BASED SYSTEM
         float damageFlashPeriod = 0.1f; // Seconds
         if (otherSpriteRenderer != null) { otherSpriteRenderer.color = Color.red; }
         yield return new WaitForSeconds(damageFlashPeriod);
-        if (otherSpriteRenderer != null) { otherSpriteRenderer.color = Color.white; }
+        if (otherSpriteRenderer != null) { otherSpriteRenderer.color = originalOtherColor; }
     }
 }

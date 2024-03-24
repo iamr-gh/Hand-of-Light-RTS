@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StationaryWeaponSystem : MonoBehaviour
+public class EnemyRangedWeaponSystem : MonoBehaviour
 {
     public GameObject projectile;
     public float delayTillDmg;
@@ -40,15 +40,16 @@ public class StationaryWeaponSystem : MonoBehaviour
     private IEnumerator Attack()
     {
         //if moving then break
-        if (planner.enabled) { yield break; }
         if (isAttacking) { yield break; } // If already attacking then return
         isAttacking = true;
 
-        
+
         // Deal Damage
-        if(projectile != null){
-            var proj = Instantiate(projectile,transform.position,Quaternion.identity);
-            if(proj.TryGetComponent(out FlyToTarget fly)){
+        if (projectile != null)
+        {
+            var proj = Instantiate(projectile, transform.position, Quaternion.identity);
+            if (proj.TryGetComponent(out FlyToTarget fly))
+            {
                 fly.target = target;
             }
         }
@@ -59,9 +60,11 @@ public class StationaryWeaponSystem : MonoBehaviour
         yield return new WaitForSeconds(1.0f / parameters.getAttackRate());
         isAttacking = false;
     }
-    private IEnumerator DoDmg(GameObject target){
+    private IEnumerator DoDmg(GameObject target)
+    {
         yield return new WaitForSeconds(delayTillDmg);
-        if(target == null){
+        if (target == null)
+        {
             yield break;
         }
         UnitParameters targetParameters = target.GetComponent<UnitParameters>();
@@ -75,22 +78,25 @@ public class StationaryWeaponSystem : MonoBehaviour
         AudioClip damageSound = Resources.Load<AudioClip>("Audio/DamageSound");
         Transform targetTransform = target.transform;
         SpriteRenderer otherSpriteRenderer = null;
+
         for (int childIdx = 0; childIdx < targetTransform.childCount; childIdx++)
         {
             GameObject child = targetTransform.GetChild(childIdx).gameObject;
             if (child.name == "RelativeRenderer")
             {
                 otherSpriteRenderer = child.GetComponent<SpriteRenderer>();
+                /*if(otherSpriteRenderer.color != Color.red) { 
+                    originalOtherColor = otherSpriteRenderer.color;
+                }*/
             }
         }
-        AudioSource.PlayClipAtPoint(damageSound, Camera.main.transform.position);
 
+        AudioSource.PlayClipAtPoint(damageSound, Camera.main.transform.position);
         // UI JUICE STUFF TODO: MOVE TO AN EVENT-BASED SYSTEM
-        Color originalOtherColor = otherSpriteRenderer.color;
         float damageFlashPeriod = 0.1f; // Seconds
         if (otherSpriteRenderer != null) { otherSpriteRenderer.color = Color.red; }
         yield return new WaitForSeconds(damageFlashPeriod);
-        if (otherSpriteRenderer != null) { otherSpriteRenderer.color = originalOtherColor; }
+        if (otherSpriteRenderer != null) { otherSpriteRenderer.color = Color.white; }
     }
 
     // Update is called once per frame

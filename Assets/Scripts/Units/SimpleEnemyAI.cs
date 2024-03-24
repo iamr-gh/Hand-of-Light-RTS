@@ -17,8 +17,7 @@ public class SimpleEnemyAI : UnitAI
     private void MoveToTarget()
     {
         // If not null then target is the closest enemy in aggroRange
-        Debug.Log(Vector3.Distance(target.transform.position, transform.position));
-        if (target != null && Vector3.Distance(target.transform.position, transform.position) >= parameters.getAttackRange()) { // REMOVED: targtetUnitObject.activeSelf check, maybe need to put it back in
+        if (target != null && Vector3.Distance(target.transform.position, transform.position) > parameters.getAttackRange()-0.25) { // REMOVED: targtetUnitObject.activeSelf check, maybe need to put it back in
             planner.changeWayPointXZ(new Vector2(target.transform.position.x, target.transform.position.z));
         }
         // Target is null, so no enemy within aggro range, stop moving
