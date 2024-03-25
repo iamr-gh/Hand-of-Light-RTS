@@ -27,9 +27,9 @@ public class TutorialDialogue : MonoBehaviour
         ToastSystem.Instance.onRequest.Invoke("Bump the edges of the screen with your mouse to move camera", 3f);
         ToastSystem.Instance.onRequest.Invoke("Hold and drag to box-select units", 3f);
         ToastSystem.Instance.onRequest.Invoke("Right click to command your units to move!", 3f);
-        ToastSystem.Instance.onRequest.Invoke("You can also double click units to select all friendlies of that type", 3f);
-        ToastSystem.Instance.onRequest.Invoke("Control-click a friendly unit does the same thing", 3f);
-        ToastSystem.Instance.onRequest.Invoke("These Green Units Are Warriors, they are slow but powerful", 3f);
+        // ToastSystem.Instance.onRequest.Invoke("You can also double click units to select all friendlies of that type", 3f);
+        // ToastSystem.Instance.onRequest.Invoke("Control-click a friendly unit does the same thing", 3f);
+        ToastSystem.Instance.onRequest.Invoke("These units Are Warriors, they are slow but powerful", 3f);
         ToastSystem.Instance.onRequest.Invoke("Defeat your opponent and gather the gold!", 3f);
     }
 
