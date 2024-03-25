@@ -370,6 +370,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goal: {x: 0, y: 0}
   maxvel: 0
+  reachedGoalEvent:
+    m_PersistentCalls:
+      m_Calls: []
   goal_weight: 1
   obav_weight: 1
   friendly_av_weight: 1
@@ -388,6 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveTolerance: 1.5
+  moveLockTime: 0.7
 --- !u!136 &5197581177483633392
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -423,4 +427,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1208eff9466a7454bb2d99299ec566d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canDealDamage: 1

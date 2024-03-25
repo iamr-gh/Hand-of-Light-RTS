@@ -9,6 +9,8 @@ public class RangedAttackMove : UnitAI
     // Start is called before the first frame update
     public float moveTolerance = 0.5f;
 
+    public float moveLockTime = 1.0f; //this is the amount of time a unit is forced to obey a move command, before it can defend itself
+    private bool moveLock = false;
     private UnitState unitState = UnitState.Moving;
     private Vector2 lastMoveGoal;
 
@@ -24,6 +26,12 @@ public class RangedAttackMove : UnitAI
         base.MoveToCoordinate(coord);
         unitState = UnitState.Moving;
         lastMoveGoal = coord;
+        StartCoroutine(resetMoveLock());
+    }
+
+    IEnumerator resetMoveLock(){
+        yield return new WaitForSeconds(moveLockTime);
+        moveLock = false;
     }
 
     // Update is called once per frame
@@ -31,6 +39,12 @@ public class RangedAttackMove : UnitAI
     {
         if (unitState == UnitState.Moving)
         {
+            if(!moveLock){
+                target = FindNextTarget(); // change logic based on who exactly you track 
+                if(target != null){
+                    unitState = UnitState.Attacking;
+                }
+            }
             //should also have a timeout eventually 
             var pos2d = new Vector2(transform.position.x, transform.position.z);
             if (planner == null)

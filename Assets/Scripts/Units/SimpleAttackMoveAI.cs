@@ -1,5 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
 
 public class SimpleAttackMove : UnitAI
 {
@@ -7,6 +8,8 @@ public class SimpleAttackMove : UnitAI
     public enum UnitState { Moving, Attacking };
     // Start is called before the first frame update
     public float moveTolerance = 0.5f;
+    public float moveLockTime = 1.0f; //this is the amount of time a unit is forced to obey a move command, before it can defend itself
+    private bool moveLock = false;
 
     private UnitState unitState = UnitState.Moving;
     private Vector2 lastMoveGoal;
@@ -23,6 +26,13 @@ public class SimpleAttackMove : UnitAI
         base.MoveToCoordinate(coord);
         unitState = UnitState.Moving;
         lastMoveGoal = coord;
+        moveLock = true;
+        StartCoroutine(resetMoveLock());
+    }
+    
+    IEnumerator resetMoveLock(){
+        yield return new WaitForSeconds(moveLockTime);
+        moveLock = false;
     }
 
     // Update is called once per frame
@@ -30,6 +40,12 @@ public class SimpleAttackMove : UnitAI
     {
         if (unitState == UnitState.Moving)
         {
+            if(!moveLock){
+                target = FindNextTarget(); // change logic based on who exactly you track 
+                if(target != null){
+                    unitState = UnitState.Attacking;
+                }
+            }
             //should also have a timeout eventually 
             var pos2d = new Vector2(transform.position.x, transform.position.z);
             if (planner == null)

@@ -17,7 +17,7 @@ public class TutorialDialogue : MonoBehaviour
     {
         //give everything a frame to get started
         yield return null;
-        ToastSystem.Instance.onRequest.Invoke("Bump the edges of the screen to move camera",3f);
+        ToastSystem.Instance.onRequest.Invoke("Bump the edges of the screen with your mouse to move camera",3f);
         ToastSystem.Instance.onRequest.Invoke("Hold and drag to box-select units",3f);
         ToastSystem.Instance.onRequest.Invoke("Right click to command your units to move!",3f);
         ToastSystem.Instance.onRequest.Invoke("You can also double click units to select all friendlies of that type",3f);
