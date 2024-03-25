@@ -41,11 +41,14 @@ public class WeaponSystem : MonoBehaviour
 
         isAttacking = true;
         // Deal Damage
-        UnitParameters targetParameters = target.GetComponent<UnitParameters>();
-        float newHP = targetParameters.getHP() - parameters.getAttackDamage();
-        targetParameters.setHP(newHP);
-
-        StartCoroutine(AttackFeedback());
+        /*        UnitParameters targetParameters = target.GetComponent<UnitParameters>();
+                float newHP = targetParameters.getHP() - parameters.getAttackDamage();
+                targetParameters.setHP(newHP);*/
+        UnitInteractions targetInteractions = target.GetComponent<UnitInteractions>();
+        if (targetInteractions != null)
+        {
+            targetInteractions.TakeDamage(parameters.getAttackDamage());
+        }
 
         yield return new WaitForSeconds(1.0f / parameters.getAttackRate());
         isAttacking = false;
@@ -64,25 +67,5 @@ public class WeaponSystem : MonoBehaviour
     }
 
     // TODO REMOVE THIS
-    IEnumerator AttackFeedback() {
-        AudioClip damageSound = Resources.Load<AudioClip>("Audio/DamageSound");
-        Transform targetTransform = target.transform;
-        SpriteRenderer otherSpriteRenderer = null;
-        for (int childIdx = 0; childIdx < targetTransform.childCount; childIdx++)
-        {
-            GameObject child = targetTransform.GetChild(childIdx).gameObject;
-            if (child.name == "RelativeRenderer")
-            {
-                otherSpriteRenderer = child.GetComponent<SpriteRenderer>();
-            }
-        }
-        AudioSource.PlayClipAtPoint(damageSound, Camera.main.transform.position);
-        Color originalOtherColor = otherSpriteRenderer.color;
-
-        // UI JUICE STUFF TODO: MOVE TO AN EVENT-BASED SYSTEM
-        float damageFlashPeriod = 0.1f; // Seconds
-        if (otherSpriteRenderer != null) { otherSpriteRenderer.color = Color.red; }
-        yield return new WaitForSeconds(damageFlashPeriod);
-        if (otherSpriteRenderer != null) { otherSpriteRenderer.color = originalOtherColor; }
-    }
+    
 }

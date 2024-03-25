@@ -54,7 +54,7 @@ public class StationaryWeaponSystem : MonoBehaviour
         }
 
         StartCoroutine(DoDmg(target));
-        StartCoroutine(AttackFeedback()); // TODO: REMOVE THIS
+        /*StartCoroutine(AttackFeedback()); // TODO: REMOVE THIS*/
 
         yield return new WaitForSeconds(1.0f / parameters.getAttackRate());
         isAttacking = false;
@@ -64,9 +64,14 @@ public class StationaryWeaponSystem : MonoBehaviour
         if(target == null){
             yield break;
         }
-        UnitParameters targetParameters = target.GetComponent<UnitParameters>();
+        /*UnitParameters targetParameters = target.GetComponent<UnitParameters>();
         float newHP = targetParameters.getHP() - parameters.getAttackDamage();
-        targetParameters.setHP(newHP);
+        targetParameters.setHP(newHP);*/
+        UnitInteractions targetInteractions = target.GetComponent<UnitInteractions>();
+        if (targetInteractions != null)
+        {
+            targetInteractions.TakeDamage(parameters.getAttackDamage());
+        }
     }
 
     // TODO REMOVE THIS
