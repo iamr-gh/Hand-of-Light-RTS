@@ -269,6 +269,7 @@ GameObject:
   - component: {fileID: 6653340286872470786}
   - component: {fileID: 6894273581364222214}
   - component: {fileID: 2529481807343769485}
+  - component: {fileID: -8845109988227539627}
   m_Layer: 0
   m_Name: MeleeUnitEnemy
   m_TagString: Managed
@@ -425,3 +426,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1208eff9466a7454bb2d99299ec566d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8845109988227539627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5543327296652340260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cecb378830c9f049a7b14bf4ae7d1de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageFlashPeriod: 0.1

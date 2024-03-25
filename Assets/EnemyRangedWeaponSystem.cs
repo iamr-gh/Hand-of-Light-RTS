@@ -55,7 +55,7 @@ public class EnemyRangedWeaponSystem : MonoBehaviour
         }
 
         StartCoroutine(DoDmg(target));
-        StartCoroutine(AttackFeedback()); // TODO: REMOVE THIS
+        /*StartCoroutine(AttackFeedback()); // TODO: REMOVE THIS*/
 
         yield return new WaitForSeconds(1.0f / parameters.getAttackRate());
         isAttacking = false;
@@ -67,9 +67,14 @@ public class EnemyRangedWeaponSystem : MonoBehaviour
         {
             yield break;
         }
-        UnitParameters targetParameters = target.GetComponent<UnitParameters>();
+        UnitInteractions targetInteractions = target.GetComponent<UnitInteractions>();
+        if (targetInteractions != null)
+        {
+            targetInteractions.TakeDamage(parameters.getAttackDamage());
+        }
+/*        UnitParameters targetParameters = target.GetComponent<UnitParameters>();
         float newHP = targetParameters.getHP() - parameters.getAttackDamage();
-        targetParameters.setHP(newHP);
+        targetParameters.setHP(newHP);*/
     }
 
     // TODO REMOVE THIS

@@ -186,6 +186,7 @@ GameObject:
   - component: {fileID: 6168202626931983690}
   - component: {fileID: 6703223448308861476}
   - component: {fileID: 1791829372461998715}
+  - component: {fileID: -6292546777372442535}
   m_Layer: 0
   m_Name: RangedUnitFriendly
   m_TagString: Managed
@@ -358,6 +359,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 1670476911756737922, guid: e451c4f8a28d4be4c97a551f3ce4c7da, type: 3}
   delayTillDmg: 0.3
+--- !u!114 &-6292546777372442535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3965963424499817463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cecb378830c9f049a7b14bf4ae7d1de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageFlashPeriod: 0.1
 --- !u!1 &5372187743298556384
 GameObject:
   m_ObjectHideFlags: 0
