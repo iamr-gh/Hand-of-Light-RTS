@@ -1,0 +1,5 @@
+We had issues with our tutorial instructions in the gold spike, in particular specifying which units were which.
+We implemented distinct unit sprites and behaviors to respond to this.
+Some people found the controls overly manual, we implemented a better friendly unit AI to make this easier.
+One person also wanted to be able to drag motion on the ground like in league, this was also implemented.
+Overall, we were told the game was fun, but unpolished and more of a tech demo, this milestone is expanded into a proper game with art style and more polished controls and mechanics.
