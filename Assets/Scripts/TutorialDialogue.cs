@@ -39,7 +39,7 @@ public class TutorialDialogue : MonoBehaviour
         yield return null;
         ToastSystem.Instance.onRequest.Invoke("Now you know how command your army", 3f);
         ToastSystem.Instance.onRequest.Invoke("We've supplemented your forces with some archers in blue", 3f);
-        ToastSystem.Instance.onRequest.Invoke("Use them to destroy the enemies' superior numbers and get the gold!", 3f);
+        ToastSystem.Instance.onRequest.Invoke("Use your range superiority to defeat the enemy and get the gold!", 3f);
         yield return new WaitForSeconds(23.0f);// not fifo, so weird stuff if under 9s
         ToastSystem.Instance.onRequest.Invoke("Keep your archers back to keep them alive", 3f);
     }
