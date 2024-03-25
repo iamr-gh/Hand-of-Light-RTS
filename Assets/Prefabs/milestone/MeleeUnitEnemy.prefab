@@ -353,7 +353,7 @@ MonoBehaviour:
   AttackRate: 1
   AggroRange: 5
   SightRange: 10
-  AttackRange: 2
+  AttackRange: 1.5
   Mana: 100
   HitboxSize: 1
 --- !u!114 &3743481605407302467
@@ -370,6 +370,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goal: {x: 0, y: 0}
   maxvel: 0
+  reachedGoalEvent:
+    m_PersistentCalls:
+      m_Calls: []
   goal_weight: 1
   obav_weight: 1
   friendly_av_weight: 0

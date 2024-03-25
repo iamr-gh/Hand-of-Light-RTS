@@ -36,6 +36,8 @@ public class ToastSystem : MonoBehaviour {
     }
 
     public void HandleMsg(string msg, float duration) {
+        Debug.Log("Received Msg:");
+        Debug.Log(msg);
         StartCoroutine(TempDisplay(msg, duration));
     }
 

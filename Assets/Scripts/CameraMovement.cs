@@ -12,6 +12,7 @@ public class cameraMovement : MonoBehaviour
     public float zoomSensitivity = 10f; // Sensitivity of zooming
 
     public float maxZoomDistance = 5f;
+    public float maxMoveDist = 15.0f;
 
     public Transform targetObject; // Reference to the object to center the camera on
     private float initialZoomDistance; // Initial distance of the camera from the target object
@@ -71,37 +72,37 @@ public class cameraMovement : MonoBehaviour
         var kbdInput = input.actions["Pan Camera"].ReadValue<Vector2>();
 
         // Check for arrow key inputs
-        if (kbdInput.x < 0 && (transform.position.x >= -10f))
+        if (kbdInput.x < 0 && (transform.position.x >= -maxMoveDist))
         {
             mouseMovement -= cameraRight;
         }
-        if (kbdInput.x > 0 && (transform.position.x <= 10f))
+        if (kbdInput.x > 0 && (transform.position.x <= maxMoveDist))
         {
             mouseMovement += cameraRight;
         }
-        if (kbdInput.y > 0 && (transform.position.z <= 10f))
+        if (kbdInput.y > 0 && (transform.position.z <= maxMoveDist))
         {
             mouseMovement += cameraForward;
         }
-        if (kbdInput.y < 0 && (transform.position.z >= -10f))
+        if (kbdInput.y < 0 && (transform.position.z >= -maxMoveDist))
         {
             mouseMovement -= cameraForward;
         }
 
         // Find mouse inputs
-        if (mousePosition.x <= edgeSize && (transform.position.x >= -10f))
+        if (mousePosition.x <= edgeSize && (transform.position.x >= -maxMoveDist))
         {
             mouseMovement -= cameraRight;
         }
-        else if (mousePosition.x >= Screen.width - edgeSize && (transform.position.x <= 10f))
+        else if (mousePosition.x >= Screen.width - edgeSize && (transform.position.x <= maxMoveDist))
         {
             mouseMovement += cameraRight;
         }
-        if (mousePosition.y <= edgeSize && (transform.position.z >= -10f))
+        if (mousePosition.y <= edgeSize && (transform.position.z >= -maxMoveDist))
         {
             mouseMovement -= cameraForward;
         }
-        else if (mousePosition.y >= Screen.height - edgeSize && (transform.position.z <= 10f))
+        else if (mousePosition.y >= Screen.height - edgeSize && (transform.position.z <= maxMoveDist))
         {
             mouseMovement += cameraForward;
         }

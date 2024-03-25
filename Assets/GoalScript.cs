@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GoalScript : MonoBehaviour
 {
+    public bool end = false;
     bool allEnemiesDefeated = false;
     bool nextLevelStarted = false;
     // Start is called before the first frame update

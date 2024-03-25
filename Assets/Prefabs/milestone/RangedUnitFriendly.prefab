@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveTolerance: 1
-  moveLockTime: 0.7
+  moveLockTime: 1.5
 --- !u!136 &6168202626931983690
 CapsuleCollider:
   m_ObjectHideFlags: 0

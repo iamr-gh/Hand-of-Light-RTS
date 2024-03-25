@@ -353,7 +353,7 @@ MonoBehaviour:
   AttackRate: 1
   AggroRange: 10
   SightRange: 10
-  AttackRange: 2
+  AttackRange: 1.5
   Mana: 100
   HitboxSize: 1
 --- !u!114 &7486813496863777532
