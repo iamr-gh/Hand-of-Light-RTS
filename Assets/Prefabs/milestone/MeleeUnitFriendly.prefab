@@ -347,10 +347,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ad2765e53664318afddc3e4366b834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 10
-  HP: 10
-  AttackDamage: 2
-  MovementSpeed: 2
+  maxHP: 7
+  HP: 7
+  AttackDamage: 2.5
+  MovementSpeed: 4
   AttackRate: 1
   AggroRange: 10
   SightRange: 10

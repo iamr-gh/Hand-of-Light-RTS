@@ -349,8 +349,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ad2765e53664318afddc3e4366b834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 10
-  HP: 10
+  maxHP: 5
+  HP: 5
   AttackDamage: 2
   MovementSpeed: 1
   AttackRate: 1
@@ -373,6 +373,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goal: {x: 0, y: 0}
   maxvel: 0
+  reachedGoalEvent:
+    m_PersistentCalls:
+      m_Calls: []
   goal_weight: 1
   obav_weight: 1
   friendly_av_weight: 0

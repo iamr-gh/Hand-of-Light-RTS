@@ -350,7 +350,7 @@ MonoBehaviour:
   maxHP: 20
   HP: 20
   AttackDamage: 4
-  MovementSpeed: 1
+  MovementSpeed: 2
   AttackRate: 1
   AggroRange: 10
   SightRange: 10
@@ -371,6 +371,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goal: {x: 0, y: 0}
   maxvel: 0
+  reachedGoalEvent:
+    m_PersistentCalls:
+      m_Calls: []
   goal_weight: 1
   obav_weight: 1
   friendly_av_weight: 1
@@ -389,6 +392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveTolerance: 1.5
+  moveLockTime: 1
 --- !u!136 &5197581177483633392
 CapsuleCollider:
   m_ObjectHideFlags: 0
