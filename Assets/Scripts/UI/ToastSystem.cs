@@ -50,6 +50,7 @@ public class ToastSystem : MonoBehaviour {
         //it's kinda dumb bc if we need an internal queue, why use event system
         active = true;
 
+        //can be converted into spawning and destroying a nicer UI element
         display.text = msg;
         yield return new WaitForSeconds(duration);
         display.text = "";

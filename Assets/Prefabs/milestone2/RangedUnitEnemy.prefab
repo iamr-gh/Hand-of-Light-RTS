@@ -308,6 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   affiliation: Blue
+  type: Ranged
 --- !u!54 &7535230518139523584
 Rigidbody:
   m_ObjectHideFlags: 0

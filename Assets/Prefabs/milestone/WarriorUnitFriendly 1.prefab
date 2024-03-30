@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2461906831195955933}
   - component: {fileID: 2019558164970827261}
   - component: {fileID: 221066969485796745}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7042538003354787173}
   - component: {fileID: 7405623903783451615}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Halo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 105534488548453124}
   - component: {fileID: 1954926179341406054}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RelativeRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 5197581177483633392}
   - component: {fileID: 5864174883213743430}
   - component: {fileID: 8146271431813434908}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WarriorUnitFriendly 1
   m_TagString: Managed
   m_Icon: {fileID: 0}
@@ -352,7 +352,7 @@ MonoBehaviour:
   AttackDamage: 4
   MovementSpeed: 2
   AttackRate: 1
-  AggroRange: 10
+  AggroRange: 3
   SightRange: 10
   AttackRange: 2
   Mana: 100

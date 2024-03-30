@@ -95,11 +95,11 @@ public class GlobalUnitManager : MonoBehaviour {
         return objs;
     }
 
-    public List<GameObject> FindByType(Type type) {
+    public List<GameObject> FindByType(String type) {
         var objs = new List<GameObject>();
         foreach (GameObject obj in allManaged) {
             if (obj == null) continue;
-            if (obj.TryGetComponent(out UnitAI unitAI) && unitAI.GetType() == type) {
+            if (obj.TryGetComponent(out UnitAffiliation unitAffiliation) && unitAffiliation.unit_type == type) {
                 objs.Add(obj);
             }
         }

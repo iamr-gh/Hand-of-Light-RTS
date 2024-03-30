@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(PlayerInput))]
 public class ControlSystem : MonoBehaviour {
@@ -36,6 +37,7 @@ public class ControlSystem : MonoBehaviour {
     void Start() {
         globalUnitManager = GlobalUnitManager.singleton;
         TryGetComponent(out input);
+
         cam = Camera.main;
         selBox.TryGetComponent(out selBoxTransform);
         selBox.SetActive(false);
@@ -160,8 +162,8 @@ public class ControlSystem : MonoBehaviour {
     }
 
     void SelectUnitsSharingType(GameObject unit) {
-        unit.TryGetComponent(out UnitAI unitAI);
-        var type = unitAI.GetType();
+        unit.TryGetComponent(out UnitAffiliation unitAffiliation);
+        var type = unitAffiliation.unit_type;
         SetControlledUnits(globalUnitManager.FindByType(type));
     }
 

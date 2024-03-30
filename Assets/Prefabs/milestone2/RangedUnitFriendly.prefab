@@ -224,6 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   affiliation: White
+  type: Ranged
 --- !u!54 &6959644888696946429
 Rigidbody:
   m_ObjectHideFlags: 0

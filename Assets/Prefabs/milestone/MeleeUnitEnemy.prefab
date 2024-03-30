@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8222721533701847563}
   - component: {fileID: 145263115686182164}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RelativeRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7548493020316556639}
   - component: {fileID: 7139762005098250866}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Halo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 1144201459036190856}
   - component: {fileID: 8669942722311092385}
   - component: {fileID: 9050663589329325079}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,9 +268,9 @@ GameObject:
   - component: {fileID: 3743481605407302467}
   - component: {fileID: 6653340286872470786}
   - component: {fileID: 6894273581364222214}
-  - component: {fileID: 2529481807343769485}
   - component: {fileID: -8845109988227539627}
-  m_Layer: 0
+  - component: {fileID: 3237465284874927513}
+  m_Layer: 7
   m_Name: MeleeUnitEnemy
   m_TagString: Managed
   m_Icon: {fileID: 0}
@@ -308,6 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   affiliation: Blue
+  unit_type: Melee
 --- !u!54 &7535230518139523584
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -414,18 +415,6 @@ CapsuleCollider:
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2529481807343769485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5543327296652340260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1208eff9466a7454bb2d99299ec566d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-8845109988227539627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,3 +428,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageFlashPeriod: 0.1
+--- !u!114 &3237465284874927513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5543327296652340260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e198b55a82d17456a906f5a4354b0dfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

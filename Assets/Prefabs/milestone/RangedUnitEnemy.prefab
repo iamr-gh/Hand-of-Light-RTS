@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8222721533701847563}
   - component: {fileID: 145263115686182164}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RelativeRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7548493020316556639}
   - component: {fileID: 7139762005098250866}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Halo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 1144201459036190856}
   - component: {fileID: 8669942722311092385}
   - component: {fileID: 9050663589329325079}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: -7122296303751374021}
   - component: {fileID: 8889123847622958436}
   - component: {fileID: 6154918186566873774}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RangedUnitEnemy
   m_TagString: Managed
   m_Icon: {fileID: 0}

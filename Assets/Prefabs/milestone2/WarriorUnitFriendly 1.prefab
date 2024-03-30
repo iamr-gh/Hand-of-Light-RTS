@@ -308,6 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   affiliation: White
+  type: Warrior
 --- !u!54 &945865101956581397
 Rigidbody:
   m_ObjectHideFlags: 0
