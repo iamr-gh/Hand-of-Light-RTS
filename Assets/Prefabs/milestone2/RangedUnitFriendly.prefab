@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   affiliation: White
-  type: Ranged
+  unit_type: DefaultType
 --- !u!54 &6959644888696946429
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -384,13 +384,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5372187743298556384}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.28579038, y: -0, z: -0, w: 0.9582922}
+  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6116121575546559170}
-  m_LocalEulerAnglesHint: {x: 33.212, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
 --- !u!212 &987350975763635644
 SpriteRenderer:
   m_ObjectHideFlags: 0
