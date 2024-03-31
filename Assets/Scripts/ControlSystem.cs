@@ -461,7 +461,7 @@ public class ControlSystem : MonoBehaviour {
             var slider = unitInfo.GetComponentInChildren<Slider>();
             slider.SetValueWithoutNotify(totalHealth / maxHealth);
             unitInfo.TryGetComponent(out RectTransform rectTransform);
-            rectTransform.anchoredPosition = new Vector2(0, -175 * counter);
+            rectTransform.anchoredPosition = new Vector2(0, -125 * counter);
             counter++;
         }
     }
