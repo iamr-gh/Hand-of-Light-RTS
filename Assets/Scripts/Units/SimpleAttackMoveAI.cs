@@ -20,7 +20,7 @@ public class SimpleAttackMove : UnitAI
         lastMoveGoal = new Vector2(transform.position.x, transform.position.z);
     }
 
-    public override void MoveToCoordinate(Vector2 coord)
+    public override void MoveToCoordinate(Vector3 coord)
     {
         planner.enabled = true;
         base.MoveToCoordinate(coord);

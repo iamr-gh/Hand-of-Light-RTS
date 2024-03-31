@@ -117,10 +117,10 @@ public class ControlSystem : MonoBehaviour {
                 if (obj.TryGetComponent(out UnitAI ai)) {
                     switch (command.type) {
                         case ActionType.Move:
-                            ai.MoveToCoordinate(goal2);
+                            ai.MoveToCoordinate(command.goal);
                             break;
                         case ActionType.AttackMove:
-                            ai.AttackMoveToCoordinate(goal2);
+                            ai.AttackMoveToCoordinate(command.goal);
                             break;
                     }
                     var distanceToGoal = (obj.transform.position - command.goal).magnitude;

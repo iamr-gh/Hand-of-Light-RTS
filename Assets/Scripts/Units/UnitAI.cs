@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(UnitAffiliation))]
-[RequireComponent(typeof(Planner))]
+/*[RequireComponent(typeof(Planner))]*/
 [RequireComponent(typeof(UnitParameters))]
 public class UnitAI : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class UnitAI : MonoBehaviour
         TryGetComponent(out affiliation);
         TryGetComponent(out parameters);
         TryGetComponent(out planner);
-        planner.maxvel = parameters.getMovementSpeed();
+/*        planner.maxvel = parameters.getMovementSpeed();*/
     }
     
     protected virtual void Update(){
@@ -31,14 +32,32 @@ public class UnitAI : MonoBehaviour
     //     target = trg;
     // }
     
-    public virtual void MoveToCoordinate(Vector2 coord){
-        planner.changeWayPointXZ(coord);
+    public virtual void MoveToCoordinate(Vector3 coord){
+        NavMeshAgent navAgent;
+        TryGetComponent(out navAgent);
+        if(navAgent != null) {
+            navAgent.SetDestination(coord);
+        }
+        else {
+            Debug.Log("Moving with planner");
+            planner.changeWayPointXZ(new Vector2(coord.x, coord.z));
+        }
         //common extension will be move then attack once within a certain range
     }
 
     // unimplemented
-    public virtual void AttackMoveToCoordinate(Vector2 coord) {
-        planner.changeWayPointXZ(coord);
+    public virtual void AttackMoveToCoordinate(Vector3 coord) {
+        NavMeshAgent navAgent;
+        TryGetComponent(out navAgent);
+        if (navAgent != null)
+        {
+            navAgent.SetDestination(coord);
+        }
+        else
+        {
+            Debug.Log("Moving with planner");
+            planner.changeWayPointXZ(new Vector2(coord.x, coord.z));
+        }
         //common extension will be move then attack once within a certain range
     }
 

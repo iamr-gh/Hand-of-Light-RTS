@@ -286,6 +286,7 @@ GameObject:
   - component: {fileID: 5197581177483633392}
   - component: {fileID: 8146271431813434908}
   - component: {fileID: 8340352326355497203}
+  - component: {fileID: 7362217703202969228}
   m_Layer: 0
   m_Name: WarriorUnitFriendly 1
   m_TagString: Managed
@@ -391,6 +392,9 @@ MonoBehaviour:
   reachedGoalEvent:
     m_PersistentCalls:
       m_Calls: []
+  finishedAttackingEvent:
+    m_PersistentCalls:
+      m_Calls: []
   goal_weight: 1
   obav_weight: 1
   friendly_av_weight: 1
@@ -458,3 +462,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e198b55a82d17456a906f5a4354b0dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!195 &7362217703202969228
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8373146450386578062}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 0
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
