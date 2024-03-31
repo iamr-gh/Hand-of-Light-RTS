@@ -8,11 +8,11 @@ public class SimpleAttackMove : UnitAI
     public enum UnitState { Moving, Attacking };
     // Start is called before the first frame update
     public float moveTolerance = 0.5f;
-    public float moveLockTime = 1.0f; //this is the amount of time a unit is forced to obey a move command, before it can defend itself
-    private bool moveLock = false;
+    // public float moveLockTime = 1.0f; //this is the amount of time a unit is forced to obey a move command, before it can defend itself
+    // private bool moveLock = false;
 
     private UnitState unitState = UnitState.Moving;
-    private Vector2 lastMoveGoal;
+    private Vector3 lastMoveGoal;
 
     protected override void Start()
     {
@@ -22,30 +22,29 @@ public class SimpleAttackMove : UnitAI
 
     public override void MoveToCoordinate(Vector3 coord)
     {
-        planner.enabled = true;
+        // planner.enabled = true;
         base.MoveToCoordinate(coord);
-        unitState = UnitState.Moving;
         lastMoveGoal = coord;
-        moveLock = true;
-        StartCoroutine(resetMoveLock());
+        unitState = UnitState.Moving;
     }
-    
-    IEnumerator resetMoveLock(){
-        yield return new WaitForSeconds(moveLockTime);
-        moveLock = false;
+
+    public override void AttackMoveToCoordinate(Vector3 coord)
+    {
+        base.AttackMoveToCoordinate(coord);
+        lastMoveGoal = coord;
+        unitState = UnitState.Attacking;
     }
+
+    // IEnumerator resetMoveLock(){
+    //     yield return new WaitForSeconds(moveLockTime);
+    //     moveLock = false;
+    // }
 
     // Update is called once per frame
     protected override void Update()
     {
         if (unitState == UnitState.Moving)
         {
-            if(!moveLock){
-                target = FindNextTarget(); // change logic based on who exactly you track 
-                if(target != null){
-                    unitState = UnitState.Attacking;
-                }
-            }
             //should also have a timeout eventually 
             var pos2d = new Vector2(transform.position.x, transform.position.z);
             if (planner == null)
@@ -65,24 +64,37 @@ public class SimpleAttackMove : UnitAI
             {
 
                 var pos2d = new Vector2(transform.position.x, transform.position.z);
-                
-                planner.goal = lastMoveGoal;                
-
-                //turn off planner if we're fine
-                if ((pos2d - planner.goal).magnitude < moveTolerance)
+                if (navAgent != null)
                 {
-                    // planner.goal = pos2d;
-                    // there's a jitter issue I don't understand
-                    planner.enabled = false;
-                    GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    navAgent.SetDestination(lastMoveGoal);
+                }
+                else
+                {
+                    planner.goal = lastMoveGoal;
+
+                    //turn off planner if we're fine
+                    if ((pos2d - planner.goal).magnitude < moveTolerance)
+                    {
+                        // planner.goal = pos2d;
+                        // there's a jitter issue I don't understand
+                        planner.enabled = false;
+                        GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    }
                 }
             }
             else
             {
-                planner.enabled = true;
                 var otherpos2d = new Vector2(target.transform.position.x, target.transform.position.z);
-                //weapon system not triggering
-                planner.goal = otherpos2d;
+                if (navAgent != null){
+                    Debug.Log("Setting attack to enemy");
+                   navAgent.SetDestination(target.transform.position);
+                }
+                else{
+                    
+                    planner.enabled = true;
+                    //weapon system not triggering
+                    planner.goal = otherpos2d;
+                }
             }
         }
     }

@@ -4869,7 +4869,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &151567448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44315,58 +44315,13 @@ PrefabInstance:
     - {fileID: 5864174883213743430, guid: 6fca9afbbba803d40bd1c1c86205f271, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8373146450386578062, guid: 6fca9afbbba803d40bd1c1c86205f271, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1338767488}
-    - targetCorrespondingSourceObject: {fileID: 8373146450386578062, guid: 6fca9afbbba803d40bd1c1c86205f271, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1338767496}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fca9afbbba803d40bd1c1c86205f271, type: 3}
 --- !u!4 &1338767486 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2135229412296320970, guid: 6fca9afbbba803d40bd1c1c86205f271, type: 3}
   m_PrefabInstance: {fileID: 1338767485}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1338767487 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8373146450386578062, guid: 6fca9afbbba803d40bd1c1c86205f271, type: 3}
-  m_PrefabInstance: {fileID: 1338767485}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1338767488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1338767487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e198b55a82d17456a906f5a4354b0dfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!195 &1338767496
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1338767487}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 0
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1001 &1340145971
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56794,7 +56749,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1716422626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63891,9 +63846,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7486813496863777532, guid: 6fca9afbbba803d40bd1c1c86205f271, type: 3}
+    - target: {fileID: 7429128436286575077, guid: 6fca9afbbba803d40bd1c1c86205f271, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7486813496863777532, guid: 6fca9afbbba803d40bd1c1c86205f271, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8373146450386578062, guid: 6fca9afbbba803d40bd1c1c86205f271, type: 3}
       propertyPath: m_Name

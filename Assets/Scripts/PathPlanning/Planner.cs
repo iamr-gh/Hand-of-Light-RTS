@@ -21,8 +21,8 @@ public class Planner : MonoBehaviour
     //spawn units to stay where they are
     protected virtual void Start(){
         goal = new Vector2(transform.position.x,transform.position.z);
-        Debug.Log("Initial goal setup");
-        Debug.Log(goal);
+        // Debug.Log("Initial goal setup");
+        // Debug.Log(goal);
         TryGetComponent(out rb);
     }
     public void changeWayPointXZ(Vector2 newGoal){

@@ -14,12 +14,14 @@ public class UnitAI : MonoBehaviour
     protected UnitParameters parameters;
     protected Planner planner;
     protected UnitAffiliation affiliation;
+    protected NavMeshAgent navAgent;
 
     protected virtual void Start()
     {
         TryGetComponent(out affiliation);
         TryGetComponent(out parameters);
         TryGetComponent(out planner);
+        TryGetComponent(out navAgent);
 /*        planner.maxvel = parameters.getMovementSpeed();*/
     }
     
@@ -33,8 +35,6 @@ public class UnitAI : MonoBehaviour
     // }
     
     public virtual void MoveToCoordinate(Vector3 coord){
-        NavMeshAgent navAgent;
-        TryGetComponent(out navAgent);
         if(navAgent != null) {
             navAgent.SetDestination(coord);
         }
@@ -45,7 +45,6 @@ public class UnitAI : MonoBehaviour
         //common extension will be move then attack once within a certain range
     }
 
-    // unimplemented
     public virtual void AttackMoveToCoordinate(Vector3 coord) {
         NavMeshAgent navAgent;
         TryGetComponent(out navAgent);
