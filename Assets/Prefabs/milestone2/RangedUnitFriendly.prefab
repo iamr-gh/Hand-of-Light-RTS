@@ -369,6 +369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2141577149547021442}
   - component: {fileID: 987350975763635644}
+  - component: {fileID: 7437184580516133938}
   m_Layer: 0
   m_Name: RelativeRenderer
   m_TagString: Untagged
@@ -443,3 +444,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7437184580516133938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5372187743298556384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72cd7a39d7aee4fa0910f916769b5447, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnDuration: 0.2
+  hopHeight: 0.2
+  hopRotation: 5
