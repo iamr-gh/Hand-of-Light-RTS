@@ -18,7 +18,7 @@ public class GameOver : MonoBehaviour
         int activeChildren = 0;
         for (int idx = 0; idx < transform.childCount; idx++) {
             GameObject child = transform.GetChild(idx).gameObject;
-            if(child.active == true) {
+            if(child.activeSelf == true) {
                 activeChildren++;
             }
         }
@@ -36,7 +36,7 @@ public class GameOver : MonoBehaviour
         }
 
         // Print a Message
-        ToastSystem.Instance.onRequest.Invoke(message, 5);
+        ToastSystem.Instance.SendDialogue(message, autoDismissTime: 5f);
         yield return new WaitForSeconds(5);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload current scene
     }

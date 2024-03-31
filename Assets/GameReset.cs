@@ -19,7 +19,7 @@ public class GameReset : MonoBehaviour
         for (int idx = 0; idx < transform.childCount; idx++)
         {
             GameObject child = transform.GetChild(idx).gameObject;
-            if (child.active == true)
+            if (child.activeSelf == true)
             {
                 activeChildren++;
             }
@@ -36,7 +36,7 @@ public class GameReset : MonoBehaviour
             if (GetActiveChildCount() <= 0) { break; }
             yield return null;
         }
-        ToastSystem.Instance.onRequest.Invoke("Congratulations, you have completed game!",5.0f);
+        ToastSystem.Instance.SendDialogue("Congratulations, you have completed game!", autoDismissTime: 5.0f);
         yield return new WaitForSeconds(5.0f);
 
         SceneManager.LoadScene(0);

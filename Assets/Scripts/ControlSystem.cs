@@ -17,6 +17,7 @@ public class ControlSystem : MonoBehaviour {
     public GameObject selMenu;
     public string affiliation;
     public float doubleClickPeriod = 0.2f;
+    public float continuousMovementPeriod = 0.1f;
     // public float moveCommandRepeatPeriod = 0.1f;
 
     GlobalUnitManager globalUnitManager;
@@ -47,7 +48,7 @@ public class ControlSystem : MonoBehaviour {
         unitsLayerMask = LayerMask.GetMask("Units");
         selMenuDropdown = selMenu.GetComponentInChildren<TMP_Dropdown>();
         foreach (var unitType in globalUnitManager.GetUnitTypes()) {
-            selMenuDropdown.options.Add(new TMP_Dropdown.OptionData(unitType.Name));
+            selMenuDropdown.options.Add(new TMP_Dropdown.OptionData(unitType));
         }
         grc = canvas.GetComponent<GraphicRaycaster>();
         clickData = new PointerEventData(EventSystem.current);
@@ -110,8 +111,8 @@ public class ControlSystem : MonoBehaviour {
     IEnumerator MoveWhileHoldingInput() {
         MoveToMouse();
         while (input.actions["Move"].IsPressed()) {
-            // yield return new WaitForSeconds(moveCommandRepeatPeriod);
-            yield return null;
+            yield return new WaitForSeconds(continuousMovementPeriod);
+            // yield return null;
             MoveToMouse();
         }
     }

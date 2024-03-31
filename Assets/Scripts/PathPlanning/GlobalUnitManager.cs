@@ -8,11 +8,11 @@ public class GlobalUnitManager : MonoBehaviour {
     //we're doing singleton
     public static GlobalUnitManager singleton;
     //maps affiliation to unit type
-    private Dictionary<String, List<GameObject>> units = new();
+    private Dictionary<string, List<GameObject>> units = new();
 
     public GameObject[] allManaged;
 
-    private List<Type> unitTypes = new();
+    private List<string> unitTypes = new();
 
     // Start is called before the first frame update
     void Start() {
@@ -44,8 +44,8 @@ public class GlobalUnitManager : MonoBehaviour {
                         units.Add(unitaff.affiliation, new List<GameObject> { obj });
                     }
 
-                    if (controlSystem != null && unitaff.affiliation == controlSystem.affiliation && obj.TryGetComponent(out UnitAI unitAI)) {
-                        var type = unitAI.GetType();
+                    if (controlSystem != null && unitaff.affiliation == controlSystem.affiliation) {
+                        var type = unitaff.unit_type;
                         if (!unitTypes.Contains(type)) {
                             unitTypes.Add(type);
                         }
@@ -111,14 +111,14 @@ public class GlobalUnitManager : MonoBehaviour {
         var type = unitTypes[idx];
         foreach (GameObject obj in allManaged) {
             if (obj == null) continue;
-            if (obj.TryGetComponent(out UnitAI unitAI) && unitAI.GetType() == type) {
+            if (obj.TryGetComponent(out UnitAffiliation unitaff) && unitaff.unit_type == type) {
                 objs.Add(obj);
             }
         }
         return objs;
     }
 
-    public List<Type> GetUnitTypes() {
+    public List<string> GetUnitTypes() {
         return unitTypes;
     }
     // void Update()

@@ -19,7 +19,7 @@ public class CanProgress : MonoBehaviour
         for (int idx = 0; idx < transform.childCount; idx++)
         {
             GameObject child = transform.GetChild(idx).gameObject;
-            if (child.active == true)
+            if (child.activeSelf == true)
             {
                 activeChildren++;
             }
