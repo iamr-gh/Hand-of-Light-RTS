@@ -11,8 +11,8 @@ public class SimpleAttackMove : UnitAI
     // public float moveLockTime = 1.0f; //this is the amount of time a unit is forced to obey a move command, before it can defend itself
     // private bool moveLock = false;
 
-    private UnitState unitState = UnitState.Moving;
-    private Vector3 lastMoveGoal;
+    protected UnitState unitState = UnitState.Moving;
+    protected Vector3 lastMoveGoal;
 
     protected override void Start()
     {
@@ -32,13 +32,8 @@ public class SimpleAttackMove : UnitAI
     {
         base.AttackMoveToCoordinate(coord);
         lastMoveGoal = coord;
-        unitState = UnitState.Attacking;
+        unitState = UnitState.Moving;
     }
-
-    // IEnumerator resetMoveLock(){
-    //     yield return new WaitForSeconds(moveLockTime);
-    //     moveLock = false;
-    // }
 
     // Update is called once per frame
     protected override void Update()
@@ -47,6 +42,12 @@ public class SimpleAttackMove : UnitAI
         {
             //should also have a timeout eventually 
             var pos2d = new Vector2(transform.position.x, transform.position.z);
+            if(navAgent != null){
+                if((navAgent.destination - transform.position).magnitude< moveTolerance){
+                    unitState = UnitState.Attacking;
+                    return;
+                }
+            }
             if (planner == null)
             {
                 return;
@@ -84,23 +85,32 @@ public class SimpleAttackMove : UnitAI
             }
             else
             {
-                var otherpos2d = new Vector2(target.transform.position.x, target.transform.position.z);
-                if (navAgent != null){
-                    Debug.Log("Setting attack to enemy");
-                   navAgent.SetDestination(target.transform.position);
+                //stop if close enough to target
+                if(weaponSystem.TargetInRange()){
+                    Debug.Log("Trying to stop");
+                    if(navAgent != null){
+                        navAgent.SetDestination(transform.position);
+                    }
                 }
                 else{
-                    
-                    planner.enabled = true;
-                    //weapon system not triggering
-                    planner.goal = otherpos2d;
+                    var otherpos2d = new Vector2(target.transform.position.x, target.transform.position.z);
+                    if (navAgent != null){
+                        Debug.Log("Setting attack to enemy");
+                        navAgent.SetDestination(target.transform.position);
+                    }
+                    else{
+
+                        planner.enabled = true;
+                        //weapon system not triggering
+                        planner.goal = otherpos2d;
+                    }
                 }
             }
         }
     }
 
     //copied from enemy AI, may end up tweaked in future
-    private GameObject FindNextTarget()
+    protected GameObject FindNextTarget()
     {
         List<GameObject> enemies = new List<GameObject>(); // List of enemies within our aggro
         // Get all objects within our aggro range

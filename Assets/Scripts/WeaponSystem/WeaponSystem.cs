@@ -30,7 +30,7 @@ public abstract class WeaponSystem : MonoBehaviour
         }
     }
 
-    private bool TargetInRange() {
+    public bool TargetInRange() {
         if(Vector3.Distance(target.transform.position, transform.position) <= parameters.getAttackRange()) { return true; }
         else { return false; }
     }

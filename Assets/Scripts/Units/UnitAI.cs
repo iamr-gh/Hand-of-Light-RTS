@@ -15,6 +15,7 @@ public class UnitAI : MonoBehaviour
     protected Planner planner;
     protected UnitAffiliation affiliation;
     protected NavMeshAgent navAgent;
+    protected WeaponSystem weaponSystem;
 
     protected virtual void Start()
     {
@@ -22,6 +23,7 @@ public class UnitAI : MonoBehaviour
         TryGetComponent(out parameters);
         TryGetComponent(out planner);
         TryGetComponent(out navAgent);
+        TryGetComponent(out weaponSystem);
 /*        planner.maxvel = parameters.getMovementSpeed();*/
     }
     
