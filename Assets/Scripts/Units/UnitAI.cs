@@ -35,7 +35,13 @@ public class UnitAI : MonoBehaviour
         planner.changeWayPointXZ(coord);
         //common extension will be move then attack once within a certain range
     }
-    
+
+    // unimplemented
+    public virtual void AttackMoveToCoordinate(Vector2 coord) {
+        planner.changeWayPointXZ(coord);
+        //common extension will be move then attack once within a certain range
+    }
+
     public virtual void setTarget(GameObject tgt){
         target = tgt;
     }

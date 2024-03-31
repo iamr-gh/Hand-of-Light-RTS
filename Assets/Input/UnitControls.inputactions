@@ -76,6 +76,33 @@
                     "processors": "Clamp(min=-0.1,max=0.1)",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Activate Attack",
+                    "type": "Button",
+                    "id": "9f34bdf7-74a5-45fe-b641-f2547bb0c4be",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Stop",
+                    "type": "Button",
+                    "id": "2393b874-9b2c-4a03-8447-30c23884a47d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Queue Mode",
+                    "type": "Button",
+                    "id": "12c09a60-6f2f-4e6d-9fda-6a06a1902c74",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -285,6 +312,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Zoom Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9e51bcb6-d110-4902-b55a-92912f4d01d6",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Activate Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "31ab303b-ee2d-4d36-9502-89899d59d9ac",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Stop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "050fe101-4f1e-4fe2-9adf-9e3c9428f889",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Queue Mode",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

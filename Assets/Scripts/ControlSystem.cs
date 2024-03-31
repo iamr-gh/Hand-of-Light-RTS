@@ -7,11 +7,14 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(PlayerInput))]
 public class ControlSystem : MonoBehaviour {
-    public GameObject waypointIndicator;
+    public GameObject moveWaypointIndicator;
+    public GameObject attackWaypointIndicator;
+    public GameObject unitInfoPrefab;
+    public GameObject selectedUnitsPanel;
+    public GameObject selectedUnitsContainer;
     public GameObject canvas;
     public GameObject selBox;
     public GameObject selMenu;
@@ -28,11 +31,15 @@ public class ControlSystem : MonoBehaviour {
     List<GameObject> controlledUnits;
     Plane groundPlane;
     LayerMask unitsLayerMask;
+    LayerMask groundLayerMask;
     TMP_Dropdown selMenuDropdown;
     GraphicRaycaster grc;
     PointerEventData clickData;
     InputActionMap playerMap;
     InputActionMap uiMap;
+
+    bool attackMode = false;
+    bool queueMode = false;
 
     // Start is called before the first frame update
     void Start() {
@@ -46,6 +53,7 @@ public class ControlSystem : MonoBehaviour {
         selMenu.SetActive(false);
         groundPlane = new Plane(Vector3.up, 0);
         unitsLayerMask = LayerMask.GetMask("Units");
+        groundLayerMask = LayerMask.GetMask("Ground");
         selMenuDropdown = selMenu.GetComponentInChildren<TMP_Dropdown>();
         foreach (var unitType in globalUnitManager.GetUnitTypes()) {
             selMenuDropdown.options.Add(new TMP_Dropdown.OptionData(unitType));
@@ -56,6 +64,7 @@ public class ControlSystem : MonoBehaviour {
         playerMap = input.actions.FindActionMap("Player");
         uiMap = input.actions.FindActionMap("UI");
         uiMap.Disable();
+        input.actions["Queue Mode"].Disable();
     }
 
     void OnMove() {
@@ -65,25 +74,56 @@ public class ControlSystem : MonoBehaviour {
     UnityEvent attachedEvent;
     GameObject lastWaypointIndicator;
 
-    void MoveToMouse() {
-        if (controlledUnits.Count == 0) {
-            return;
-        }
+    private enum ActionType {
+        Move,
+        AttackMove,
+    }
 
+    private class Command {
+        public ActionType type;
+        public Vector3 goal;
+    }
+
+    Queue<Command> actionQueue = new();
+
+    Command CommandToMouse(ActionType type) {
         var goalRay = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
         float goalEnter;
         groundPlane.Raycast(goalRay, out goalEnter);
         var goal3 = goalRay.GetPoint(goalEnter);
-        var goal = new Vector2(goal3.x, goal3.z);
+        return new Command {
+            type = type,
+            goal = goal3
+        };
+    }
+
+    void ExecuteCommand(Command command, bool attach = false) {
+        GameObject waypointIndicator = null;
+        switch (command.type) {
+            case ActionType.Move:
+                waypointIndicator = moveWaypointIndicator;
+                break;
+            case ActionType.AttackMove:
+                waypointIndicator = attackWaypointIndicator;
+                break;
+        }
+        var goal2 = new Vector2(command.goal.x, command.goal.z);
         DestroyWaypointIndicator();
-        lastWaypointIndicator = Instantiate(waypointIndicator, goal3, Quaternion.identity);
+        lastWaypointIndicator = Instantiate(waypointIndicator, command.goal, Quaternion.identity);
         GameObject chosenUnit = null;
         float chosenUnitDistance = 0f;
         foreach (GameObject obj in controlledUnits) {
             if (obj != null) {
                 if (obj.TryGetComponent(out UnitAI ai)) {
-                    ai.MoveToCoordinate(goal);
-                    var distanceToGoal = (obj.transform.position - goal3).magnitude;
+                    switch (command.type) {
+                        case ActionType.Move:
+                            ai.MoveToCoordinate(goal2);
+                            break;
+                        case ActionType.AttackMove:
+                            ai.AttackMoveToCoordinate(goal2);
+                            break;
+                    }
+                    var distanceToGoal = (obj.transform.position - command.goal).magnitude;
                     if (distanceToGoal > chosenUnitDistance) {
                         chosenUnit = obj;
                         chosenUnitDistance = distanceToGoal;
@@ -93,9 +133,65 @@ public class ControlSystem : MonoBehaviour {
             }
         }
         if (chosenUnit != null && chosenUnit.TryGetComponent(out Planner planner)) {
-            attachedEvent = planner.reachedGoalEvent;
+            switch (command.type) {
+                case ActionType.Move:
+                    attachedEvent = planner.reachedGoalEvent;
+                    break;
+                case ActionType.AttackMove:
+                    attachedEvent = planner.finishedAttackingEvent;
+                    break;
+            }
             attachedEvent.AddListener(DestroyWaypointIndicator);
+            if (attach) {
+                attachedActionEvent = attachedEvent;
+                attachedActionEvent.AddListener(FinishExecutingAction);
+            }
         }
+    }
+
+    void MoveToMouse() {
+        if (controlledUnits.Count == 0) {
+            return;
+        }
+
+        var command = CommandToMouse(ActionType.Move);
+        if (queueMode) {
+            actionQueue.Enqueue(command);
+        } else {
+            ExecuteCommand(command);
+        }
+    }
+
+    void AttackMove() {
+        if (controlledUnits.Count == 0) {
+            return;
+        }
+
+        var command = CommandToMouse(ActionType.AttackMove);
+        if (queueMode) {
+            actionQueue.Enqueue(command);
+        } else {
+            ExecuteCommand(command);
+            if (!input.actions["Activate Attack"].IsPressed()) {
+                attackMode = false;
+            }
+        }
+    }
+
+    bool executingAction = false;
+    UnityEvent attachedActionEvent;
+    public void FinishExecutingAction() {
+        executingAction = false;
+        attachedActionEvent.RemoveListener(FinishExecutingAction);
+        attachedActionEvent = null;
+    }
+
+    private void Update() {
+        if (actionQueue.Count > 0 && !executingAction) {
+            var command = actionQueue.Dequeue();
+            ExecuteCommand(command, attach: true);
+        }
+        UpdateSelectionDisplay();
     }
 
     void DestroyWaypointIndicator() {
@@ -125,7 +221,29 @@ public class ControlSystem : MonoBehaviour {
             return;
         }
         HideSelMenu();
+        if (attackMode) {
+            AttackMove();
+            return;
+        }
         StartCoroutine(SelectUnits());
+    }
+
+    void OnActivateAttack() {
+        if (controlledUnits.Count > 0) {
+            attackMode = true;
+        }
+    }
+
+    void OnQueueMode() {
+        StartCoroutine(ManageQueueMode());
+    }
+
+    IEnumerator ManageQueueMode() {
+        queueMode = true;
+        while (input.actions["Queue Mode"].IsPressed()) {
+            yield return null;
+        }
+        queueMode = false;
     }
 
     void OnSelectOne() {
@@ -255,9 +373,28 @@ public class ControlSystem : MonoBehaviour {
         }
     }
 
+    void OnStop() {
+        StartCoroutine(StopUnits());
+    }
+
+    IEnumerator StopUnits() {
+        while (input.actions["Stop"].IsPressed()) {
+            foreach (var unit in controlledUnits) {
+                if (unit != null && unit.TryGetComponent(out UnitAI ai)) {
+                    ai.MoveToCoordinate(new Vector2(unit.transform.position.x, unit.transform.position.z));
+                }
+            }
+            DestroyWaypointIndicator();
+            yield return null;
+        }
+    }
+
     void RegisterUnits() {
         foreach (var unit in controlledUnits) {
             RegisterUnit(unit);
+        }
+        if (controlledUnits.Count == 0) {
+            attackMode = false;
         }
     }
 
@@ -277,6 +414,56 @@ public class ControlSystem : MonoBehaviour {
     void UnregisterUnit(GameObject unit) {
         if (unit == null) return;
         unit.transform.GetChild(0).gameObject.SetActive(false);
+        if (controlledUnits.Count == 0) {
+            attackMode = false;
+        }
+    }
+
+    void UpdateSelectionDisplay() {
+        if (controlledUnits.Count == 0) {
+            selectedUnitsPanel.SetActive(false);
+            return;
+        }
+        selectedUnitsPanel.SetActive(true);
+        SortedDictionary<string, List<UnitParameters>> units = new();
+        var foundUnit = false;
+        foreach (var unit in controlledUnits) {
+            if (unit != null && unit.TryGetComponent(out UnitAffiliation unitaff) && unit.TryGetComponent(out UnitParameters unitparams)) {
+                if (units.ContainsKey(unitaff.unit_type)) {
+                    units[unitaff.unit_type].Add(unitparams);
+                } else {
+                    units.Add(unitaff.unit_type, new List<UnitParameters> { unitparams });
+                }
+                foundUnit = true;
+            }
+        }
+        if (!foundUnit) {
+            selectedUnitsPanel.SetActive(false);
+            return;
+        }
+        while (selectedUnitsContainer.transform.childCount > 0) {
+            DestroyImmediate(selectedUnitsContainer.transform.GetChild(0).gameObject);
+        }
+        var counter = 0;
+        foreach (var (_, typedUnits) in units) {
+            var totalHealth = 0f;
+            var maxHealth = 0f;
+            foreach (var unitparams in typedUnits) {
+                maxHealth += unitparams.maxHP;
+                totalHealth += unitparams.getHP();
+            }
+            var sprite = typedUnits[0].gameObject.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite;
+            var unitInfo = Instantiate(unitInfoPrefab, selectedUnitsContainer.transform);
+            var image = unitInfo.GetComponentInChildren<Image>();
+            image.sprite = sprite;
+            var text = unitInfo.GetComponentInChildren<TMP_Text>();
+            text.SetText("x" + typedUnits.Count.ToString());
+            var slider = unitInfo.GetComponentInChildren<Slider>();
+            slider.SetValueWithoutNotify(totalHealth / maxHealth);
+            unitInfo.TryGetComponent(out RectTransform rectTransform);
+            rectTransform.anchoredPosition = new Vector2(0, -175 * counter);
+            counter++;
+        }
     }
 
     public void SelectUnitType(int type) {

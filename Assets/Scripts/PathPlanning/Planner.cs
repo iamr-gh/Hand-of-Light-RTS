@@ -13,6 +13,8 @@ public class Planner : MonoBehaviour
 
     public UnityEvent reachedGoalEvent;
 
+    public UnityEvent finishedAttackingEvent; // unimplemented
+
     protected bool reachedGoal = true;
     
     protected Rigidbody rb;
