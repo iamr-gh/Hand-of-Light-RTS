@@ -151,7 +151,7 @@ Transform:
   m_GameObject: {fileID: 2115157370505365848}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -168,7 +168,7 @@ Halo:
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
-  m_Size: 1
+  m_Size: 0.5
 --- !u!1 &3965963424499817463
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,7 +313,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveTolerance: 1
-  moveLockTime: 1.5
 --- !u!136 &6168202626931983690
 CapsuleCollider:
   m_ObjectHideFlags: 0
