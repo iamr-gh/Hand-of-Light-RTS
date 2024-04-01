@@ -28,7 +28,7 @@ public class ControlSystem : MonoBehaviour {
     Camera cam;
     RectTransform selBoxTransform;
     RectTransform selMenuTransform;
-    List<GameObject> controlledUnits;
+    public List<GameObject> controlledUnits;
     Plane groundPlane;
     LayerMask unitsLayerMask;
     LayerMask groundLayerMask;

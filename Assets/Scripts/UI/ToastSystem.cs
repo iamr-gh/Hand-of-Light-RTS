@@ -74,7 +74,7 @@ public class ToastSystem : MonoBehaviour {
     }
 
     bool dialogueAdvanced = false;
-    public void AdvancceDialogue() {
+    public void AdvanceDialogue() {
         dialogueAdvanced = true;
     }
 
