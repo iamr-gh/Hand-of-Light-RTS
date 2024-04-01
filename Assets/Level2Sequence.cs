@@ -42,6 +42,28 @@ public class Level2Sequence : MonoBehaviour
         ToastSystem.Instance.DismissNotification(notif);
         ToastSystem.Instance.DismissNotification(notif2);
         ToastSystem.Instance.DismissNotification(notif3);
-    }
+        cam_move.enabled = true;
 
+        var notif4 = ToastSystem.Instance.SendNotification("If you press 'S' as your units are moving, they will stop.", NotificationPriority.Low, false);
+
+        while (true)
+        {
+            //look at control system to get names of a specific actions
+            if (input.actions["Stop"].WasPerformedThisFrame())
+            {
+                break;
+            }
+            yield return null;
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        yield return new WaitForSeconds(2f);
+        ToastSystem.Instance.DismissNotification(notif4);
+
+        ToastSystem.Instance.SendNotification("There is a technique known as kiting.", NotificationPriority.Low, true, 5f);
+        yield return new WaitForSeconds(5f);
+        ToastSystem.Instance.SendNotification("As you fight this next battle, try control clicking your archers.", NotificationPriority.Low, true, 5f);
+        ToastSystem.Instance.SendNotification("Then make them retreat by moving them, then pressing stop, and repeating.", NotificationPriority.Low, true, 5f);
+
+    }
 }
