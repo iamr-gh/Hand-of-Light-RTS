@@ -7,6 +7,7 @@ using UnityEngine.AI;
 
 public class MovementAnimation : MonoBehaviour
 {
+    public bool reverse = false;
     public bool debug = false;
     private Rigidbody rb;
     private NavMeshAgent navAgent;
@@ -36,6 +37,22 @@ public class MovementAnimation : MonoBehaviour
         //                                          hopRotation * Mathf.Sin(Time.time % (2 * Mathf.PI)));
         //}
         if (isTurning) { return; } // Only start turning again after finishing once
+        if(reverse)
+        {
+            if (facing == "Left" && navAgent.velocity.x < 0)
+            {
+                facing = "Right";
+                Quaternion targetRotation = Quaternion.Euler(-30, 180, 0);
+                StartCoroutine(RotateObject(transform.rotation, targetRotation, turnDuration));
+            }
+            else if (facing == "Right" && navAgent.velocity.x > 0)
+            {
+                facing = "Left";
+                Quaternion targetRotation = Quaternion.Euler(30, 0, 0);
+                StartCoroutine(RotateObject(transform.rotation, targetRotation, turnDuration));
+            }
+        }
+        else { 
         if (facing == "Left" && navAgent.velocity.x > 0)
         {
             facing = "Right";
@@ -47,6 +64,7 @@ public class MovementAnimation : MonoBehaviour
             facing = "Left";
             Quaternion targetRotation = Quaternion.Euler(30, 0, 0);
             StartCoroutine(RotateObject(transform.rotation, targetRotation, turnDuration));
+        }
         }
     }
 

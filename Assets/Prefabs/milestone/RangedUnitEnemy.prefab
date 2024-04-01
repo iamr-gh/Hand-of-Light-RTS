@@ -268,8 +268,6 @@ GameObject:
   - component: {fileID: 3743481605407302467}
   - component: {fileID: 6653340286872470786}
   - component: {fileID: 6894273581364222214}
-  - component: {fileID: 2529481807343769485}
-  - component: {fileID: -7122296303751374021}
   - component: {fileID: 8889123847622958436}
   - component: {fileID: 6154918186566873774}
   m_Layer: 7
@@ -310,6 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   affiliation: Blue
+  unit_type: DefaultType
 --- !u!54 &7535230518139523584
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -376,6 +375,9 @@ MonoBehaviour:
   reachedGoalEvent:
     m_PersistentCalls:
       m_Calls: []
+  finishedAttackingEvent:
+    m_PersistentCalls:
+      m_Calls: []
   goal_weight: 1
   obav_weight: 1
   friendly_av_weight: 0
@@ -416,32 +418,6 @@ CapsuleCollider:
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2529481807343769485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5543327296652340260}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1208eff9466a7454bb2d99299ec566d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-7122296303751374021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5543327296652340260}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d45d02ebd15f28847b928b1a0c9e823c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectile: {fileID: 1670476911756737922, guid: e451c4f8a28d4be4c97a551f3ce4c7da, type: 3}
-  delayTillDmg: 0.3
 --- !u!114 &8889123847622958436
 MonoBehaviour:
   m_ObjectHideFlags: 0
