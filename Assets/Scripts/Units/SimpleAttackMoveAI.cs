@@ -17,7 +17,7 @@ public class SimpleAttackMove : UnitAI
     protected override void Start()
     {
         base.Start();
-        lastMoveGoal = new Vector2(transform.position.x, transform.position.z);
+        lastMoveGoal = transform.position;
     }
 
     public override void MoveToCoordinate(Vector3 coord)
