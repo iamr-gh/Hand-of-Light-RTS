@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 //ignores Move to Coordinate commands
 public class SimpleEnemyAI : UnitAI
 {
+
     protected override void Update()
     {
         if (target == null || (Vector3.Distance(target.transform.position, transform.position) >= parameters.getAggroRange())) {
@@ -18,11 +20,21 @@ public class SimpleEnemyAI : UnitAI
     {
         // If not null then target is the closest enemy in aggroRange
         if (target != null && Vector3.Distance(target.transform.position, transform.position) > parameters.getAttackRange()-0.25) { // REMOVED: targtetUnitObject.activeSelf check, maybe need to put it back in
-            planner.changeWayPointXZ(new Vector2(target.transform.position.x, target.transform.position.z));
+            if (navAgent != null) {
+                navAgent.SetDestination(target.transform.position);
+            }
+            else {
+                planner.changeWayPointXZ(new Vector2(target.transform.position.x, target.transform.position.z));
+            }
         }
         // Target is null, so no enemy within aggro range, stop moving
         else {
-            planner.changeWayPointXZ(new Vector2(transform.position.x, transform.position.z));
+            if (navAgent != null) {
+                navAgent.SetDestination(transform.position);
+            }
+            else {
+                planner.changeWayPointXZ(new Vector2(transform.position.x, transform.position.z));
+            }
         }
     }
 
