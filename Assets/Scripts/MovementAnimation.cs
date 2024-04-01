@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(SpriteRenderer))]
 
 public class MovementAnimation : MonoBehaviour
 {
+    public bool debug = false;
     private Rigidbody rb;
+    private NavMeshAgent navAgent;
     private string facing = "Left";
     private bool isTurning = false;
     [SerializeField] float turnDuration = 0.2f;
@@ -16,7 +19,7 @@ public class MovementAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponentInParent<Rigidbody>();
+        navAgent = GetComponentInParent<NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -33,14 +36,13 @@ public class MovementAnimation : MonoBehaviour
         //                                          hopRotation * Mathf.Sin(Time.time % (2 * Mathf.PI)));
         //}
         if (isTurning) { return; } // Only start turning again after finishing once
-
-        if (facing == "Left" && rb.velocity.x > 0)
+        if (facing == "Left" && navAgent.velocity.x > 0)
         {
             facing = "Right";
             Quaternion targetRotation = Quaternion.Euler(-30, 180, 0);
             StartCoroutine(RotateObject(transform.rotation, targetRotation, turnDuration));
         }
-        else if(facing == "Right" && rb.velocity.x < 0)
+        else if(facing == "Right" && navAgent.velocity.x < 0)
         {
             facing = "Left";
             Quaternion targetRotation = Quaternion.Euler(30, 0, 0);
