@@ -32,6 +32,7 @@ public class Level1Sequence : MonoBehaviour
         var notif3 = ToastSystem.Instance.SendNotification("Use the arrow keys to move the camera.", NotificationPriority.Low, false);
 
         cam_move.enabled = true;
+        input.actions["Pan Camera"].Enable();
         var cam_pos_before = Camera.main.transform.position;
         while (cam_pos_before == Camera.main.transform.position)
         {
@@ -100,7 +101,7 @@ public class Level1Sequence : MonoBehaviour
         yield return new WaitForSeconds(2f);
         ToastSystem.Instance.DismissNotification(notif7);
 
-        ToastSystem.Instance.SendNotification("Now, clear out the rest of the enemies and reach the goal to continue.", NotificationPriority.Low, true, 10f);
+        ToastSystem.Instance.SendNotification("Now, defeat the rest of the enemy army to continue.", NotificationPriority.Low, true, 10f);
 
         /*
         //reenable controls
