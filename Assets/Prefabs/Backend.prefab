@@ -1156,6 +1156,8 @@ MonoBehaviour:
   moveWaypointIndicator: {fileID: 1136684496887266338, guid: 43ee06ffd47582b4595880dd6c8dace3, type: 3}
   attackWaypointIndicator: {fileID: 1136684496887266338, guid: a1b29dd6950ed1744949384cd200ac96, type: 3}
   unitInfoPrefab: {fileID: 2925023685797305770, guid: 4e6421ed3162e7e4b9c9ee603e85882b, type: 3}
+  defaultCursor: {fileID: 2800000, guid: 4436949d61c13f04ba3d1f32ea032504, type: 3}
+  attackCursor: {fileID: 2800000, guid: 93cbe315f9a321e449b48a3e4a178488, type: 3}
   selectedUnitsPanel: {fileID: 8881807577155320630}
   selectedUnitsContainer: {fileID: 8545586833790047353}
   canvas: {fileID: 8349876220273055353}
