@@ -13,6 +13,8 @@ public class ControlSystem : MonoBehaviour {
     public GameObject moveWaypointIndicator;
     public GameObject attackWaypointIndicator;
     public GameObject unitInfoPrefab;
+    public Texture2D defaultCursor;
+    public Texture2D attackCursor;
     public GameObject selectedUnitsPanel;
     public GameObject selectedUnitsContainer;
     public GameObject canvas;
@@ -173,7 +175,7 @@ public class ControlSystem : MonoBehaviour {
         } else {
             ExecuteCommand(command);
             if (!input.actions["Activate Attack"].IsPressed()) {
-                attackMode = false;
+                SetAttackMode(false);
             }
         }
     }
@@ -192,6 +194,9 @@ public class ControlSystem : MonoBehaviour {
             ExecuteCommand(command, attach: true);
         }
         UpdateSelectionDisplay();
+        if (attackMode && controlledUnits.Count == 0) {
+            SetAttackMode(false);
+        }
     }
 
     void DestroyWaypointIndicator() {
@@ -230,7 +235,7 @@ public class ControlSystem : MonoBehaviour {
 
     void OnActivateAttack() {
         if (controlledUnits.Count > 0) {
-            attackMode = true;
+            SetAttackMode(true);
         }
     }
 
@@ -373,6 +378,15 @@ public class ControlSystem : MonoBehaviour {
         }
     }
 
+    void SetAttackMode(bool val) {
+        attackMode = val;
+        if (val) {
+            Cursor.SetCursor(attackCursor, Vector2.zero, CursorMode.Auto);
+        } else {
+            Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+        }
+    }
+
     void OnStop() {
         StartCoroutine(StopUnits());
     }
@@ -393,9 +407,6 @@ public class ControlSystem : MonoBehaviour {
         foreach (var unit in controlledUnits) {
             RegisterUnit(unit);
         }
-        if (controlledUnits.Count == 0) {
-            attackMode = false;
-        }
     }
 
     void UnregisterUnits() {
@@ -414,9 +425,6 @@ public class ControlSystem : MonoBehaviour {
     void UnregisterUnit(GameObject unit) {
         if (unit == null) return;
         unit.transform.GetChild(0).gameObject.SetActive(false);
-        if (controlledUnits.Count == 0) {
-            attackMode = false;
-        }
     }
 
     void UpdateSelectionDisplay() {
