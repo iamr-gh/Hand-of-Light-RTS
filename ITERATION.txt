@@ -1,5 +1,5 @@
-We had issues with our tutorial instructions in the gold spike, in particular specifying which units were which.
-We implemented distinct unit sprites and behaviors to respond to this.
-Some people found the controls overly manual, we implemented a better friendly unit AI to make this easier.
-One person also wanted to be able to drag motion on the ground like in league, this was also implemented.
-Overall, we were told the game was fun, but unpolished and more of a tech demo, this milestone is expanded into a proper game with art style and more polished controls and mechanics.
+Last week we recieved feedback on our tutorial being difficult to follow and would be better if it waited for players to make actions. For this,
+we implemented a new tutorial system which waits for players to act before progressing to later stages. We also recieved feedback on some
+aspects of our control systems, such as overly aggressive units. We implemented some quality of life updates to this system to 
+make clicks more responsive and Unit AI more respectful of player input. We also added visual updates to our units, 
+to give the 2D sprites more feeling, and we will continue to improve this as we finalize our games theming with the terrain and art.
