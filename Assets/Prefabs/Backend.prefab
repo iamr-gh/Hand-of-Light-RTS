@@ -1076,6 +1076,7 @@ GameObject:
   - component: {fileID: 6128480142590066924}
   - component: {fileID: 281730187184124888}
   - component: {fileID: 7043832882037264091}
+  - component: {fileID: 2560267422574346734}
   m_Layer: 0
   m_Name: GlobalUnitManager
   m_TagString: Untagged
@@ -1164,6 +1165,18 @@ MonoBehaviour:
   affiliation: White
   doubleClickPeriod: 0.5
   continuousMovementPeriod: 0.1
+--- !u!114 &2560267422574346734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5267103863364379375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f849625352238574eb6704f8328b7e80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5477282429919243913
 GameObject:
   m_ObjectHideFlags: 0
