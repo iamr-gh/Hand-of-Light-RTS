@@ -6,16 +6,16 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/milestone1/levels/Level1.unity
-    guid: 2afbc440c28674015943db3efd176db1
+    path: Assets/Scenes/milestone2/levels/Level1.unity
+    guid: 1276eaea541904f4e8d6082b2222636a
   - enabled: 1
-    path: Assets/Scenes/milestone1/levels/Level2.unity
-    guid: 1eb61046903e749de801cf1ea5c0206e
+    path: Assets/Scenes/milestone2/levels/Level2.unity
+    guid: 8c318b1955ee14caa8696cf394860852
   - enabled: 1
-    path: Assets/Scenes/milestone1/levels/Level3.unity
-    guid: cc631bee74b2db44ab662b50bc8e73d8
+    path: Assets/Scenes/milestone2/levels/Level3.unity
+    guid: 4fda88d9d05d2914591b8fb7013b8e05
   - enabled: 1
-    path: Assets/Scenes/milestone1/levels/Level4.unity
-    guid: d7499cc1601b24bc7b62e2ea44e1ce15
+    path: Assets/Scenes/milestone2/levels/Level4.unity
+    guid: 2933f8fd4e99c49f9a610cfc26bca746
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: dec24f728498f6a47b97ce28c6187fed, type: 2}
