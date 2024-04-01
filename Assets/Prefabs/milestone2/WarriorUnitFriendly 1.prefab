@@ -413,7 +413,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47803b9962136af429c154f98a1ec761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTolerance: 1.5
+  debug: 0
+  moveTolerance: 0.6
 --- !u!136 &5197581177483633392
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -481,6 +482,6 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: 2
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

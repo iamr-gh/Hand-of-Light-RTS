@@ -5,6 +5,7 @@ using System.Collections;
 public class SimpleAttackMove : UnitAI
 {
     //might need an idle state, or a patrol state in the future
+    public bool debug = false;
     public enum UnitState { Moving, Attacking };
     // Start is called before the first frame update
     public float moveTolerance = 0.5f;
@@ -43,7 +44,7 @@ public class SimpleAttackMove : UnitAI
             //should also have a timeout eventually 
             var pos2d = new Vector2(transform.position.x, transform.position.z);
             if(navAgent != null){
-                if((navAgent.destination - transform.position).magnitude< moveTolerance){
+                if((navAgent.destination - transform.position).magnitude<= moveTolerance){
                     unitState = UnitState.Attacking;
                     return;
                 }
@@ -87,7 +88,6 @@ public class SimpleAttackMove : UnitAI
             {
                 //stop if close enough to target
                 if(weaponSystem.TargetInRange()){
-                    Debug.Log("Trying to stop");
                     if(navAgent != null){
                         navAgent.SetDestination(transform.position);
                     }
@@ -95,7 +95,6 @@ public class SimpleAttackMove : UnitAI
                 else{
                     var otherpos2d = new Vector2(target.transform.position.x, target.transform.position.z);
                     if (navAgent != null){
-                        Debug.Log("Setting attack to enemy");
                         navAgent.SetDestination(target.transform.position);
                     }
                     else{
@@ -112,9 +111,13 @@ public class SimpleAttackMove : UnitAI
     //copied from enemy AI, may end up tweaked in future
     protected GameObject FindNextTarget()
     {
+        Debug.Log("finding next target");
         List<GameObject> enemies = new List<GameObject>(); // List of enemies within our aggro
         // Get all objects within our aggro range
         List<GameObject> potentialEnemies = GlobalUnitManager.singleton.FindNearby(transform.position, parameters.getAggroRange());
+        if (debug) { 
+        Debug.Log(potentialEnemies);
+        }
         foreach (GameObject obj in potentialEnemies)
         {
             UnitAffiliation otherAff = obj.GetComponent<UnitAffiliation>();

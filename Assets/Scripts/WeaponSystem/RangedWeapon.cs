@@ -14,7 +14,6 @@ public class RangedWeapon : WeaponSystem
         // Create projectile
         if (projectile != null)
         {
-            Debug.Log("Creating Projectile!");
             var proj = Instantiate(projectile, transform.position, Quaternion.identity);
             if (proj.TryGetComponent(out FlyToTarget fly)) {
                 // Set target and damage of projectile

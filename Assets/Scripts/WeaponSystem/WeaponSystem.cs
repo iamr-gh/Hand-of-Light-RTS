@@ -22,7 +22,8 @@ public abstract class WeaponSystem : MonoBehaviour
     {     
         // Get the target, then if not attacking and in range attack
         target = unitAI.getTarget();
-        if (target != null && TargetInRange() && !isAttacking)
+
+        if (TargetInRange() && !isAttacking)
         {
             //Debug.Log("weapon system");
             //Debug.Log(target);
@@ -31,7 +32,7 @@ public abstract class WeaponSystem : MonoBehaviour
     }
 
     public bool TargetInRange() {
-        if(Vector3.Distance(target.transform.position, transform.position) <= parameters.getAttackRange()) { return true; }
+        if(target != null && Vector3.Distance(target.transform.position, transform.position) <= parameters.getAttackRange()) { return true; }
         else { return false; }
     }
 

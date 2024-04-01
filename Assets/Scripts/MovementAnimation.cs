@@ -52,7 +52,6 @@ public class MovementAnimation : MonoBehaviour
 
     IEnumerator RotateObject(Quaternion initialQuaternion, Quaternion targetQuaternion, float duration_sec)
     {
-        Debug.Log("StartedRotating!");
         isTurning = true;
         float initial_time = Time.time;
         float progress = 0;
