@@ -7,12 +7,11 @@ public class Level1Sequence : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(tutorial());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator tutorial()
     {
-        
+        yield return new WaitForSeconds(3f);
     }
 }
