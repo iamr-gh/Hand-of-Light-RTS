@@ -24,7 +24,7 @@ public class SimpleEnemyAI : UnitAI
                 navAgent.SetDestination(target.transform.position);
             }
             else {
-                planner.changeWayPointXZ(new Vector2(target.transform.position.x, target.transform.position.z));
+                // planner.changeWayPointXZ(new Vector2(target.transform.position.x, target.transform.position.z));
             }
         }
         // Target is null, so no enemy within aggro range, stop moving
@@ -33,7 +33,7 @@ public class SimpleEnemyAI : UnitAI
                 navAgent.SetDestination(transform.position);
             }
             else {
-                planner.changeWayPointXZ(new Vector2(transform.position.x, transform.position.z));
+                // planner.changeWayPointXZ(new Vector2(transform.position.x, transform.position.z));
             }
         }
     }

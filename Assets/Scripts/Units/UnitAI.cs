@@ -6,13 +6,13 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(UnitAffiliation))]
 /*[RequireComponent(typeof(Planner))]*/
+[RequireComponent(typeof (NavMeshAgent))]
 [RequireComponent(typeof(UnitParameters))]
 public class UnitAI : MonoBehaviour
 {
     //unit will monitor the behavior of one other agent, for the purpose of following/attack
     protected GameObject target = null;
     protected UnitParameters parameters;
-    protected Planner planner;
     protected UnitAffiliation affiliation;
     protected NavMeshAgent navAgent;
     protected WeaponSystem weaponSystem;
@@ -21,7 +21,6 @@ public class UnitAI : MonoBehaviour
     {
         TryGetComponent(out affiliation);
         TryGetComponent(out parameters);
-        TryGetComponent(out planner);
         TryGetComponent(out navAgent);
         TryGetComponent(out weaponSystem);
 /*        planner.maxvel = parameters.getMovementSpeed();*/
@@ -42,7 +41,7 @@ public class UnitAI : MonoBehaviour
         }
         else {
             Debug.Log("Moving with planner");
-            planner.changeWayPointXZ(new Vector2(coord.x, coord.z));
+            // planner.changeWayPointXZ(new Vector2(coord.x, coord.z));
         }
         //common extension will be move then attack once within a certain range
     }
@@ -57,9 +56,13 @@ public class UnitAI : MonoBehaviour
         else
         {
             Debug.Log("Moving with planner");
-            planner.changeWayPointXZ(new Vector2(coord.x, coord.z));
+            // planner.changeWayPointXZ(new Vector2(coord.x, coord.z));
         }
         //common extension will be move then attack once within a certain range
+    }
+    
+    public virtual void Stop(){
+        
     }
 
     public virtual void setTarget(GameObject tgt){

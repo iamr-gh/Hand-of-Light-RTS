@@ -395,7 +395,8 @@ public class ControlSystem : MonoBehaviour {
         while (input.actions["Stop"].IsPressed()) {
             foreach (var unit in controlledUnits) {
                 if (unit != null && unit.TryGetComponent(out UnitAI ai)) {
-                    ai.MoveToCoordinate(unit.transform.position);
+                    ai.Stop();
+                    // ai.MoveToCoordinate(unit.transform.position);
                 }
             }
             DestroyWaypointIndicator();
