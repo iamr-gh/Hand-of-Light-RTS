@@ -25,6 +25,8 @@ public class UnitAIV2 : UnitAI
     private float initial_nav_agent_speed;
 
     public float goal_leash = 5f; //if not within this distance from goal, will not stop with anti jitter
+    public float goal_leash_move_cmd = 5f; //if not within this distance from goal, will not stop with anti jitter
+    public float goal_leash_a_move = 1f; //if not within this distance from goal, will not stop with anti jitter
 
     private bool commanded = false;
 
@@ -172,6 +174,7 @@ public class UnitAIV2 : UnitAI
         stopped = false;
         attacking = false;
         navAgent.SetDestination(coord);
+        goal_leash = goal_leash_move_cmd; //move cmd goal leash is more charitable due to certain factors
 
         //switch to attack state after this
         //coroutine that waits until stoppage?
@@ -197,6 +200,7 @@ public class UnitAIV2 : UnitAI
         attacking = true;
 
         navAgent.SetDestination(coord);
+        goal_leash = goal_leash_a_move;
     }
 
     public override void Stop()
