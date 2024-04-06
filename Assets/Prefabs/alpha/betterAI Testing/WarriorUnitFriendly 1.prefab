@@ -327,8 +327,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stopped: 1
-  jitter_max_time: 0.5
-  jitter_magnitude: 1
+  jitter_max_time: 1
+  jitter_magnitude: 2.5
+  goal_leash: 3.5
   commandDelay: 1
 --- !u!195 &5030104842345967843
 NavMeshAgent:
@@ -376,6 +377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e198b55a82d17456a906f5a4354b0dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAttacking: 0
 --- !u!1 &8487055898612097770
 GameObject:
   m_ObjectHideFlags: 0

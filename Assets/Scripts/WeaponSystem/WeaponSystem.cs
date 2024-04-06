@@ -7,7 +7,7 @@ using UnityEngine;
 public abstract class WeaponSystem : MonoBehaviour
 {
     protected UnitParameters parameters;
-    protected bool isAttacking = false;
+    public bool isAttacking = false;
     protected UnitAI unitAI;
     protected GameObject target;
 
