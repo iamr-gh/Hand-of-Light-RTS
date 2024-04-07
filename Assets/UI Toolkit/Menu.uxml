@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="LoadingOverlay" src="project://database/Assets/UI%20Toolkit/LoadingOverlay.uxml?fileID=9197481963319205126&amp;guid=6e22b0fd4179eb746a4153acf88f74ff&amp;type=3#LoadingOverlay" />
+    <Style src="project://database/Assets/UI%20Toolkit/Style.uss?fileID=7433441132597879392&amp;guid=e793631355c34c5488f6730a6657e228&amp;type=3#Style" />
+    <ui:VisualElement style="flex-grow: 1; justify-content: center; align-items: center;">
+        <ui:VisualElement style="flex-grow: 0; width: 50%; height: 75%; background-color: rgb(0, 0, 0); border-top-left-radius: 50px; border-top-right-radius: 50px; border-bottom-right-radius: 50px; border-bottom-left-radius: 50px; align-items: center; justify-content: center; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px;">
+            <ui:Label tabindex="-1" text="Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font: url(&apos;project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&apos;); -unity-font-definition: url(&apos;project://database/Assets/Thaleah_PixelFont/ThaleahFat.asset?fileID=11400000&amp;guid=23d4d74baa1e8441a9db5ad5556cd2b8&amp;type=2#ThaleahFat&apos;); color: rgb(255, 255, 255); font-size: 70px;" />
+            <ui:Button text="Restart Level" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RestartLevelButton" class="button" />
+            <ui:Button text="Quit to Main Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="QuitToMainMenuButton" class="button" />
+        </ui:VisualElement>
+        <ui:Instance template="LoadingOverlay" name="LoadingOverlay" />
+    </ui:VisualElement>
+</ui:UXML>
