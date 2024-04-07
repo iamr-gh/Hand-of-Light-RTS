@@ -16,6 +16,7 @@ public enum ControlState {
     SelectingUnits,
     MovingUnits,
     SelectingTypeFromMenu,
+    InMenu,
     StoppingUnits,
     AttackMode,
     QueueMode,
@@ -44,6 +45,8 @@ public enum ControlActions {
     UseAbility,
     StopUsingAbility,
     Escape,
+    OpenMenu,
+    CloseMenu,
 }
 
 [RequireComponent(typeof(PlayerInput))]
@@ -61,6 +64,7 @@ public class ControlSystem : MonoBehaviour {
     public GameObject selBox;
     public GameObject selMenu;
     public GameObject abilityBox;
+    public GameObject menu;
     public string affiliation;
     public int numSupportedAbilities = 4;
     public float minDragDistance = 0.5f;
@@ -82,11 +86,14 @@ public class ControlSystem : MonoBehaviour {
     InputActionMap playerMap;
     InputActionMap cameraMap;
     InputActionMap uiMap;
+    InputActionMap universalMap;
 
     ControlState controlState;
 
     UnityEvent attachedEvent;
     GameObject lastWaypointIndicator;
+
+    cameraMovement camMovement;
 
     // Left click action types only
     private enum ActionType {
@@ -114,6 +121,7 @@ public class ControlSystem : MonoBehaviour {
         globalUnitManager = GlobalUnitManager.singleton;
         TryGetComponent(out input);
         cam = Camera.main;
+        cam.TryGetComponent(out camMovement);
         selBox.TryGetComponent(out selBoxTransform);
         selBox.SetActive(false);
         selMenu.TryGetComponent(out selMenuTransform);
@@ -131,8 +139,10 @@ public class ControlSystem : MonoBehaviour {
         playerMap = input.actions.FindActionMap("Player");
         cameraMap = input.actions.FindActionMap("Camera");
         uiMap = input.actions.FindActionMap("UI");
+        universalMap = input.actions.FindActionMap("Universal");
         cameraMap.Enable();
         uiMap.Disable();
+        universalMap.Enable();
         Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
         controlState = ControlState.NormalMode;
         selectedAbilities = new(numSupportedAbilities);
@@ -192,6 +202,14 @@ public class ControlSystem : MonoBehaviour {
                         controlState = ControlState.AbilityMode;
                         StartCoroutine(UseAbility(ability, caster));
                         break;
+                    case ControlActions.Escape:
+                        controlState = ControlState.InMenu;
+                        uiMap.Enable();
+                        playerMap.Disable();
+                        cameraMap.Disable();
+                        camMovement.enabled = false;
+                        menu.SetActive(true);
+                        break;
                 }
                 break;
             case ControlState.SingleSelect:
@@ -236,6 +254,18 @@ public class ControlSystem : MonoBehaviour {
                     case ControlActions.Escape:
                         controlState = ControlState.NormalMode;
                         HideSelMenu();
+                        break;
+                }
+                break;
+            case ControlState.InMenu:
+                switch (action) {
+                    case ControlActions.Escape:
+                        controlState = ControlState.NormalMode;
+                        uiMap.Disable();
+                        playerMap.Enable();
+                        cameraMap.Enable();
+                        camMovement.enabled = true;
+                        menu.SetActive(false);
                         break;
                 }
                 break;

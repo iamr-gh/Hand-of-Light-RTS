@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="LoadingOverlay" src="project://database/Assets/UI%20Toolkit/LoadingOverlay.uxml?fileID=9197481963319205126&amp;guid=6e22b0fd4179eb746a4153acf88f74ff&amp;type=3#LoadingOverlay" />
+    <Style src="project://database/Assets/UI%20Toolkit/Style.uss?fileID=7433441132597879392&amp;guid=e793631355c34c5488f6730a6657e228&amp;type=3#Style" />
+    <ui:VisualElement name="Root" style="flex-grow: 1; align-items: center; justify-content: center; background-image: url(&apos;project://database/Assets/Sprites/splash.png?fileID=2800000&amp;guid=98526013fdae66f459436dc4f7fbe47d&amp;type=3#splash&apos;); -unity-background-image-tint-color: rgb(170, 170, 170);">
+        <ui:VisualElement name="MenuElements" style="flex-grow: 1; justify-content: center; align-items: center;">
+            <ui:Label tabindex="-1" text="Masters of Micro" parse-escape-sequences="true" display-tooltip-when-elided="true" name="GameTitle" style="-unity-font: url(&apos;project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&apos;); -unity-font-definition: url(&apos;project://database/Assets/Thaleah_PixelFont/ThaleahFat.asset?fileID=11400000&amp;guid=23d4d74baa1e8441a9db5ad5556cd2b8&amp;type=2#ThaleahFat&apos;); font-size: 70px; align-self: center; top: auto; -unity-text-outline-color: rgb(0, 179, 255); -unity-text-outline-width: 2px;" />
+            <ui:Button text="Play" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StartButton" class="menu-button" />
+        </ui:VisualElement>
+        <ui:Instance template="LoadingOverlay" name="LoadingOverlay" />
+    </ui:VisualElement>
+</ui:UXML>
