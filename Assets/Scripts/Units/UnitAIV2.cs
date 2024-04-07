@@ -82,6 +82,11 @@ public class UnitAIV2 : UnitAI
                 // AttackMoveToCoordinate(last_goal);
                 //might get killed by anti jitter
                 navAgent.SetDestination(last_goal);
+                // if(Vector3.Distance(last_goal, transform.position) <= goal_leash_a_move)
+                // {
+                //     //might invoke too many events
+                //     finishedAttackingEvent.Invoke();
+                // }
             }
             else
             {
@@ -102,9 +107,12 @@ public class UnitAIV2 : UnitAI
             //weapon system uses target
             target = null;
         }
-
-        if (Vector3.Distance(last_goal, transform.position) <= 1.5f) {
+        
+        //invoke reached goal event if within goal_leash
+        if (Vector3.Distance(last_goal, transform.position) <= goal_leash)
+        {
             reachedGoalEvent.Invoke();
+            //attack move leashing needs to work different for queueing to work with that
         }
     }
 
@@ -216,6 +224,8 @@ public class UnitAIV2 : UnitAI
         }
         attacking = true;
         goal_leash = goal_leash_a_move;
+        
+        reachedGoalEvent.Invoke();
     }
 
     public override void AttackMoveToCoordinate(Vector3 coord)
