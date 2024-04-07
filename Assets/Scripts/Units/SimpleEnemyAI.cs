@@ -23,17 +23,11 @@ public class SimpleEnemyAI : UnitAI
             if (navAgent != null) {
                 navAgent.SetDestination(target.transform.position);
             }
-            else {
-                // planner.changeWayPointXZ(new Vector2(target.transform.position.x, target.transform.position.z));
-            }
         }
         // Target is null, so no enemy within aggro range, stop moving
         else {
             if (navAgent != null) {
                 navAgent.SetDestination(transform.position);
-            }
-            else {
-                // planner.changeWayPointXZ(new Vector2(transform.position.x, transform.position.z));
             }
         }
     }

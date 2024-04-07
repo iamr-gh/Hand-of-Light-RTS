@@ -20,20 +20,18 @@ public class UnitAIV2 : UnitAI
     // protected WeaponSystem weaponSystem;
     // protected GameObject target = null; //either friendly or enemy
     public bool stopped = true;
-    public float jitter_max_time = 0.5f;
-    public float jitter_magnitude = 0.1f;
-    private float initial_nav_agent_speed;
+    public float jitter_max_time = 1f;
+    public float jitter_magnitude = 2.5f;
+    protected float initial_nav_agent_speed;
 
-    public float goal_leash = 5f; //if not within this distance from goal, will not stop with anti jitter
+    public float goal_leash = 3.5f; //if not within this distance from goal, will not stop with anti jitter
     public float goal_leash_move_cmd = 5f; //if not within this distance from goal, will not stop with anti jitter
     public float goal_leash_a_move = 1f; //if not within this distance from goal, will not stop with anti jitter
-
     private bool commanded = false;
-
     public float commandDelay = 1;
 
-    private bool attacking = true; // the state of idling and willing to attack anyway in aggro range
-    private Vector3 last_goal;
+    public bool attacking = true; // the state of idling and willing to attack anyway in aggro range
+    protected Vector3 last_goal;
 
     protected override void Start()
     {
@@ -62,7 +60,15 @@ public class UnitAIV2 : UnitAI
         {
             //only using enemy target rn
             //can easily be expanded with attack moving on a unit
+            var old_target = target;
             target = FindNextTarget();
+
+            //allow movement on target change
+            if (old_target != target)
+            {
+                stopped = false;
+            }
+
             if (target == null)
             {
                 //no enemy, go back to leash spot
@@ -73,8 +79,15 @@ public class UnitAIV2 : UnitAI
             }
             else
             {
-                navAgent.SetDestination(target.transform.position);
-                //if within range, stop and attack -- HANDLED BY COROUTINE
+                //if within weapon range, stop charging at opponent
+                if (Vector3.Distance(target.transform.position, transform.position) <= parameters.getAttackRange())
+                {
+                    navAgent.SetDestination(transform.position);
+                }
+                else
+                {
+                    navAgent.SetDestination(target.transform.position);
+                }
             }
 
         }
@@ -85,8 +98,9 @@ public class UnitAIV2 : UnitAI
         }
     }
 
-    private IEnumerator WeaponSystemManager()
+    protected IEnumerator WeaponSystemManager()
     {
+        //this needs to be controlled in a stronger manner
         while (true)
         {
             yield return null;
@@ -153,7 +167,7 @@ public class UnitAIV2 : UnitAI
             }
             else
             {
-                Debug.Log("Jitter Magnitude:" + ((before - after).magnitude / jitter_max_time).ToString());
+                // Debug.Log("Jitter Magnitude:" + ((before - after).magnitude / jitter_max_time).ToString());
             }
         }
     }
@@ -189,6 +203,7 @@ public class UnitAIV2 : UnitAI
             yield return null;
         }
         attacking = true;
+        goal_leash = goal_leash_a_move;
     }
 
     public override void AttackMoveToCoordinate(Vector3 coord)
