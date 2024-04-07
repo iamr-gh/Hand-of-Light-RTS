@@ -21,12 +21,14 @@ public class RecallAbility : Ability
         // let's teleport all units back to the caster
         foreach (GameObject unit in castData.friendlyUnitsHit)
         {
-            StartCoroutine(TeleportUnit(unit, castData.caster.transform.position + (castData.targetPosition - unit.transform.position)));
+            if (unit != castData.caster) {
+                StartCoroutine(TeleportUnit(unit, castData.caster.transform.position + new Vector3(castData.targetPosition.x - unit.transform.position.x, 0, castData.targetPosition.z - unit.transform.position.z)));
+            }
         }
 
         foreach (GameObject unit in castData.enemyUnitsHit)
         {
-            StartCoroutine(TeleportUnit(unit, castData.caster.transform.position + (castData.targetPosition - unit.transform.position)));
+            StartCoroutine(TeleportUnit(unit, castData.caster.transform.position + new Vector3(castData.targetPosition.x - unit.transform.position.x, 0, castData.targetPosition.z - unit.transform.position.z)));
         }
     }
 
