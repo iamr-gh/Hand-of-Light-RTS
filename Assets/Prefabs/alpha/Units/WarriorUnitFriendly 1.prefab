@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3411764268833125624
 Transform:
   m_ObjectHideFlags: 0
@@ -39,7 +39,7 @@ Halo:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 637085491796202465}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
@@ -165,7 +165,6 @@ GameObject:
   - component: {fileID: 5030104842345967843}
   - component: {fileID: 4847183158968007529}
   - component: {fileID: 9140587647881610457}
-  - component: {fileID: 3728904848637807530}
   m_Layer: 7
   m_Name: WarriorUnitFriendly 1
   m_TagString: Managed
@@ -248,7 +247,8 @@ MonoBehaviour:
   HP: 40
   AttackDamage: 4
   MovementSpeed: 1
-  AttackRate: 1
+  AttackCooldown: 0.5
+  AttackDuration: 0.1
   AggroRange: 10
   SightRange: 10
   AttackRange: 2
@@ -388,21 +388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAttacking: 0
---- !u!114 &3728904848637807530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6836421769934326460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cae2e5c404338b84094f11f3fcd613cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  abilitySlot: 1
-  aoeRadius: 3
+  offCooldown: 1
 --- !u!1001 &4935698287754090187
 PrefabInstance:
   m_ObjectHideFlags: 0

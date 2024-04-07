@@ -569,6 +569,7 @@ public class ControlSystem : MonoBehaviour {
                         caster = caster,
                         friendlyUnitsHit = units.Where(unit => unit.TryGetComponent(out UnitAffiliation aff) && aff.affiliation == affiliation).ToList(),
                         enemyUnitsHit = units.Where(unit => !unit.TryGetComponent(out UnitAffiliation aff) || aff.affiliation != affiliation).ToList(),
+                        targetPosition = MouseToGround(),
                     });
                 }
                 break;

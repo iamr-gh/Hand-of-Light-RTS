@@ -10,6 +10,7 @@ public enum AbilityTypes {
 [System.Serializable]
 public class AbilityCastData {
     public GameObject caster;
+    public Vector3 targetPosition;
     public List<GameObject> friendlyUnitsHit;
     public List<GameObject> enemyUnitsHit;
 }
