@@ -51,33 +51,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Pan Camera",
-                    "type": "Value",
-                    "id": "811f67cb-ac47-44c4-a62b-8d8e34470cb2",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Center Camera",
-                    "type": "Button",
-                    "id": "4e9fd119-cedd-4850-ab69-1c01b1adac6f",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Zoom Camera",
-                    "type": "Value",
-                    "id": "ceeab5b5-99ce-48f8-b9f1-30596446ae32",
-                    "expectedControlType": "Axis",
-                    "processors": "Clamp(min=-0.1,max=0.1)",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Activate Attack",
                     "type": "Button",
                     "id": "9f34bdf7-74a5-45fe-b641-f2547bb0c4be",
@@ -99,6 +72,24 @@
                     "name": "Queue Mode",
                     "type": "Button",
                     "id": "12c09a60-6f2f-4e6d-9fda-6a06a1902c74",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "201382a1-92f7-48d4-8f63-bfcb07919871",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ability 1",
+                    "type": "Button",
+                    "id": "fd759a19-0242-4dc9-84b1-e98767417754",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -239,86 +230,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "2D Vector",
-                    "id": "1f38b31e-306d-44e8-8808-332aadd35e90",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pan Camera",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "5739a992-3fdc-4173-bc58-930c8b954a6a",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pan Camera",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "e8610a61-d00e-4513-af5d-8140977920aa",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pan Camera",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "66447121-7dff-46cd-b213-231e27267cbc",
-                    "path": "<Keyboard>/leftArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pan Camera",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "05aa1269-acb2-4bb8-8a2d-3d1a605af1fd",
-                    "path": "<Keyboard>/rightArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pan Camera",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "adb10285-90af-48ca-9de7-3a3699375fdf",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Center Camera",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b8c87b25-8f0a-4589-b3f7-4834f8f60321",
-                    "path": "<Mouse>/scroll/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Zoom Camera",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "",
                     "id": "9e51bcb6-d110-4902-b55a-92912f4d01d6",
-                    "path": "<Keyboard>/a",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -329,7 +243,7 @@
                 {
                     "name": "",
                     "id": "31ab303b-ee2d-4d36-9502-89899d59d9ac",
-                    "path": "<Keyboard>/s",
+                    "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -345,6 +259,195 @@
                     "processors": "",
                     "groups": "",
                     "action": "Queue Mode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ab77adba-90fd-4b20-8931-c65ada214e85",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability 1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bda5d688-19d9-4d43-8f46-a2ea38cfb357",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Camera",
+            "id": "ad250627-9363-4e67-a1fb-cf67951ec6b6",
+            "actions": [
+                {
+                    "name": "Zoom Camera",
+                    "type": "Value",
+                    "id": "35fc32af-e202-418c-bbad-ebe76f1d9bf5",
+                    "expectedControlType": "Axis",
+                    "processors": "Clamp(min=-0.1,max=0.1)",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Center Camera",
+                    "type": "Button",
+                    "id": "e3d08a9d-68dd-4120-825f-fa70e066575c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pan Camera",
+                    "type": "Value",
+                    "id": "4556b84e-8617-41e9-b080-27c82f7b0ee9",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "2D Vector",
+                    "id": "12077bf4-27c0-464c-966b-b9fb13d078f0",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pan Camera",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "edd23af9-5078-4754-ae92-3ad695f574fd",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pan Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "d96411bd-ef9e-47e5-8afd-0799ae00c439",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pan Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "adb94b26-2eb0-452e-9ddd-20423ca312e9",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pan Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "a1e9d243-2c5a-4a15-b8af-8a8a67569e75",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pan Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "656d271f-f724-4a55-ad2b-2b89227b0fdc",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pan Camera",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "529b5d84-8aab-4ff5-a0ed-f8a75c998000",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pan Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "9e462775-e281-4eb8-8992-5e7f8f3a4f3c",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pan Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "80009d11-c944-4c61-9ae5-429adb72694a",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pan Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "0efbd2fb-bc96-4edf-a566-1b9d0bfd6768",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pan Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "027992b6-4aad-4689-b2e3-2c6df7b5526f",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Center Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e655f084-2697-4e65-97b3-5f034cf07adb",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom Camera",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

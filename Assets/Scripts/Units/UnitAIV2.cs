@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 // rewriting to be cleaner, and change behaviors
 // this will initially be based around normal unit behavior, enemies can have additional controllers
@@ -19,6 +20,9 @@ public class UnitAIV2 : UnitAI
     // protected NavMeshAgent navAgent;
     // protected WeaponSystem weaponSystem;
     // protected GameObject target = null; //either friendly or enemy
+    public UnityEvent reachedGoalEvent;
+    public UnityEvent finishedAttackingEvent;
+
     public bool stopped = true;
     public float jitter_max_time = 1f;
     public float jitter_magnitude = 2.5f;
@@ -95,6 +99,10 @@ public class UnitAIV2 : UnitAI
         {
             //weapon system uses target
             target = null;
+        }
+
+        if (Vector3.Distance(last_goal, transform.position) <= 1f) {
+            reachedGoalEvent.Invoke();
         }
     }
 

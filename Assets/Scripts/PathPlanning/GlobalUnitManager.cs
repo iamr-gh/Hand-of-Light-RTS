@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GlobalUnitManager : MonoBehaviour {
 
@@ -14,6 +15,10 @@ public class GlobalUnitManager : MonoBehaviour {
 
     private List<string> unitTypes = new();
 
+    private LayerMask groundLayerMask;
+
+    public Plane groundPlane;
+
     // Start is called before the first frame update
     void Start() {
         //there will be exactly one of these
@@ -23,6 +28,9 @@ public class GlobalUnitManager : MonoBehaviour {
             Destroy(gameObject);
             return;
         }
+
+        groundLayerMask = LayerMask.GetMask("Ground");
+        groundPlane = new Plane(Vector3.up, 3);
 
 
 
@@ -62,6 +70,31 @@ public class GlobalUnitManager : MonoBehaviour {
             if (obj == null) continue;
             //3d distance
             if ((obj.transform.position - pos).magnitude <= radius) {
+                objs.Add(obj);
+            }
+        }
+
+        return objs;
+    }
+
+    public List<GameObject> FindNearMouse(float radius) {
+        var objs = new List<GameObject>();
+        Vector3 pos;
+        var ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayerMask)) {
+            pos = hit.point;
+        } else {
+            float goalEnter;
+            groundPlane.Raycast(ray, out goalEnter);
+            pos = ray.GetPoint(goalEnter);
+        }
+        //eventually convert into a spatial hash to not be N^2
+        foreach (GameObject obj in allManaged) {
+            if (obj == null) continue;
+            //2d distance
+            var pos2 = new Vector2(pos.x, pos.z);
+            var objPos2 = new Vector2(obj.transform.position.x, obj.transform.position.z);
+            if (Vector2.Distance(pos2, objPos2) <= radius) {
                 objs.Add(obj);
             }
         }

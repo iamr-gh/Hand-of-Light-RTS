@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(UnitAffiliation))]
 /*[RequireComponent(typeof(Planner))]*/
@@ -11,6 +12,7 @@ using UnityEngine.AI;
 public class UnitAI : MonoBehaviour
 {
     //unit will monitor the behavior of one other agent, for the purpose of following/attack
+    
     protected GameObject target = null;
     protected UnitParameters parameters;
     protected UnitAffiliation affiliation;

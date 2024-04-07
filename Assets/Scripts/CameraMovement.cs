@@ -17,7 +17,7 @@ public class cameraMovement : MonoBehaviour
     public Transform targetObject; // Reference to the object to center the camera on
     private float initialZoomDistance; // Initial distance of the camera from the target object
 
-    public PlayerInput input;
+    InputActionMap input;
 
     float currentZoomValue;
 
@@ -30,6 +30,8 @@ public class cameraMovement : MonoBehaviour
             initialZoomDistance = Camera.main.transform.position.y;
         }
         currentZoomValue = 0f;
+        input = GlobalUnitManager.singleton.GetComponent<PlayerInput>().actions.FindActionMap("Camera");
+
     }
 
 
@@ -37,7 +39,7 @@ public class cameraMovement : MonoBehaviour
     void Update()
     {
         Vector3 cameraLocation = transform.position;
-        if (input.actions["Center Camera"].WasPressedThisFrame())
+        if (input.FindAction("Center Camera").WasPressedThisFrame())
         {
             if (targetObject != null)
             {
@@ -46,7 +48,7 @@ public class cameraMovement : MonoBehaviour
         }
 
         // Zoom in and out with scroll wheel
-        float scrollInput = input.actions["Zoom Camera"].ReadValue<float>();
+        float scrollInput = input.FindAction("Zoom Camera").ReadValue<float>();
         float zoomAmount = scrollInput * zoomSpeed * zoomSensitivity * Time.deltaTime;
         Vector3 zoomDirection = transform.forward;
         // zoomDirection = new Vector3(Mathf.Abs(zoomDirection.x), Mathf.Abs(zoomDirection.y), Mathf.Abs(zoomDirection.z));
@@ -69,7 +71,7 @@ public class cameraMovement : MonoBehaviour
         Vector3 mouseMovement = Vector3.zero;
         Vector3 mousePosition = Mouse.current.position.ReadValue();
 
-        var kbdInput = input.actions["Pan Camera"].ReadValue<Vector2>();
+        var kbdInput = input.FindAction("Pan Camera").ReadValue<Vector2>();
 
         // Check for arrow key inputs
         if (kbdInput.x < 0 && (transform.position.x >= -maxMoveDist))

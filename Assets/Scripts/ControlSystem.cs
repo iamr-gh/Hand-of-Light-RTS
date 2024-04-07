@@ -8,10 +8,49 @@ using UnityEngine.Events;
 using TMPro;
 using UnityEngine.EventSystems;
 
+[System.Serializable]
+public enum ControlState {
+    NormalMode,
+    SingleSelect,
+    SelectingUnits,
+    MovingUnits,
+    SelectingTypeFromMenu,
+    StoppingUnits,
+    AttackMode,
+    QueueMode,
+    QueueAttackMode,
+    AbilityMode,
+}
+
+// Discrete input events
+[System.Serializable]
+public enum ControlActions {
+    Select,
+    StartDragging,
+    StopSelecting,
+    Move,
+    StopMoving,
+    SelectType,
+    OpenSelectTypeMenu,
+    CloseSelectTypeMenu,
+    SelectOne,
+    ActivateAttack,
+    DeactivateAttack,
+    Stop,
+    StopStopping,
+    ActivateQueue,
+    DeactivateQueue,
+    UseAbility,
+    StopUsingAbility,
+    Escape,
+}
+
 [RequireComponent(typeof(PlayerInput))]
 public class ControlSystem : MonoBehaviour {
     public GameObject moveWaypointIndicator;
     public GameObject attackWaypointIndicator;
+    public GameObject aoeIndicator;
+    public GameObject linePrefab;
     public GameObject unitInfoPrefab;
     public Texture2D defaultCursor;
     public Texture2D attackCursor;
@@ -21,9 +60,9 @@ public class ControlSystem : MonoBehaviour {
     public GameObject selBox;
     public GameObject selMenu;
     public string affiliation;
+    public float minDragDistance = 0.5f;
     public float doubleClickPeriod = 0.2f;
     public float continuousMovementPeriod = 0.1f;
-    // public float moveCommandRepeatPeriod = 0.1f;
 
     GlobalUnitManager globalUnitManager;
     PlayerInput input;
@@ -38,44 +77,15 @@ public class ControlSystem : MonoBehaviour {
     GraphicRaycaster grc;
     PointerEventData clickData;
     InputActionMap playerMap;
+    InputActionMap cameraMap;
     InputActionMap uiMap;
 
-    bool attackMode = false;
-    bool queueMode = false;
-
-    // Start is called before the first frame update
-    void Start() {
-        globalUnitManager = GlobalUnitManager.singleton;
-        TryGetComponent(out input);
-
-        cam = Camera.main;
-        selBox.TryGetComponent(out selBoxTransform);
-        selBox.SetActive(false);
-        selMenu.TryGetComponent(out selMenuTransform);
-        selMenu.SetActive(false);
-        groundPlane = new Plane(Vector3.up, 0);
-        unitsLayerMask = LayerMask.GetMask("Units");
-        groundLayerMask = LayerMask.GetMask("Ground");
-        selMenuDropdown = selMenu.GetComponentInChildren<TMP_Dropdown>();
-        foreach (var unitType in globalUnitManager.GetUnitTypes()) {
-            selMenuDropdown.options.Add(new TMP_Dropdown.OptionData(unitType));
-        }
-        grc = canvas.GetComponent<GraphicRaycaster>();
-        clickData = new PointerEventData(EventSystem.current);
-        controlledUnits = new List<GameObject>();
-        playerMap = input.actions.FindActionMap("Player");
-        uiMap = input.actions.FindActionMap("UI");
-        uiMap.Disable();
-        input.actions["Queue Mode"].Disable();
-    }
-
-    void OnMove() {
-        StartCoroutine(MoveWhileHoldingInput());
-    }
+    ControlState controlState;
 
     UnityEvent attachedEvent;
     GameObject lastWaypointIndicator;
 
+    // Left click action types only
     private enum ActionType {
         Move,
         AttackMove,
@@ -86,20 +96,328 @@ public class ControlSystem : MonoBehaviour {
         public Vector3 goal;
     }
 
-    Queue<Command> actionQueue = new();
+    Queue<(Command, GameObject)> actionQueue = new();
+    Queue<GameObject> queueLines = new();
+    UnityEvent attachedActionEvent;
+
+    public ControlState GetControlState() {
+        return controlState;
+    }
+
+    // Start is called before the first frame update
+    void Start() {
+        globalUnitManager = GlobalUnitManager.singleton;
+        TryGetComponent(out input);
+        cam = Camera.main;
+        selBox.TryGetComponent(out selBoxTransform);
+        selBox.SetActive(false);
+        selMenu.TryGetComponent(out selMenuTransform);
+        selMenu.SetActive(false);
+        groundPlane = globalUnitManager.groundPlane;
+        unitsLayerMask = LayerMask.GetMask("Units");
+        groundLayerMask = LayerMask.GetMask("Ground");
+        selMenuDropdown = selMenu.GetComponentInChildren<TMP_Dropdown>();
+        foreach (var unitType in globalUnitManager.GetUnitTypes()) {
+            selMenuDropdown.options.Add(new TMP_Dropdown.OptionData(unitType));
+        }
+        grc = canvas.GetComponent<GraphicRaycaster>();
+        clickData = new PointerEventData(EventSystem.current);
+        controlledUnits = new List<GameObject>();
+        playerMap = input.actions.FindActionMap("Player");
+        cameraMap = input.actions.FindActionMap("Camera");
+        uiMap = input.actions.FindActionMap("UI");
+        cameraMap.Enable();
+        uiMap.Disable();
+        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+        controlState = ControlState.NormalMode;
+    }
+    private void Update() {
+        UpdateSelectionDisplay();
+        if (controlState == ControlState.AttackMode && controlledUnits.Count == 0) {
+            ProcessInput(ControlActions.DeactivateAttack);
+        }
+    }
+
+    void OnDestroy() {
+        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+    }
+
+    void ProcessInput(ControlActions action, Ability ability = null, GameObject caster = null) {
+        switch (controlState) {
+            case ControlState.NormalMode:
+                switch (action) {
+                    case ControlActions.Select:
+                        controlState = ControlState.SingleSelect;
+                        StartCoroutine(Select());
+                        break;
+                    case ControlActions.Move:
+                        controlState = ControlState.MovingUnits;
+                        StartCoroutine(MoveWhileHoldingInput());
+                        break;
+                    case ControlActions.SelectType:
+                        SelectType();
+                        break;
+                    case ControlActions.OpenSelectTypeMenu:
+                        controlState = ControlState.SelectingTypeFromMenu;
+                        ShowSelMenu();
+                        break;
+                    case ControlActions.SelectOne:
+                        SelectOne(toggle: true);
+                        break;
+                    case ControlActions.ActivateAttack:
+                        if (controlledUnits.Count > 0) {
+                            controlState = ControlState.AttackMode;
+                            Cursor.SetCursor(attackCursor, Vector2.zero, CursorMode.Auto);
+                        }
+                        break;
+                    case ControlActions.Stop:
+                        controlState = ControlState.StoppingUnits;
+                        StartCoroutine(StopUnits());
+                        break;
+                    case ControlActions.ActivateQueue:
+                        controlState = ControlState.QueueMode;
+                        StartCoroutine(ManageQueueMode());
+                        break;
+                    case ControlActions.UseAbility:
+                        controlState = ControlState.AbilityMode;
+                        StartCoroutine(UseAbility(ability, caster));
+                        break;
+                }
+                break;
+            case ControlState.SingleSelect:
+                switch (action) {
+                    case ControlActions.StartDragging:
+                        controlState = ControlState.SelectingUnits;
+                        break;
+                    case ControlActions.StopSelecting:
+                        controlState = ControlState.NormalMode;
+                        break;
+                }
+                break;
+            case ControlState.SelectingUnits:
+                switch (action) {
+                    case ControlActions.StopSelecting:
+                        controlState = ControlState.NormalMode;
+                        break;
+                }
+                break;
+            case ControlState.MovingUnits:
+                switch (action) {
+                    case ControlActions.StopMoving:
+                        controlState = ControlState.NormalMode;
+                        break;
+                }
+                break;
+            case ControlState.SelectingTypeFromMenu:
+                switch (action) {
+                    case ControlActions.Select:
+                        controlState = ControlState.SingleSelect;
+                        HideSelMenu();
+                        StartCoroutine(Select());
+                        break;
+                    case ControlActions.OpenSelectTypeMenu:
+                        controlState = ControlState.SelectingTypeFromMenu;
+                        ShowSelMenu();
+                        break;
+                    case ControlActions.CloseSelectTypeMenu:
+                        controlState = ControlState.NormalMode;
+                        HideSelMenu();
+                        break;
+                    case ControlActions.Escape:
+                        controlState = ControlState.NormalMode;
+                        HideSelMenu();
+                        break;
+                }
+                break;
+            case ControlState.StoppingUnits:
+                switch (action) {
+                    case ControlActions.StopStopping:
+                        controlState = ControlState.NormalMode;
+                        break;
+                }
+                break;
+            case ControlState.AttackMode:
+                switch (action) {
+                    case ControlActions.Select:
+                        if (!input.actions["Activate Attack"].IsPressed()) {
+                            controlState = ControlState.NormalMode;
+                            Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+                        }
+                        AttackMove();
+                        break;
+                    case ControlActions.Move:
+                        controlState = ControlState.MovingUnits;
+                        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+                        StartCoroutine(MoveWhileHoldingInput());
+                        break;
+                    case ControlActions.SelectType:
+                        controlState = ControlState.NormalMode;
+                        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+                        SelectType();
+                        break;
+                    case ControlActions.OpenSelectTypeMenu:
+                        controlState = ControlState.SelectingTypeFromMenu;
+                        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+                        ShowSelMenu();
+                        break;
+                    case ControlActions.SelectOne:
+                        controlState = ControlState.NormalMode;
+                        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+                        SelectOne(toggle: true);
+                        break;
+                    case ControlActions.Stop:
+                        controlState = ControlState.StoppingUnits;
+                        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+                        StartCoroutine(StopUnits());
+                        break;
+                    case ControlActions.ActivateQueue:
+                        controlState = ControlState.QueueAttackMode;
+                        StartCoroutine(ManageQueueMode());
+                        break;
+                    case ControlActions.DeactivateAttack:
+                        controlState = ControlState.NormalMode;
+                        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+                        break;
+                    case ControlActions.Escape:
+                        controlState = ControlState.NormalMode;
+                        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+                        break;
+                }
+                break;
+            case ControlState.QueueMode:
+                switch (action) {
+                    case ControlActions.Move:
+                        AddMoveToQueue();
+                        break;
+                    case ControlActions.OpenSelectTypeMenu:
+                        controlState = ControlState.SelectingTypeFromMenu;
+                        ShowSelMenu();
+                        break;
+                    case ControlActions.SelectOne:
+                        controlState = ControlState.NormalMode;
+                        SelectOne(toggle: true);
+                        break;
+                    case ControlActions.ActivateAttack:
+                        controlState = ControlState.QueueAttackMode;
+                        Cursor.SetCursor(attackCursor, Vector2.zero, CursorMode.Auto);
+                        break;
+                    case ControlActions.DeactivateQueue:
+                        controlState = ControlState.NormalMode;
+                        break;
+                }
+                break;
+            case ControlState.QueueAttackMode:
+                switch (action) {
+                    case ControlActions.Move:
+                        AddMoveToQueue();
+                        break;
+                    case ControlActions.OpenSelectTypeMenu:
+                        controlState = ControlState.SelectingTypeFromMenu;
+                        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+                        ShowSelMenu();
+                        break;
+                    case ControlActions.SelectOne:
+                        AddAttackMoveToQueue();
+                        break;
+                    case ControlActions.DeactivateQueue:
+                        controlState = ControlState.NormalMode;
+                        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+                        break;
+                }
+                break;
+            case ControlState.AbilityMode:
+                switch (action) {
+                    case ControlActions.Escape:
+                        controlState = ControlState.NormalMode;
+                        break;
+                    case ControlActions.Move:
+                        controlState = ControlState.NormalMode;
+                        break;
+                    case ControlActions.StopUsingAbility:
+                        controlState = ControlState.NormalMode;
+                        break;
+                }
+                break;
+        }
+    }
+
+    void OnSelect() {
+        clickData.position = Mouse.current.position.ReadValue();
+        var clickResults = new List<RaycastResult>();
+        grc.Raycast(clickData, clickResults);
+        if (clickResults.Count > 0) {
+            return;
+        }
+        ProcessInput(ControlActions.Select);
+    }
+
+    void OnMove() {
+        ProcessInput(ControlActions.Move);
+    }
+
+    void OnSelectType() {
+        ProcessInput(ControlActions.SelectType);
+    }
+
+    void OnSelectTypeMenu() {
+        ProcessInput(ControlActions.OpenSelectTypeMenu);
+    }
+
+    void OnSelectOne() {
+        ProcessInput(ControlActions.SelectOne);
+    }
+
+    void OnActivateAttack() {
+        ProcessInput(ControlActions.ActivateAttack);
+    }
+
+    void OnStop() {
+        ProcessInput(ControlActions.Stop);
+    }
+
+    void OnQueueMode() {
+        ProcessInput(ControlActions.ActivateQueue);
+    }
+
+    void OnAbility1() {
+        foreach (var unit in controlledUnits) {
+            var abilities = unit.GetComponents<Ability>();
+            foreach (var ability in abilities) {
+                if (ability.abilitySlot == 1) {
+                    ProcessInput(ControlActions.UseAbility, ability: ability, caster: unit);
+                }
+            }
+        }
+    }
+
+    void OnEscape() {
+        ProcessInput(ControlActions.Escape);
+    }
+
+    (Vector3, bool) RaycastToGround(Ray ray) {
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayerMask)) {
+            return (hit.point, true);
+        } else {
+            float goalEnter;
+            groundPlane.Raycast(ray, out goalEnter);
+            return (ray.GetPoint(goalEnter), false);
+        }
+    }
+
+    Vector3 MouseToGround() {
+        var goalRay = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+        return RaycastToGround(goalRay).Item1;
+    }
 
     Command CommandToMouse(ActionType type) {
-        var goalRay = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
-        float goalEnter;
-        groundPlane.Raycast(goalRay, out goalEnter);
-        var goal3 = goalRay.GetPoint(goalEnter);
+        var goal3 = MouseToGround();
         return new Command {
             type = type,
             goal = goal3
         };
     }
 
-    void ExecuteCommand(Command command, bool attach = false) {
+    void ExecuteCommand(Command command, bool fromQueue = false) {
         GameObject waypointIndicator = null;
         switch (command.type) {
             case ActionType.Move:
@@ -110,13 +428,15 @@ public class ControlSystem : MonoBehaviour {
                 break;
         }
         var goal2 = new Vector2(command.goal.x, command.goal.z);
-        DestroyWaypointIndicator();
-        lastWaypointIndicator = Instantiate(waypointIndicator, command.goal, Quaternion.identity);
+        if (!fromQueue) {
+            DestroyWaypointIndicator();
+            lastWaypointIndicator = Instantiate(waypointIndicator, command.goal, Quaternion.identity);
+        }
         GameObject chosenUnit = null;
         float chosenUnitDistance = 0f;
         foreach (GameObject obj in controlledUnits) {
             if (obj != null) {
-                if (obj.TryGetComponent(out UnitAI ai)) {
+                if (obj.TryGetComponent(out UnitAIV2 ai)) {
                     switch (command.type) {
                         case ActionType.Move:
                             ai.MoveToCoordinate(command.goal);
@@ -134,19 +454,25 @@ public class ControlSystem : MonoBehaviour {
                 }
             }
         }
-        if (chosenUnit != null && chosenUnit.TryGetComponent(out Planner planner)) {
+        if (chosenUnit != null && chosenUnit.TryGetComponent(out UnitAIV2 unitAI)) {
+            UnityEvent e;
             switch (command.type) {
                 case ActionType.Move:
-                    attachedEvent = planner.reachedGoalEvent;
+                    e = unitAI.reachedGoalEvent;
                     break;
                 case ActionType.AttackMove:
-                    attachedEvent = planner.finishedAttackingEvent;
+                    e = unitAI.finishedAttackingEvent;
+                    break;
+                default:
+                    e = null;
                     break;
             }
-            attachedEvent.AddListener(DestroyWaypointIndicator);
-            if (attach) {
-                attachedActionEvent = attachedEvent;
+            if (fromQueue) {
+                attachedActionEvent = e;
                 attachedActionEvent.AddListener(FinishExecutingAction);
+            } else {
+                attachedEvent = e;
+                attachedEvent.AddListener(DestroyWaypointIndicator);
             }
         }
     }
@@ -155,47 +481,129 @@ public class ControlSystem : MonoBehaviour {
         if (controlledUnits.Count == 0) {
             return;
         }
-
-        var command = CommandToMouse(ActionType.Move);
-        if (queueMode) {
-            actionQueue.Enqueue(command);
-        } else {
-            ExecuteCommand(command);
-        }
+        ClearActionQueue();
+        ExecuteCommand(CommandToMouse(ActionType.Move));
     }
 
     void AttackMove() {
         if (controlledUnits.Count == 0) {
             return;
         }
+        ClearActionQueue();
+        ExecuteCommand(CommandToMouse(ActionType.AttackMove));
+    }
 
+    void AddMoveToQueue() {
+        if (controlledUnits.Count == 0) {
+            return;
+        }
+        if (attachedEvent != null) {
+            attachedEvent.RemoveListener(DestroyWaypointIndicator);
+            attachedEvent.AddListener(FinishExecutingAction);
+            attachedActionEvent = attachedEvent;
+            attachedEvent = null;
+            actionQueue.Enqueue((null, lastWaypointIndicator));
+            lastWaypointIndicator = null;
+        }
+        var command = CommandToMouse(ActionType.Move);
+        var indicator = Instantiate(moveWaypointIndicator, command.goal, Quaternion.identity);
+        actionQueue.Enqueue((command, indicator));
+        if (actionQueue.Count > 1) {
+            AddQueueLine(actionQueue.ElementAt(actionQueue.Count - 2).Item2, indicator);
+        }
+        if (attachedActionEvent == null) {
+            ExecuteCommand(command, fromQueue: true);
+        }
+    }
+
+    void AddAttackMoveToQueue() {
+        if (controlledUnits.Count == 0) {
+            return;
+        }
+        if (attachedEvent != null) {
+            attachedEvent.RemoveListener(DestroyWaypointIndicator);
+            attachedEvent.AddListener(FinishExecutingAction);
+            attachedActionEvent = attachedEvent;
+            attachedEvent = null;
+            actionQueue.Enqueue((null, lastWaypointIndicator));
+            lastWaypointIndicator = null;
+        }
         var command = CommandToMouse(ActionType.AttackMove);
-        if (queueMode) {
-            actionQueue.Enqueue(command);
-        } else {
-            ExecuteCommand(command);
-            if (!input.actions["Activate Attack"].IsPressed()) {
-                SetAttackMode(false);
+        var indicator = Instantiate(attackWaypointIndicator, command.goal, Quaternion.identity);
+        actionQueue.Enqueue((command, indicator));
+        if (actionQueue.Count > 1) {
+            AddQueueLine(actionQueue.ElementAt(actionQueue.Count - 2).Item2, indicator);
+        }
+        if (attachedActionEvent == null) {
+            ExecuteCommand(command, fromQueue: true);
+        }
+    }
+
+    void AddQueueLine(GameObject obj1, GameObject obj2) {
+        var line = Instantiate(linePrefab);
+        line.TryGetComponent(out LineRenderer lineRenderer);
+        lineRenderer.SetPosition(0, new Vector3(obj1.transform.position.x, obj1.transform.position.y + 0.05f, obj1.transform.position.z));
+        lineRenderer.SetPosition(1, new Vector3(obj2.transform.position.x, obj2.transform.position.y + 0.05f, obj2.transform.position.z));
+        queueLines.Enqueue(line);
+    }
+
+    IEnumerator UseAbility(Ability ability, GameObject caster) {
+        switch (ability.type) {
+            case AbilityTypes.GroundTargetedAOE:
+                var indicator = Instantiate(aoeIndicator);
+                indicator.transform.localScale = Vector3.one * ability.aoeRadius * 2;
+                var cast = false;
+                while (controlState == ControlState.AbilityMode) {
+                    if (input.actions["Select"].WasPerformedThisFrame()) {
+                        ProcessInput(ControlActions.StopUsingAbility);
+                        cast = true;
+                        break;
+                    }
+                    indicator.transform.position = MouseToGround();
+                    yield return null;
+                }
+                Destroy(indicator);
+                if (cast) {
+                    var units = globalUnitManager.FindNearMouse(ability.aoeRadius);
+                    ability.OnCast(new AbilityCastData {
+                        caster = caster,
+                        friendlyUnitsHit = units.Where(unit => unit.TryGetComponent(out UnitAffiliation aff) && aff.affiliation == affiliation).ToList(),
+                        enemyUnitsHit = units.Where(unit => !unit.TryGetComponent(out UnitAffiliation aff) || aff.affiliation != affiliation).ToList(),
+                    });
+                }
+                break;
+        }
+    }
+
+    public void FinishExecutingAction() {
+        if (attachedActionEvent != null) {
+            attachedActionEvent.RemoveListener(FinishExecutingAction);
+            attachedActionEvent = null;
+            if (actionQueue.Count > 0) {
+                var (command, obj) = actionQueue.Dequeue();
+                Destroy(obj);
+                if (actionQueue.Count > 0) {
+                    var line = queueLines.Dequeue();
+                    Destroy(line);
+                    var (newCommand, newObj) = actionQueue.Peek();
+                    ExecuteCommand(newCommand, fromQueue: true);
+                }
             }
         }
     }
 
-    bool executingAction = false;
-    UnityEvent attachedActionEvent;
-    public void FinishExecutingAction() {
-        executingAction = false;
-        attachedActionEvent.RemoveListener(FinishExecutingAction);
-        attachedActionEvent = null;
-    }
-
-    private void Update() {
-        if (actionQueue.Count > 0 && !executingAction) {
-            var command = actionQueue.Dequeue();
-            ExecuteCommand(command, attach: true);
+    void ClearActionQueue() {
+        if (attachedActionEvent != null) {
+            attachedActionEvent.RemoveListener(FinishExecutingAction);
+            attachedActionEvent = null;
         }
-        UpdateSelectionDisplay();
-        if (attackMode && controlledUnits.Count == 0) {
-            SetAttackMode(false);
+        while (actionQueue.Count > 0) {
+            var (command, obj) = actionQueue.Dequeue();
+            Destroy(obj);
+        }
+        while (queueLines.Count > 0) {
+            var obj = queueLines.Dequeue();
+            Destroy(obj);
         }
     }
 
@@ -213,46 +621,16 @@ public class ControlSystem : MonoBehaviour {
         MoveToMouse();
         while (input.actions["Move"].IsPressed()) {
             yield return new WaitForSeconds(continuousMovementPeriod);
-            // yield return null;
             MoveToMouse();
         }
-    }
-
-    void OnSelect() {
-        clickData.position = Mouse.current.position.ReadValue();
-        var clickResults = new List<RaycastResult>();
-        grc.Raycast(clickData, clickResults);
-        if (clickResults.Count > 0) {
-            return;
-        }
-        HideSelMenu();
-        if (attackMode) {
-            AttackMove();
-            return;
-        }
-        StartCoroutine(SelectUnits());
-    }
-
-    void OnActivateAttack() {
-        if (controlledUnits.Count > 0) {
-            SetAttackMode(true);
-        }
-    }
-
-    void OnQueueMode() {
-        StartCoroutine(ManageQueueMode());
+        ProcessInput(ControlActions.StopMoving);
     }
 
     IEnumerator ManageQueueMode() {
-        queueMode = true;
         while (input.actions["Queue Mode"].IsPressed()) {
             yield return null;
         }
-        queueMode = false;
-    }
-
-    void OnSelectOne() {
-        SelectOne(toggle: true);
+        ProcessInput(ControlActions.DeactivateQueue);
     }
 
     bool SelectOne(bool toggle = false) {
@@ -278,7 +656,7 @@ public class ControlSystem : MonoBehaviour {
         return false;
     }
 
-    void OnSelectType() {
+    void SelectType() {
         UnregisterUnits();
         if (SelectOne() && controlledUnits.Count == 1) {
             SelectUnitsSharingType(controlledUnits.First());
@@ -291,39 +669,40 @@ public class ControlSystem : MonoBehaviour {
         SetControlledUnits(globalUnitManager.FindByType(type));
     }
 
-    void OnSelectTypeMenu() {
-        ShowSelMenu();
-    }
-
     GameObject lastSelectedUnit;
     float lastSelectedTime = -100f;
 
-    IEnumerator SelectUnits() {
+    IEnumerator Select() {
         UnregisterUnits();
         var selectedOne = SelectOne();
         var selectedTime = Time.time;
         var mousePos = Mouse.current.position.ReadValue();
+        var initialMousePos = mousePos;
         var initialCamPos = cam.transform.position;
         var initialPos = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cam.nearClipPlane));
         var finalPos = initialPos;
         UpdateSelections(initialPos, finalPos, extend: selectedOne);
-        selBox.SetActive(true);
         while (input.actions["Select"].IsPressed()) {
             mousePos = Mouse.current.position.ReadValue();
-            finalPos = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cam.nearClipPlane));
-            UpdateSelections(initialPos + (cam.transform.position - initialCamPos), finalPos, extend: selectedOne);
+            if (controlState == ControlState.SelectingUnits) {
+                finalPos = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cam.nearClipPlane));
+                UpdateSelections(initialPos + (cam.transform.position - initialCamPos), finalPos, extend: selectedOne);
+            } else if (Vector2.Distance(mousePos, initialMousePos) >= minDragDistance) {
+                selBox.SetActive(true);
+                ProcessInput(ControlActions.StartDragging);
+            }
             yield return null;
         }
         selBox.SetActive(false);
-        if (selectedOne && controlledUnits.Count == 1) {
+        if (selectedOne && controlledUnits.Count == 1 && controlState != ControlState.SelectingUnits) {
             var selectedUnit = controlledUnits.First();
             if (Time.time - lastSelectedTime <= doubleClickPeriod && lastSelectedUnit == selectedUnit) {
                 SelectUnitsSharingType(selectedUnit);
             }
-            Debug.Log(Time.time - lastSelectedTime); ;
             lastSelectedUnit = selectedUnit;
             lastSelectedTime = selectedTime;
         }
+        ProcessInput(ControlActions.StopSelecting);
     }
 
     void UpdateSelections(Vector3 initialPos, Vector3 finalPos, bool extend = false) {
@@ -351,16 +730,10 @@ public class ControlSystem : MonoBehaviour {
         var bottomRightRay = cam.ViewportPointToRay(bottomRight);
         var topLeftRay = cam.ViewportPointToRay(topLeft);
         var topRightRay = cam.ViewportPointToRay(topRight);
-        float bottomLeftEnter, bottomRightEnter, topLeftEnter, topRightEnter;
-        groundPlane.Raycast(bottomLeftRay, out bottomLeftEnter);
-        groundPlane.Raycast(bottomRightRay, out bottomRightEnter);
-        groundPlane.Raycast(topLeftRay, out topLeftEnter);
-        groundPlane.Raycast(topRightRay, out topRightEnter);
-        var bottomLeftHit = bottomLeftRay.GetPoint(bottomLeftEnter);
-        var bottomRightHit = bottomRightRay.GetPoint(bottomRightEnter);
-        var topLeftHit = topLeftRay.GetPoint(topLeftEnter);
-        var topRightHit = topRightRay.GetPoint(topRightEnter);
-        // SetControlledUnits(globalUnitManager.FindInBox(bottomLeftHit, topRightHit));
+        var (bottomLeftHit, _) = RaycastToGround(bottomLeftRay);
+        var (bottomRightHit, _) = RaycastToGround(bottomRightRay);
+        var (topLeftHit, _) = RaycastToGround(topLeftRay);
+        var (topRightHit, _) = RaycastToGround(topRightRay);
         SetControlledUnits(globalUnitManager.FindInTrapezoid(bottomLeftHit, bottomRightHit, topLeftHit, topRightHit), extend: extend);
     }
 
@@ -378,30 +751,19 @@ public class ControlSystem : MonoBehaviour {
         }
     }
 
-    void SetAttackMode(bool val) {
-        attackMode = val;
-        if (val) {
-            Cursor.SetCursor(attackCursor, Vector2.zero, CursorMode.Auto);
-        } else {
-            Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
-        }
-    }
-
-    void OnStop() {
-        StartCoroutine(StopUnits());
-    }
-
     IEnumerator StopUnits() {
         while (input.actions["Stop"].IsPressed()) {
             foreach (var unit in controlledUnits) {
-                if (unit != null && unit.TryGetComponent(out UnitAI ai)) {
+                if (unit != null && unit.TryGetComponent(out UnitAIV2 ai)) {
                     ai.Stop();
                     // ai.MoveToCoordinate(unit.transform.position);
                 }
             }
             DestroyWaypointIndicator();
+            ClearActionQueue();
             yield return null;
         }
+        ProcessInput(ControlActions.StopStopping);
     }
 
     void RegisterUnits() {
@@ -415,6 +777,7 @@ public class ControlSystem : MonoBehaviour {
             UnregisterUnit(unit);
         }
         DestroyWaypointIndicator();
+        ClearActionQueue();
         controlledUnits.Clear();
     }
 
@@ -461,7 +824,7 @@ public class ControlSystem : MonoBehaviour {
                 maxHealth += unitparams.maxHP;
                 totalHealth += unitparams.getHP();
             }
-            var sprite = typedUnits[0].gameObject.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite;
+            var sprite = typedUnits[0].gameObject.GetComponentInChildren<SpriteRenderer>().sprite;
             var unitInfo = Instantiate(unitInfoPrefab, selectedUnitsContainer.transform);
             var image = unitInfo.GetComponentInChildren<Image>();
             image.sprite = sprite;
@@ -479,7 +842,7 @@ public class ControlSystem : MonoBehaviour {
         if (type != 0) {
             SetControlledUnits(globalUnitManager.FindByTypeIdx(type - 1));
         }
-        HideSelMenu();
+        ProcessInput(ControlActions.CloseSelectTypeMenu);
     }
 
     void ShowSelMenu() {
