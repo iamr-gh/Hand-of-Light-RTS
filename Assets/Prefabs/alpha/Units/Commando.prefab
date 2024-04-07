@@ -256,9 +256,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae2e5c404338b84094f11f3fcd613cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  abilityName: Recall
+  abilityIcon: {fileID: 21300000, guid: 36e8a648acb9b994ea61aa233ef1f590, type: 3}
   abilitySlot: 1
+  cooldown: 2
+  type: 0
   aoeRadius: 3
+  delay: 1
 --- !u!1 &6622969027507383801
 GameObject:
   m_ObjectHideFlags: 0

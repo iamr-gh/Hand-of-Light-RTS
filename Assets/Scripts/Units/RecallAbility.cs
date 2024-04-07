@@ -9,8 +9,10 @@ public class RecallAbility : Ability
     private Dictionary<GameObject, Color> unitColorMap = new();
     RecallAbility() : base()
     {
-        type = AbilityTypes.GroundTargetedAOE;
+        abilityName = "Recall";
         abilitySlot = 1;
+        cooldown = 2;
+        type = AbilityTypes.GroundTargetedAOE;
         aoeRadius = 3;
     }
 
