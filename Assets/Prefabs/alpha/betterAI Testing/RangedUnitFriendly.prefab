@@ -113,14 +113,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ad2765e53664318afddc3e4366b834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 10
-  HP: 10
-  AttackDamage: 2
-  MovementSpeed: 2
-  AttackRate: 1
-  AggroRange: 8
+  maxHP: 20
+  HP: 20
+  AttackDamage: 4
+  MovementSpeed: 0.9
+  AttackRate: 0.6666667
+  AggroRange: 10
   SightRange: 10
-  AttackRange: 6
+  AttackRange: 8
   Mana: 100
   HitboxSize: 1
 --- !u!136 &2357805414798820628
@@ -355,7 +355,7 @@ SpriteRenderer:
   m_Size: {x: 1.5, y: 1.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &372048500900137048

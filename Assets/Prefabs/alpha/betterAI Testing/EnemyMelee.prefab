@@ -242,14 +242,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ad2765e53664318afddc3e4366b834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 10
-  HP: 10
-  AttackDamage: 2
+  maxHP: 40
+  HP: 40
+  AttackDamage: 4
   MovementSpeed: 1
   AttackRate: 1
-  AggroRange: 5
+  AggroRange: 10
   SightRange: 10
-  AttackRange: 1.5
+  AttackRange: 2
   Mana: 100
   HitboxSize: 1
 --- !u!114 &1740066768346494133
