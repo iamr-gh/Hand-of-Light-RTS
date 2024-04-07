@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEditor.Playables;
 
 [System.Serializable]
 public enum ControlState {
@@ -59,7 +60,9 @@ public class ControlSystem : MonoBehaviour {
     public GameObject canvas;
     public GameObject selBox;
     public GameObject selMenu;
+    public GameObject abilityBox;
     public string affiliation;
+    public int numSupportedAbilities = 4;
     public float minDragDistance = 0.5f;
     public float doubleClickPeriod = 0.2f;
     public float continuousMovementPeriod = 0.1f;
@@ -100,6 +103,8 @@ public class ControlSystem : MonoBehaviour {
     Queue<GameObject> queueLines = new();
     UnityEvent attachedActionEvent;
 
+    List<Ability> selectedAbilities;
+
     public ControlState GetControlState() {
         return controlState;
     }
@@ -130,7 +135,12 @@ public class ControlSystem : MonoBehaviour {
         uiMap.Disable();
         Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
         controlState = ControlState.NormalMode;
+        selectedAbilities = new(numSupportedAbilities);
+        for (var i = 0; i < numSupportedAbilities; i++) {
+            selectedAbilities.Add(null);
+        }
     }
+
     private void Update() {
         UpdateSelectionDisplay();
         if (controlState == ControlState.AttackMode && controlledUnits.Count == 0) {
@@ -380,15 +390,25 @@ public class ControlSystem : MonoBehaviour {
     }
 
     void OnAbility1() {
-        foreach (var unit in controlledUnits) {
-            if (unit != null) {
-                var abilities = unit.GetComponents<Ability>();
-                foreach (var ability in abilities) {
-                    if (ability.abilitySlot == 1) {
-                        ProcessInput(ControlActions.UseAbility, ability: ability, caster: unit);
-                    }
-                }
-            }
+        if (selectedAbilities[0] != null && selectedAbilities[0].CanCast()) {
+            ProcessInput(ControlActions.UseAbility, ability: selectedAbilities[0], caster: selectedAbilities[0].gameObject);
+        }
+    }
+    void OnAbility2() {
+        if (selectedAbilities[1] != null && selectedAbilities[1].CanCast()) {
+            ProcessInput(ControlActions.UseAbility, ability: selectedAbilities[1], caster: selectedAbilities[1].gameObject);
+        }
+    }
+
+    void OnAbility3() {
+        if (selectedAbilities[2] != null && selectedAbilities[2].CanCast()) {
+            ProcessInput(ControlActions.UseAbility, ability: selectedAbilities[2], caster: selectedAbilities[2].gameObject);
+        }
+    }
+
+    void OnAbility4() {
+        if (selectedAbilities[3] != null && selectedAbilities[3].CanCast()) {
+            ProcessInput(ControlActions.UseAbility, ability: selectedAbilities[3], caster: selectedAbilities[3].gameObject);
         }
     }
 
@@ -567,7 +587,7 @@ public class ControlSystem : MonoBehaviour {
                 Destroy(indicator);
                 if (cast) {
                     var units = globalUnitManager.FindNearMouse(ability.aoeRadius);
-                    ability.OnCast(new AbilityCastData {
+                    ability.OnCastWrapper(new AbilityCastData {
                         caster = caster,
                         friendlyUnitsHit = units.Where(unit => unit.TryGetComponent(out UnitAffiliation aff) && aff.affiliation == affiliation).ToList(),
                         enemyUnitsHit = units.Where(unit => !unit.TryGetComponent(out UnitAffiliation aff) || aff.affiliation != affiliation).ToList(),
@@ -797,20 +817,60 @@ public class ControlSystem : MonoBehaviour {
     void UpdateSelectionDisplay() {
         if (controlledUnits.Count == 0) {
             selectedUnitsPanel.SetActive(false);
+            abilityBox.SetActive(false);
+            for (var i = 0; i < numSupportedAbilities; i++) {
+                selectedAbilities[i] = null;
+            }
             return;
         }
         selectedUnitsPanel.SetActive(true);
         SortedDictionary<string, List<UnitParameters>> units = new();
         var foundUnit = false;
+        List<bool> setAbilities = new(numSupportedAbilities);
+        for (var i = 0; i < numSupportedAbilities; i++) {
+            setAbilities.Add(false);
+        }
         foreach (var unit in controlledUnits) {
-            if (unit != null && unit.TryGetComponent(out UnitAffiliation unitaff) && unit.TryGetComponent(out UnitParameters unitparams)) {
-                if (units.ContainsKey(unitaff.unit_type)) {
-                    units[unitaff.unit_type].Add(unitparams);
-                } else {
-                    units.Add(unitaff.unit_type, new List<UnitParameters> { unitparams });
+            if (unit != null) {
+                if (unit.TryGetComponent(out UnitAffiliation unitaff) && unit.TryGetComponent(out UnitParameters unitparams)) {
+                    if (units.ContainsKey(unitaff.unit_type)) {
+                        units[unitaff.unit_type].Add(unitparams);
+                    } else {
+                        units.Add(unitaff.unit_type, new List<UnitParameters> { unitparams });
+                    }
+                    foundUnit = true;
                 }
-                foundUnit = true;
+                var abilities = unit.GetComponents<Ability>();
+                foreach (var ability in abilities) {
+                    if (ability.abilitySlot <= numSupportedAbilities && ability.abilitySlot > 0) {
+                        selectedAbilities[ability.abilitySlot - 1] = ability;
+                        setAbilities[ability.abilitySlot - 1] = true;
+                    }
+                }
             }
+        }
+        bool setAnyAbility = false;
+        for (var i = 0; i < numSupportedAbilities; i++) {
+            if (!setAbilities[i]) {
+                selectedAbilities[i] = null;
+                abilityBox.transform.GetChild(i + 1).gameObject.SetActive(false);
+            } else {
+                setAnyAbility = true;
+                var abilityInfoContainer = abilityBox.transform.GetChild(i + 1);
+                var abilityInfo = abilityInfoContainer.GetChild(0);
+                var abilityName = abilityInfo.GetComponentInChildren<TMP_Text>();
+                abilityName.text = selectedAbilities[i].abilityName;
+                var abilityIcon = abilityInfo.transform.GetChild(1).GetComponent<Image>();
+                abilityIcon.sprite = selectedAbilities[i].abilityIcon;
+                var abilityCooldown = abilityInfo.GetComponentInChildren<Slider>();
+                abilityCooldown.SetValueWithoutNotify(1 - selectedAbilities[i].GetCooldownProgress());
+                abilityInfoContainer.gameObject.SetActive(true);
+            }
+        }
+        if (!setAnyAbility) {
+            abilityBox.SetActive(false);
+        } else {
+            abilityBox.SetActive(true);
         }
         if (!foundUnit) {
             selectedUnitsPanel.SetActive(false);
