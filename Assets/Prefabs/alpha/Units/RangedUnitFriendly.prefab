@@ -117,8 +117,9 @@ MonoBehaviour:
   HP: 20
   AttackDamage: 4
   MovementSpeed: 0.9
-  AttackRate: 0.6666667
-  AggroRange: 10
+  AttackCooldown: 0.5
+  AttackDuration: 0.1
+  AggroRange: 9
   SightRange: 10
   AttackRange: 8
   Mana: 100
@@ -198,6 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAttacking: 0
+  offCooldown: 1
   projectile: {fileID: 1670476911756737922, guid: 2b32ce351baf746b990e354f4adffed3, type: 3}
 --- !u!195 &358147964644742403
 NavMeshAgent:

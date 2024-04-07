@@ -72,7 +72,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
   m_LocalPosition: {x: 0, y: 0, z: -0.3}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8027091806182934945}
@@ -248,8 +248,9 @@ MonoBehaviour:
   HP: 30
   AttackDamage: 5
   MovementSpeed: 2
-  AttackRate: 1.25
-  AggroRange: 10
+  AttackCooldown: 0.5
+  AttackDuration: 0.1
+  AggroRange: 6
   SightRange: 10
   AttackRange: 2
   Mana: 100
@@ -388,6 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAttacking: 0
+  offCooldown: 1
 --- !u!114 &3728904848637807530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,6 +405,7 @@ MonoBehaviour:
   type: 0
   abilitySlot: 1
   aoeRadius: 3
+  delay: 1
 --- !u!1001 &4935698287754090187
 PrefabInstance:
   m_ObjectHideFlags: 0
