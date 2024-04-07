@@ -4,10 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[Serializable]
+public class UnitPortraitData {
+    public string type;
+    public Sprite sprite;
+    public Color color;
+}
+
 public class GlobalUnitManager : MonoBehaviour {
 
     //we're doing singleton
     public static GlobalUnitManager singleton;
+
+    public List<UnitPortraitData> portraits;
+
     //maps affiliation to unit type
     private Dictionary<string, List<GameObject>> units = new();
 
@@ -153,6 +163,12 @@ public class GlobalUnitManager : MonoBehaviour {
 
     public List<string> GetUnitTypes() {
         return unitTypes;
+    }
+
+    public (Sprite, Color) GetPortrait(string type) {
+        var idx = portraits.FindIndex(portraitData => portraitData.type == type);
+        if (idx == -1) return (null, Color.white);
+        return (portraits[idx].sprite, portraits[idx].color);
     }
     // void Update()
     // {

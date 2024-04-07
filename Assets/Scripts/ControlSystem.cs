@@ -381,10 +381,12 @@ public class ControlSystem : MonoBehaviour {
 
     void OnAbility1() {
         foreach (var unit in controlledUnits) {
-            var abilities = unit.GetComponents<Ability>();
-            foreach (var ability in abilities) {
-                if (ability.abilitySlot == 1) {
-                    ProcessInput(ControlActions.UseAbility, ability: ability, caster: unit);
+            if (unit != null) {
+                var abilities = unit.GetComponents<Ability>();
+                foreach (var ability in abilities) {
+                    if (ability.abilitySlot == 1) {
+                        ProcessInput(ControlActions.UseAbility, ability: ability, caster: unit);
+                    }
                 }
             }
         }
@@ -818,17 +820,21 @@ public class ControlSystem : MonoBehaviour {
             DestroyImmediate(selectedUnitsContainer.transform.GetChild(0).gameObject);
         }
         var counter = 0;
-        foreach (var (_, typedUnits) in units) {
+        foreach (var (type, typedUnits) in units) {
             var totalHealth = 0f;
             var maxHealth = 0f;
             foreach (var unitparams in typedUnits) {
                 maxHealth += unitparams.maxHP;
                 totalHealth += unitparams.getHP();
             }
-            var sprite = typedUnits[0].gameObject.GetComponentInChildren<SpriteRenderer>().sprite;
+            var (sprite, color) = globalUnitManager.GetPortrait(type);
+            if (sprite == null) {
+                sprite = typedUnits[0].gameObject.GetComponentInChildren<SpriteRenderer>().sprite;
+            }
             var unitInfo = Instantiate(unitInfoPrefab, selectedUnitsContainer.transform);
             var image = unitInfo.GetComponentInChildren<Image>();
             image.sprite = sprite;
+            image.color = color;
             var text = unitInfo.GetComponentInChildren<TMP_Text>();
             text.SetText("x" + typedUnits.Count.ToString());
             var slider = unitInfo.GetComponentInChildren<Slider>();

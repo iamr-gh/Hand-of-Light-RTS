@@ -1048,6 +1048,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialoguePrefab: {fileID: 4151382540301353755, guid: 86a53ff88ab003548a810008866a475a, type: 3}
+  portraitDialoguePrefab: {fileID: 4151382540301353755, guid: dd336c683272a8b42bd75d17125eb73b, type: 3}
   notificationPrefab: {fileID: 4151382540301353755, guid: 0a2e4ac33ffa89b43ac64dfea9f04aa4, type: 3}
   onRequest:
     m_PersistentCalls:
@@ -1174,6 +1175,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c1cac59b5af14940afd744a1ff34599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  portraits:
+  - type: Melee
+    sprite: {fileID: 21300000, guid: 89d02e641b7134a1dabc09aa103755e4, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - type: Ranged
+    sprite: {fileID: 21300000, guid: acf9894f3e5b54aff91204b595f4fbcf, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - type: Commando
+    sprite: {fileID: 0}
+    color: {r: 1, g: 0.9440995, b: 0, a: 1}
   allManaged: []
 --- !u!114 &281730187184124888
 MonoBehaviour:

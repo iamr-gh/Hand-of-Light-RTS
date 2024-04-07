@@ -12,6 +12,7 @@ public enum NotificationPriority { High, Medium, Low }
 
 public class ToastSystem : MonoBehaviour {
     public GameObject dialoguePrefab;
+    public GameObject portraitDialoguePrefab;
     public GameObject notificationPrefab;
 
     public UnityEvent onRequest;
@@ -21,6 +22,8 @@ public class ToastSystem : MonoBehaviour {
         public string message;
         public bool autoDismiss = true;
         public float autoDismissTime = 3f;
+        public Sprite portrait = null;
+        public Nullable<Color> portraitColor = Color.white;
     }
 
     private class NotificationRequest {
@@ -65,11 +68,13 @@ public class ToastSystem : MonoBehaviour {
         }
     }
 
-    public void SendDialogue(string message, bool autoDismiss = true, float autoDismissTime = 3f) {
+    public void SendDialogue(string message, bool autoDismiss = true, float autoDismissTime = 3f, Sprite portrait = null, Nullable<Color> portraitColor = null) {
         dialogueQueue.Enqueue(new DialogueRequest{
             message = message,
             autoDismiss = autoDismiss,
             autoDismissTime = autoDismissTime,
+            portrait = portrait,
+            portraitColor = portraitColor,
         });
     }
 
@@ -79,7 +84,19 @@ public class ToastSystem : MonoBehaviour {
     }
 
     private IEnumerator DisplayDialogue(DialogueRequest dialogue) {
-        var dialogueObject = Instantiate(dialoguePrefab, transform);
+        GameObject dialogueObject;
+        if (dialogue.portrait == null) {
+            dialogueObject = Instantiate(dialoguePrefab, transform);
+        } else {
+            dialogueObject = Instantiate(portraitDialoguePrefab, transform);
+            var image = dialogueObject.transform.GetChild(1).GetComponent<Image>();
+            image.sprite = dialogue.portrait;
+            if (dialogue.portraitColor != null) {
+                image.color = dialogue.portraitColor.Value;
+            } else {
+                image.color = Color.white;
+            }
+        }
         var text = dialogueObject.GetComponentInChildren<Text>();
         text.text = dialogue.message;
         currentDialogue = Tuple.Create(dialogue, dialogueObject);
