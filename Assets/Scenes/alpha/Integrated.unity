@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -32364,7 +32364,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1307582744
 Transform:
   m_ObjectHideFlags: 0
@@ -32387,7 +32387,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307582742}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 79b0d875820034b4da20f6bd543908c4, type: 3}
   m_Name: 
@@ -41110,6 +41110,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1354694847286042178, guid: d5e28628fbe8f1140b0511beb2bc7a02, type: 3}
+      propertyPath: field of view
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 2297436759740278885, guid: d5e28628fbe8f1140b0511beb2bc7a02, type: 3}
       propertyPath: m_Name
       value: Backend
@@ -41117,6 +41121,18 @@ PrefabInstance:
     - target: {fileID: 4105683593545201080, guid: d5e28628fbe8f1140b0511beb2bc7a02, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468525527439202335, guid: d5e28628fbe8f1140b0511beb2bc7a02, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468525527439202335, guid: d5e28628fbe8f1140b0511beb2bc7a02, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468525527439202335, guid: d5e28628fbe8f1140b0511beb2bc7a02, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 8147432354152518630, guid: d5e28628fbe8f1140b0511beb2bc7a02, type: 3}
       propertyPath: m_AnchorMax.x
