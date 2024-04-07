@@ -8,8 +8,8 @@ public class RangedWeapon : WeaponSystem
 
     protected override IEnumerator Attack()
     {
-        if (isAttacking) { yield break; } // If already attacking then return
-        isAttacking = true;
+        // if (isAttacking) { yield break; } // If already attacking then return
+        // isAttacking = true;
 
         // Create projectile
         if (projectile != null)
@@ -21,8 +21,10 @@ public class RangedWeapon : WeaponSystem
                 fly.projectileDamage = parameters.getAttackDamage();
             }
         }
+        
+        yield return null;
 
-        yield return new WaitForSeconds(1.0f / parameters.getAttackRate());
-        isAttacking = false;
+        // yield return new WaitForSeconds(1.0f / parameters.getAttackRate());
+        // isAttacking = false;
     }
 }

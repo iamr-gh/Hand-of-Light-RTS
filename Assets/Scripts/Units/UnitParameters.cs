@@ -9,7 +9,8 @@ public class UnitParameters : MonoBehaviour
     [SerializeField] public float HP = 10.0f;
     [SerializeField] private float AttackDamage = 2f;
     [SerializeField] private float MovementSpeed = 2f;
-    [SerializeField] private float AttackRate = 1f; // Attacks / second
+    [SerializeField] private float AttackCooldown = 0.5f; // s
+    [SerializeField] private float AttackDuration = 0.1f; // s, frozen for that time period
     [SerializeField] private float AggroRange = 10f;
     [SerializeField] private float SightRange = 10f;
     [SerializeField] private float AttackRange = 2f; // Range from center of object
@@ -33,7 +34,8 @@ public class UnitParameters : MonoBehaviour
     public void setHP(float hp) { HP = hp; }
     public void setAttackDamage(float atkDmg) { AttackDamage = atkDmg; }
     public void setMovementSpeed(float movSpd) { MovementSpeed = movSpd; }
-    public void setAttackRate(float atkRate) { AttackRate = atkRate; }
+    public void setAttackCooldown(float atkCooldown) { AttackCooldown = atkCooldown; }
+    public void setAttackDuration(float atkDuration) { AttackDuration = atkDuration; }
     public void setAggroRange(float aggroRange) { AggroRange = aggroRange; }
     public void setSightRange(float sightRange) { SightRange = sightRange; }
     public void setAttackRange(float atkRange) { AttackRange = atkRange; }
@@ -45,7 +47,9 @@ public class UnitParameters : MonoBehaviour
     public float getHP() { return HP; }
     public float getAttackDamage() { return AttackDamage; }
     public float getMovementSpeed() { return MovementSpeed; }
-    public float getAttackRate() { return AttackRate; }
+    
+    public float getAttackCooldown() { return AttackCooldown; }
+    public float getAttackDuration() { return AttackDuration; }
     public float getAggroRange() { return AggroRange; }
     public float getSightRange() { return SightRange; }
     public float getAttackRange() { return AttackRange; }

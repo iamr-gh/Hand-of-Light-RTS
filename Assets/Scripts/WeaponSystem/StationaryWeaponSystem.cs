@@ -40,9 +40,9 @@ public class StationaryWeaponSystem : MonoBehaviour
     private IEnumerator Attack()
     {
         //if moving then break
-        if (planner.enabled) { yield break; }
-        if (isAttacking) { yield break; } // If already attacking then return
-        isAttacking = true;
+        // if (planner.enabled) { yield break; }
+        // if (isAttacking) { yield break; } // If already attacking then return
+        // isAttacking = true;
 
         
         // Deal Damage
@@ -54,10 +54,12 @@ public class StationaryWeaponSystem : MonoBehaviour
         }
 
         StartCoroutine(DoDmg(target));
+        
+        yield return null;
         /*StartCoroutine(AttackFeedback()); // TODO: REMOVE THIS*/
 
-        yield return new WaitForSeconds(1.0f / parameters.getAttackRate());
-        isAttacking = false;
+        // yield return new WaitForSeconds(1.0f / parameters.getAttackRate());
+        // isAttacking = false;
     }
     private IEnumerator DoDmg(GameObject target){
         yield return new WaitForSeconds(delayTillDmg);

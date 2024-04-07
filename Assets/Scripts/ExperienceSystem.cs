@@ -39,7 +39,7 @@ public class ExperienceSystem : MonoBehaviour
         parameters.maxHP *= modifier;
         parameters.setAttackDamage(parameters.getAttackDamage() * modifier);
         parameters.setMovementSpeed(parameters.getMovementSpeed() * modifier);
-        parameters.setAttackRate(parameters.getAttackRate() * modifier);
+        parameters.setAttackCooldown(parameters.getAttackCooldown() * modifier);
         parameters.setAttackRange(parameters.getAttackRange() * modifier);
         parameters.setMana(parameters.getMana() * modifier);
     }
