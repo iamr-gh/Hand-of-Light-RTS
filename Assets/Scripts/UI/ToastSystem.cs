@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
+//using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -80,8 +80,8 @@ public class ToastSystem : MonoBehaviour {
 
     private IEnumerator DisplayDialogue(DialogueRequest dialogue) {
         var dialogueObject = Instantiate(dialoguePrefab, transform);
-        var text = dialogueObject.GetComponentInChildren<TMP_Text>();
-        text.SetText(dialogue.message);
+        var text = dialogueObject.GetComponentInChildren<Text>();
+        text.text = dialogue.message;
         currentDialogue = Tuple.Create(dialogue, dialogueObject);
         dialogueAdvanced = false;
         if (dialogue.autoDismiss) {
@@ -130,8 +130,8 @@ public class ToastSystem : MonoBehaviour {
     private IEnumerator DisplayNotification(Tuple<ulong, NotificationRequest> request) {
         var (id, notification) = request;
         var notificationObject = Instantiate(notificationPrefab, transform);
-        var text = notificationObject.GetComponentInChildren<TMP_Text>();
-        text.SetText(notification.message);
+        var text = notificationObject.GetComponentInChildren<Text>();
+        text.text = notification.message;
         var background = notificationObject.GetComponentInChildren<Image>();
         switch (notification.priority) {
             case NotificationPriority.Low:
