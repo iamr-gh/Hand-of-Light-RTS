@@ -13,6 +13,7 @@ using UnityEngine.Events;
 // rigidbody should not be required
 //weapon system may be changed to be controlled by AI
 [RequireComponent(typeof(WeaponSystem))] // use of the weapon system needs to freeze target
+
 public class UnitAIV2 : UnitAI
 {
     // protected UnitAffiliation unitAffiliation;
@@ -20,6 +21,7 @@ public class UnitAIV2 : UnitAI
     // protected NavMeshAgent navAgent;
     // protected WeaponSystem weaponSystem;
     // protected GameObject target = null; //either friendly or enemy
+
     public UnityEvent reachedGoalEvent;
     public UnityEvent finishedAttackingEvent;
 
@@ -106,8 +108,10 @@ public class UnitAIV2 : UnitAI
         }
     }
 
+    //this could be refactored to be more efficient
     protected IEnumerator WeaponSystemManager()
     {
+        yield return null;
         //this needs to be controlled in a stronger manner
         while (true)
         {

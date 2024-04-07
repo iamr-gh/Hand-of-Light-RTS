@@ -40,8 +40,8 @@ public class EnemyRangedWeaponSystem : MonoBehaviour
     private IEnumerator Attack()
     {
         //if moving then break
-        if (isAttacking) { yield break; } // If already attacking then return
-        isAttacking = true;
+        // if (isAttacking) { yield break; } // If already attacking then return
+        // isAttacking = true;
 
 
         // Deal Damage
@@ -55,10 +55,11 @@ public class EnemyRangedWeaponSystem : MonoBehaviour
         }
 
         StartCoroutine(DoDmg(target));
+        yield return null;
         /*StartCoroutine(AttackFeedback()); // TODO: REMOVE THIS*/
 
-        yield return new WaitForSeconds(1.0f / parameters.getAttackRate());
-        isAttacking = false;
+        // yield return new WaitForSeconds(1.0f / parameters.getAttackRate());
+        // isAttacking = false;
     }
     private IEnumerator DoDmg(GameObject target)
     {
