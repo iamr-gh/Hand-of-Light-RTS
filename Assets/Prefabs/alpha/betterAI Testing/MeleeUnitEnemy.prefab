@@ -372,7 +372,7 @@ MonoBehaviour:
   AttackDamage: 2
   MovementSpeed: 1
   AttackRate: 1
-  AggroRange: 7
+  AggroRange: 5
   SightRange: 10
   AttackRange: 1.5
   Mana: 100
@@ -422,8 +422,8 @@ MonoBehaviour:
   goal_leash_a_move: 1
   commandDelay: 1
   attacking: 1
-  social_radius: 5
-  change_tolerance: 0.5
+  social_radius: 7
+  seenTarget: {fileID: 0}
 --- !u!136 &2071376090119285350
 CapsuleCollider:
   m_ObjectHideFlags: 0
