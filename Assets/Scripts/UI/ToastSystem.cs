@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
+
 //using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -97,7 +99,7 @@ public class ToastSystem : MonoBehaviour {
                 image.color = Color.white;
             }
         }
-        var text = dialogueObject.GetComponentInChildren<Text>();
+        var text = dialogueObject.GetComponentInChildren<TMP_Text>();
         text.text = dialogue.message;
         currentDialogue = Tuple.Create(dialogue, dialogueObject);
         dialogueAdvanced = false;
@@ -147,7 +149,7 @@ public class ToastSystem : MonoBehaviour {
     private IEnumerator DisplayNotification(Tuple<ulong, NotificationRequest> request) {
         var (id, notification) = request;
         var notificationObject = Instantiate(notificationPrefab, transform);
-        var text = notificationObject.GetComponentInChildren<Text>();
+        var text = notificationObject.GetComponentInChildren<TMP_Text>();
         text.text = notification.message;
         var background = notificationObject.GetComponentInChildren<Image>();
         switch (notification.priority) {
