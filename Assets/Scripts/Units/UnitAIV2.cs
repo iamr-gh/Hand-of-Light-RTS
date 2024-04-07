@@ -101,7 +101,7 @@ public class UnitAIV2 : UnitAI
             target = null;
         }
 
-        if (Vector3.Distance(last_goal, transform.position) <= 1f) {
+        if (Vector3.Distance(last_goal, transform.position) <= 1.5f) {
             reachedGoalEvent.Invoke();
         }
     }
