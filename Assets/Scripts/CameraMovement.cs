@@ -13,6 +13,9 @@ public class cameraMovement : MonoBehaviour
 
     public float maxZoomDistance = 5f;
     public float maxMoveDist = 15.0f;
+    
+    private float initialx = 0f;
+    private float initialz = 0f;
 
     public Transform targetObject; // Reference to the object to center the camera on
     private float initialZoomDistance; // Initial distance of the camera from the target object
@@ -31,6 +34,9 @@ public class cameraMovement : MonoBehaviour
         }
         currentZoomValue = 0f;
         input = GlobalUnitManager.singleton.GetComponent<PlayerInput>().actions.FindActionMap("Camera");
+        
+        initialx = transform.position.x;
+        initialz = transform.position.z;
 
     }
 
@@ -74,25 +80,25 @@ public class cameraMovement : MonoBehaviour
         var kbdInput = input.FindAction("Pan Camera").ReadValue<Vector2>();
 
         // Check for arrow key inputs
-        if (kbdInput.x < 0 && (transform.position.x >= -maxMoveDist))
+        if (kbdInput.x < 0 && (transform.position.x >= initialx-maxMoveDist))
         {
             mouseMovement -= cameraRight;
         }
-        if (kbdInput.x > 0 && (transform.position.x <= maxMoveDist))
+        if (kbdInput.x > 0 && (transform.position.x <= initialx + maxMoveDist))
         {
             mouseMovement += cameraRight;
         }
-        if (kbdInput.y > 0 && (transform.position.z <= maxMoveDist))
+        if (kbdInput.y > 0 && (transform.position.z <= initialz + maxMoveDist))
         {
             mouseMovement += cameraForward;
         }
-        if (kbdInput.y < 0 && (transform.position.z >= -maxMoveDist))
+        if (kbdInput.y < 0 && (transform.position.z >= initialz -maxMoveDist))
         {
             mouseMovement -= cameraForward;
         }
 
         // Find mouse inputs
-        if (mousePosition.x <= edgeSize && (transform.position.x >= -maxMoveDist))
+        if (mousePosition.x <= edgeSize && (transform.position.x >= initialx-maxMoveDist))
         {
             mouseMovement -= cameraRight;
         }
@@ -100,11 +106,11 @@ public class cameraMovement : MonoBehaviour
         {
             mouseMovement += cameraRight;
         }
-        if (mousePosition.y <= edgeSize && (transform.position.z >= -maxMoveDist))
+        if (mousePosition.y <= edgeSize && (transform.position.z >= initialz-maxMoveDist))
         {
             mouseMovement -= cameraForward;
         }
-        else if (mousePosition.y >= Screen.height - edgeSize && (transform.position.z <= maxMoveDist))
+        else if (mousePosition.y >= Screen.height - edgeSize && (transform.position.z <= initialz + maxMoveDist))
         {
             mouseMovement += cameraForward;
         }
