@@ -36,7 +36,7 @@ public class GameReset : MonoBehaviour
             if (GetActiveChildCount() <= 0) { break; }
             yield return null;
         }
-        ToastSystem.Instance.SendDialogue("Congratulations, you have completed the game!", autoDismissTime: 5.0f);
+        // ToastSystem.Instance.SendDialogue("Congratulations, you have completed the game!", autoDismissTime: 5.0f);
         yield return new WaitForSeconds(5.0f);
 
         SceneManager.LoadScene(0);

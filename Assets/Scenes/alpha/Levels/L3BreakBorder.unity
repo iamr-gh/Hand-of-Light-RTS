@@ -8943,7 +8943,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6833609160498624999, guid: d16ad383af08820499f4366c00135220, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.3
+      value: 1.97
       objectReference: {fileID: 0}
     - target: {fileID: 6833609160498624999, guid: d16ad383af08820499f4366c00135220, type: 3}
       propertyPath: m_LocalRotation.w
@@ -23856,7 +23856,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &922835889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32928,9 +32928,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1307582742}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79b0d875820034b4da20f6bd543908c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 92e1de4cfa7a2884da71f4faa26059c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 1032779970}
+  enemy2: {fileID: 1823297170}
 --- !u!1001 &1311791947
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35282,7 +35284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6833609160498624999, guid: d16ad383af08820499f4366c00135220, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.18
+      value: 1.8500001
       objectReference: {fileID: 0}
     - target: {fileID: 6833609160498624999, guid: d16ad383af08820499f4366c00135220, type: 3}
       propertyPath: m_LocalRotation.w
@@ -52009,6 +52011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   message: Army Defeated!
+  deadCount: 0
 --- !u!4 &2054853902 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d012fc2ccd291974d82bb69156076260, type: 3}
