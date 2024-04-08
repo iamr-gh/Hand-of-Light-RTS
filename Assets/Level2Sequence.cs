@@ -38,20 +38,18 @@ public class Level2Sequence : MonoBehaviour
 
         ToastSystem.Instance.SendDialogue("Make your units attack an area by clicking 'Q' then left clicking the ground.", autoDismiss: false);
         ToastSystem.Instance.SendNotification("Defeat the enemy units to continue.", NotificationPriority.Low, false);
+        input.actions["Activate Attack"].Enable();
 
-        input.actions.FindActionMap("Player").Enable();
         while (true)
         {
             //look at control system to get names of a specific actions
-            if (input.actions["Stop"].WasPerformedThisFrame())
+            if (input.actions["Activate Attack"].WasPerformedThisFrame())
             {
                 break;
             }
             yield return null;
             yield return new WaitForSeconds(0.01f);
         }
-
-        yield return new WaitForSeconds(2f);
-
+        input.actions.FindActionMap("Player").Enable();
     }
 }
