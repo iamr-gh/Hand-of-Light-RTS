@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 8949481821969113434}
   - component: {fileID: 8261847673969456434}
   - component: {fileID: 6385279115605473790}
+  - component: {fileID: 3283892397155284650}
   m_Layer: 0
   m_Name: RelativeRenderer
   m_TagString: Untagged
@@ -143,6 +144,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnDuration: 0.2
   hopHeight: 0.2
+--- !u!114 &3283892397155284650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4952160647496937784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 894f824f3ea2f427bb470e67f7290aa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackAudio: Sounds/MeleeAttack
+  damageAudio: Sounds/MeleeHit
+  deathAudio: Sounds/UnitDeath1
+  movementAudio: Sounds/UnitMovementLoop
+  movementSpeedThresholdForAudio: 0.5
+  turnDuration: 0.2
+  hopHeight: 0.2
+  hopRotation: 5
 --- !u!1 &8034312497366115698
 GameObject:
   m_ObjectHideFlags: 0

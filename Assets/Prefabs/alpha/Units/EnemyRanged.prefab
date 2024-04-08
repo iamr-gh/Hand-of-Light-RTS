@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 858864231159368102}
   - component: {fileID: 4014126275178097442}
   - component: {fileID: 744251520551936517}
+  - component: {fileID: 2335065599188308139}
   m_Layer: 0
   m_Name: RelativeRenderer
   m_TagString: Untagged
@@ -143,6 +144,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnDuration: 0.2
   hopHeight: 0.2
+--- !u!114 &2335065599188308139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2421487931501558755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 894f824f3ea2f427bb470e67f7290aa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackAudio: Sounds/BowAttack
+  damageAudio: Sounds/MeleeHit
+  deathAudio: Sounds/UnitDeath2
+  movementAudio: Sounds/UnitMovementLoop
+  movementSpeedThresholdForAudio: 0.5
+  turnDuration: 0.2
+  hopHeight: 0.2
+  hopRotation: 5
 --- !u!1 &2562963851272848648
 GameObject:
   m_ObjectHideFlags: 0
