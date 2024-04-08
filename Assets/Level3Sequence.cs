@@ -41,7 +41,6 @@ public class Level3Sequence : MonoBehaviour
         while (!Input.GetKeyDown(KeyCode.Space))
         {
             yield return null;
-            yield return new WaitForSeconds(0.01f);
         }
         ToastSystem.Instance.DismissNotification(notif6);
 
@@ -50,7 +49,7 @@ public class Level3Sequence : MonoBehaviour
 
         cam_move.enabled = true;
 
-        ToastSystem.Instance.SendDialogue("Defeat the enemies to continue.", autoDismiss: false);
+        ToastSystem.Instance.SendDialogue("Defeat the enemies at the top of the map to continue.", autoDismiss: false);
     }
 }
 
