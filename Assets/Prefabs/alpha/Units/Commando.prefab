@@ -82,7 +82,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
@@ -205,7 +205,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 6135211731946127410}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.1
+  m_Radius: 0.4
   m_Speed: 3.5
   m_Acceleration: 10000
   avoidancePriority: 50

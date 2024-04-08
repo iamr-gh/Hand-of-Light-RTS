@@ -228,7 +228,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
@@ -351,7 +351,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 6836421769934326460}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.1
+  m_Radius: 0.4
   m_Speed: 3.5
   m_Acceleration: 10000
   avoidancePriority: 50
@@ -402,8 +402,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae2e5c404338b84094f11f3fcd613cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  abilityName: Recall
+  abilityIcon: {fileID: 0}
   abilitySlot: 1
+  cooldown: 2
+  type: 0
   aoeRadius: 3
   delay: 1
 --- !u!1001 &4935698287754090187
