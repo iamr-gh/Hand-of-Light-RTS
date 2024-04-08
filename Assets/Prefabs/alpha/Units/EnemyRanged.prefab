@@ -316,9 +316,9 @@ MonoBehaviour:
       m_Calls: []
   stopped: 1
   jitter_max_time: 1
-  jitter_magnitude: 2.5
+  jitter_magnitude: 1
   goal_leash: 3.5
-  goal_leash_move_cmd: 5
+  goal_leash_move_cmd: 1
   goal_leash_a_move: 1
   commandDelay: 1
   attacking: 1

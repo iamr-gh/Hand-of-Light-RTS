@@ -33,7 +33,7 @@ public class EnemyAIV2 : UnitAIV2
         if (target == null && attacking)
         {
             var (centroid, has_target) = calcCentroid();
-            if (has_target)
+            if (has_target && (transform.position - navAgent.destination).magnitude <= goal_leash_a_move)
             {
                 AttackMoveToCoordinate(centroid);
             }

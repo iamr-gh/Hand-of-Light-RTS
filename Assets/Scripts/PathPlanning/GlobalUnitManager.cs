@@ -72,6 +72,31 @@ public class GlobalUnitManager : MonoBehaviour {
             }
         }
     }
+    
+    public void Reindex() {
+        allManaged = GameObject.FindGameObjectsWithTag("Managed");
+        TryGetComponent(out ControlSystem controlSystem);
+        foreach (GameObject obj in allManaged) {
+            //might have null refs, but that's ok
+            if (obj != null) {
+                if (obj.TryGetComponent(out UnitAffiliation unitaff)) {
+                    // units.Add()
+                    if (units.TryGetValue(unitaff.affiliation, out List<GameObject> lst)) {
+                        lst.Add(obj);
+                    } else {
+                        units.Add(unitaff.affiliation, new List<GameObject> { obj });
+                    }
+
+                    if (controlSystem != null && unitaff.affiliation == controlSystem.affiliation) {
+                        var type = unitaff.unit_type;
+                        if (!unitTypes.Contains(type)) {
+                            unitTypes.Add(type);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     public List<GameObject> FindNearby(Vector3 pos, float radius) {
         var objs = new List<GameObject>();
