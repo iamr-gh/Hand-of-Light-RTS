@@ -1,1 +1,15 @@
+Unit Sprites and Concept Art - https://izuchuuart.carrd.co/
+
 Cursor - https://opengameart.org/content/bw-ornamental-cursor-19x19
+
+Sounds:
+Death2 - https://pixabay.com/sound-effects/man-death-scream-186763/
+Death1 - https://pixabay.com/sound-effects/male-death-sound-128357/
+Bow - https://pixabay.com/sound-effects/bow-release-bow-and-arrow-4-101936/
+MeleeAttack - https://pixabay.com/sound-effects/sword-slash-and-swing-185432/
+MeleeHit - https://pixabay.com/sound-effects/sword-hit-7160/
+MovementSoundLoop - https://pixabay.com/sound-effects/marching-loop-32908/
+
+
+Fonts:
+Pixil Font - https://assetstore.unity.com/packages/2d/fonts/free-pixel-font-thaleah-140059
