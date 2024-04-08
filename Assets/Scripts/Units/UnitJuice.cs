@@ -31,6 +31,7 @@ public class UnitJuice : MonoBehaviour
     GameObject attackVFX;
 
     private bool damageJuiceActive = false;
+    private bool attackJuiceActive = false;
     private bool movementJuiceActive = false;
 
     // Start is called before the first frame update
@@ -63,7 +64,7 @@ public class UnitJuice : MonoBehaviour
         }
 
         // Sprite Rotation: Only start a turn after one is finished
-        if (!isTurning) { 
+        if (!isTurning && !attackJuiceActive) { 
             if (facing == "Left" && navAgent.velocity.x > 0)
             {
                 facing = "Right";
@@ -105,10 +106,12 @@ public class UnitJuice : MonoBehaviour
     }
 
     public IEnumerator AttackJuice() {
+        attackJuiceActive = true;
         //AudioSource.PlayClipAtPoint(attackSound, Camera.main.transform.position);
         GameObject slash = Instantiate(attackVFX, transform.position, transform.rotation);
         yield return new WaitForSeconds(parameters.getAttackDuration());
         Destroy(slash);
+        attackJuiceActive = false;
     }
 
     IEnumerator DamageJuice() {
