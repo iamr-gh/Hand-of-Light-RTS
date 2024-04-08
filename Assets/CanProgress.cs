@@ -36,7 +36,15 @@ public class CanProgress : MonoBehaviour
             if (GetActiveChildCount() <= 0) { break; }
             yield return null;
         }
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        StartCoroutine(win());
+        
         goal.GetComponent<GoalScript>().SetAllEnemiesDefeated(true);
+    }
+    IEnumerator win()
+    {
+        ToastSystem.Instance.AdvanceDialogue();
+        ToastSystem.Instance.SendDialogue("Level Complete.", autoDismiss: false);
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
