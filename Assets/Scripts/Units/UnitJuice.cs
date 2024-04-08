@@ -12,7 +12,7 @@ public class UnitJuice : MonoBehaviour
     [SerializeField] string damageAudio;
     [SerializeField] string deathAudio;
     [SerializeField] string movementAudio;
-    [SerializeField] float movementSpeedAudioThreshold = 0.5f;
+    [SerializeField] float movementSpeedThresholdForAudio = 0.5f;
     AudioClip attackSound;
     AudioClip damageSound;
     AudioClip deathSound;
@@ -24,6 +24,8 @@ public class UnitJuice : MonoBehaviour
     [SerializeField] float turnDuration = 0.2f;
     [SerializeField] float hopHeight = 0.2f;
     [SerializeField] float hopRotation = 5f;
+
+    private float moveStartTime;
 
     UnitParameters parameters;
     GameObject attackSprite;
@@ -46,8 +48,18 @@ public class UnitJuice : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!movementJuiceActive && navAgent.velocity.magnitude > movementSpeedAudioThreshold ) {
-            StartCoroutine(MovementJuice());
+        if (!movementJuiceActive && navAgent.velocity.magnitude >= movementSpeedThresholdForAudio ) {
+            //StartCoroutine(MovementJuice()); // Commented out because it's really loud and poorly implemented rn
+        }
+
+        // Sprite 'Hopping'
+        if (navAgent.velocity.magnitude < 0.5f) { // Randomize the start time so they all "hop" differently
+            moveStartTime = Time.time + Random.Range(0f, 0.3f); // Update the start time
+        }
+        else
+        {
+            float positionInCycle = Mathf.Abs(Mathf.Sin(2 * Mathf.PI * (Time.time - moveStartTime)));
+            transform.position = transform.parent.position + hopHeight * transform.up * positionInCycle;
         }
 
         // Sprite Rotation: Only start a turn after one is finished
@@ -55,14 +67,12 @@ public class UnitJuice : MonoBehaviour
             if (facing == "Left" && navAgent.velocity.x > 0)
             {
                 facing = "Right";
-                Quaternion targetRotation = Quaternion.Euler(-30, 180, 0);
-                StartCoroutine(RotateObject(transform.rotation, targetRotation, turnDuration));
+                StartCoroutine(RotateObject(180f, turnDuration));
             }
             else if (facing == "Right" && navAgent.velocity.x < 0)
             {
                 facing = "Left";
-                Quaternion targetRotation = Quaternion.Euler(30, 0, 0);
-                StartCoroutine(RotateObject(transform.rotation, targetRotation, turnDuration));
+                StartCoroutine(RotateObject(180f, turnDuration));
             }
         } 
     }
@@ -107,19 +117,20 @@ public class UnitJuice : MonoBehaviour
 
     IEnumerator RecallJuice() { yield break; }
 
-    IEnumerator RotateObject(Quaternion initialQuaternion, Quaternion targetQuaternion, float duration_sec)
+    IEnumerator RotateObject(float angle, float duration_sec)
     {
         isTurning = true;
-        float initial_time = Time.time;
-        float progress = 0;
-        while (progress < 1.0f)
+        float initialTime = Time.time;
+        float angularVelocity = angle / duration_sec;
+        float deltaAngle = 0;
+        while (Mathf.Abs(Time.time - initialTime) < duration_sec)
         {
-            progress = (Time.time - initial_time) / duration_sec;
-            Quaternion newRotation = Quaternion.Lerp(initialQuaternion, targetQuaternion, progress);
-            transform.rotation = newRotation;
+            transform.RotateAround(transform.position, transform.up, angularVelocity * Time.deltaTime);
+            deltaAngle += angularVelocity * Time.deltaTime;
             yield return null;
         }
-        transform.rotation = targetQuaternion;
+        transform.RotateAround(transform.position, transform.up, angle - deltaAngle);
+
         isTurning = false;
     }
 }

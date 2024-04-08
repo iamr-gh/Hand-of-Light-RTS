@@ -103,7 +103,7 @@ MonoBehaviour:
   AttackDamage: 40
   MovementSpeed: 1.25
   AttackCooldown: 10
-  AttackDuration: 0.1
+  AttackDuration: 0.25
   AggroRange: 3
   SightRange: 10
   AttackRange: 2
@@ -317,7 +317,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2095507570222873873}
   - component: {fileID: 6502231428377099805}
-  - component: {fileID: 2272113365923443652}
+  - component: {fileID: 406647445021756048}
   m_Layer: 7
   m_Name: RelativeRenderer
   m_TagString: Untagged
@@ -392,7 +392,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2272113365923443652
+--- !u!114 &406647445021756048
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -401,11 +401,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8385338212650213739}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72cd7a39d7aee4fa0910f916769b5447, type: 3}
+  m_Script: {fileID: 11500000, guid: 894f824f3ea2f427bb470e67f7290aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reverse: 0
-  debug: 0
+  attackAudio: Sounds/MeleeAttack
+  damageAudio: Sounds/MeleeHit
+  deathAudio: Sounds/UnitDeath2
+  movementAudio: Sounds/UnitMovementLoop
+  movementSpeedThresholdForAudio: 0.5
   turnDuration: 0.2
   hopHeight: 0.2
   hopRotation: 5

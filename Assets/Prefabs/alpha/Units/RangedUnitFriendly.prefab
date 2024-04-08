@@ -117,8 +117,8 @@ MonoBehaviour:
   HP: 20
   AttackDamage: 4
   MovementSpeed: 0.9
-  AttackCooldown: 0.5
-  AttackDuration: 0.1
+  AttackCooldown: 0.75
+  AttackDuration: 0.3
   AggroRange: 9
   SightRange: 10
   AttackRange: 8
@@ -285,7 +285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8842453049066771859}
   - component: {fileID: 3899372449626714731}
-  - component: {fileID: 372048500900137048}
+  - component: {fileID: 2214265090244853601}
   m_Layer: 7
   m_Name: RelativeRenderer
   m_TagString: Untagged
@@ -360,7 +360,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &372048500900137048
+--- !u!114 &2214265090244853601
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -369,11 +369,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8814957882184312323}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72cd7a39d7aee4fa0910f916769b5447, type: 3}
+  m_Script: {fileID: 11500000, guid: 894f824f3ea2f427bb470e67f7290aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reverse: 0
-  debug: 0
+  attackAudio: Sounds/BowAttack
+  damageAudio: Sounds/MeleeHit
+  deathAudio: Sounds/UnitDeath2
+  movementAudio: Sounds/UnitMovementLoop
+  movementSpeedThresholdForAudio: 0.5
   turnDuration: 0.2
   hopHeight: 0.2
   hopRotation: 5
