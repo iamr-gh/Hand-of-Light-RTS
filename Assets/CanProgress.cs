@@ -36,7 +36,7 @@ public class CanProgress : MonoBehaviour
             if (GetActiveChildCount() <= 0) { break; }
             yield return null;
         }
-
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         goal.GetComponent<GoalScript>().SetAllEnemiesDefeated(true);
     }
 }

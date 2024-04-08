@@ -14430,7 +14430,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1032779971}
   - component: {fileID: 1032779973}
-  - component: {fileID: 1032779972}
   m_Layer: 7
   m_Name: Attackers
   m_TagString: Untagged
@@ -14456,19 +14455,6 @@ Transform:
   - {fileID: 636593433}
   m_Father: {fileID: 1765018051}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1032779972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1032779970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51c50baaec8d1524c84ea6f3f08202aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  goal: {fileID: 0}
 --- !u!114 &1032779973
 MonoBehaviour:
   m_ObjectHideFlags: 0
