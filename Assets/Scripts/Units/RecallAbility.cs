@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.AI;
 
 public class RecallAbility : Ability
 {
@@ -21,7 +22,8 @@ public class RecallAbility : Ability
         // let's teleport all units back to the caster
         foreach (GameObject unit in castData.friendlyUnitsHit)
         {
-            if (unit != castData.caster) {
+            if (unit != castData.caster)
+            {
                 StartCoroutine(TeleportUnit(unit, castData.caster.transform.position + new Vector3(castData.targetPosition.x - unit.transform.position.x, 0, castData.targetPosition.z - unit.transform.position.z)));
             }
         }
@@ -59,7 +61,13 @@ public class RecallAbility : Ability
 
             if (unit != null)
             {
+                unit.GetComponent<NavMeshAgent>().enabled = false;
+                // unit.GetComponent<Rigidbody>().enab = false;
                 unit.transform.position = newLoc;
+                //we get some small null errors, let's see if breaks in build
+                yield return null;
+                unit.GetComponent<NavMeshAgent>().enabled = true;
+                yield return null;
                 if (unit.TryGetComponent(out UnitAI ai))
                 {
                     ai.AttackMoveToCoordinate(newLoc);

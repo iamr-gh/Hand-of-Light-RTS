@@ -169,7 +169,6 @@ GameObject:
   - component: {fileID: 5030104842345967843}
   - component: {fileID: 4847183158968007529}
   - component: {fileID: 9140587647881610457}
-  - component: {fileID: 3728904848637807530}
   m_Layer: 7
   m_Name: CavalryFriendly
   m_TagString: Managed
@@ -396,25 +395,6 @@ MonoBehaviour:
   offCooldown: 1
   juice: {fileID: 0}
   renderer: {fileID: 0}
---- !u!114 &3728904848637807530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6836421769934326460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cae2e5c404338b84094f11f3fcd613cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Recall
-  abilityIcon: {fileID: 0}
-  abilitySlot: 1
-  cooldown: 2
-  type: 0
-  aoeRadius: 3
-  delay: 1
 --- !u!1001 &4935698287754090187
 PrefabInstance:
   m_ObjectHideFlags: 0
