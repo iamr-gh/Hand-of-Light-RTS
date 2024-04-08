@@ -72,7 +72,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
   m_LocalPosition: {x: 0, y: 0, z: -0.3}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 3, y: 3, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8027091806182934945}
@@ -118,7 +118,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f070b6f0b5691423e970acfb61dc63de, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cd8f1970df37f4d61829eb09823807fd, type: 3}
   m_Color: {r: 0.6179246, g: 0.95800674, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -253,7 +253,7 @@ MonoBehaviour:
   MovementSpeed: 2
   AttackCooldown: 0.5
   AttackDuration: 0.25
-  AggroRange: 6
+  AggroRange: 10
   SightRange: 10
   AttackRange: 2
   Mana: 100
@@ -303,8 +303,8 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.5
-  m_Direction: 1
+  m_Height: 3
+  m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5465714896313289119
 MonoBehaviour:

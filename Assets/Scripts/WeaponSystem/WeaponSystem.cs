@@ -61,15 +61,4 @@ public abstract class WeaponSystem : MonoBehaviour
     protected abstract IEnumerator Attack();
 
     public bool getAttackState() { return isAttacking; }
-
-    // Update is called once per frame
-    private void LateUpdate()
-    {
-        // Destroy dead unit
-        // this should probably be moved
-        if (parameters.getHP() <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
 }

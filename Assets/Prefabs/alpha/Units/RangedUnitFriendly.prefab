@@ -119,7 +119,7 @@ MonoBehaviour:
   MovementSpeed: 0.9
   AttackCooldown: 0.75
   AttackDuration: 0.3
-  AggroRange: 9
+  AggroRange: 10
   SightRange: 10
   AttackRange: 8
   Mana: 100

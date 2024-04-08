@@ -141,11 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72cd7a39d7aee4fa0910f916769b5447, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reverse: 0
-  debug: 0
   turnDuration: 0.2
   hopHeight: 0.2
-  hopRotation: 5
 --- !u!1 &2562963851272848648
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,8 +243,8 @@ MonoBehaviour:
   HP: 20
   AttackDamage: 4
   MovementSpeed: 0.9
-  AttackCooldown: 0.5
-  AttackDuration: 0.1
+  AttackCooldown: 0.75
+  AttackDuration: 0.3
   AggroRange: 10
   SightRange: 10
   AttackRange: 8
