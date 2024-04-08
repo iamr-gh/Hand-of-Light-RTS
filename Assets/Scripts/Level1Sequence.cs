@@ -24,12 +24,8 @@ public class Level1Sequence : MonoBehaviour
         //EX. disable all controls
         input.actions.FindActionMap("Player").Disable();
         cam_move.enabled = false;
-        ToastSystem.Instance.SendNotification("General! Enemy troops have blocked our path forward!", NotificationPriority.High, true, 3f);
-        yield return new WaitForSeconds(3f);
-        var notif = ToastSystem.Instance.SendNotification("Move your camera to your troops at the bottom of the map.", NotificationPriority.Low, false);
         yield return new WaitForSeconds(1f);
-        var notif2 = ToastSystem.Instance.SendNotification("Move your mouse to the edges of the screen to move the camera.", NotificationPriority.Low, false);
-        var notif3 = ToastSystem.Instance.SendNotification("Use the arrow keys to move the camera.", NotificationPriority.Low, false);
+        var notif = ToastSystem.Instance.SendNotification("Use WASD or move your mouse to the edges of the screen to move the camera.", NotificationPriority.Low, false);
 
         cam_move.enabled = true;
         input.actions["Pan Camera"].Enable();
@@ -39,10 +35,8 @@ public class Level1Sequence : MonoBehaviour
             yield return null;
             yield return new WaitForSeconds(0.01f);
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         ToastSystem.Instance.DismissNotification(notif);
-        ToastSystem.Instance.DismissNotification(notif2);
-        ToastSystem.Instance.DismissNotification(notif3);
 
         var notif4 = ToastSystem.Instance.SendNotification("Good, now select a troop with left click.", NotificationPriority.Low, false);
 
@@ -58,6 +52,7 @@ public class Level1Sequence : MonoBehaviour
         var notif5 = ToastSystem.Instance.SendNotification("The selected unit will move to the location you right click.", NotificationPriority.Low, false);
         input.actions["Select"].Disable();
         input.actions["Move"].Enable();
+        
 
         while (true)
         {
@@ -69,39 +64,14 @@ public class Level1Sequence : MonoBehaviour
             yield return null;
             yield return new WaitForSeconds(0.01f);
         }
-
+        yield return new WaitForSeconds(3f);
         //yield return new WaitForSeconds(2f);
         ToastSystem.Instance.DismissNotification(notif5);
 
         input.actions["Select"].Enable();
 
-        var notif6 = ToastSystem.Instance.SendNotification("Hold left click and drag to select multiple units.", NotificationPriority.Low, false);
-        while (controlSystem.controlledUnits.Count != 5)
-        {
-            yield return null;
-            yield return new WaitForSeconds(0.01f);
-        }
-        yield return new WaitForSeconds(2f);
-        ToastSystem.Instance.DismissNotification(notif6);
-
-        input.actions.FindActionMap("Player").Enable();
-
-        var notif7 = ToastSystem.Instance.SendNotification("Press 'A' then left click on the ground to attack that area.", NotificationPriority.Low, false);
-
-        while (true)
-        {
-            //look at control system to get names of a specific actions
-            if (input.actions["Activate Attack"].WasPerformedThisFrame())
-            {
-                break;
-            }
-            yield return null;
-            yield return new WaitForSeconds(0.01f);
-        }
-        yield return new WaitForSeconds(2f);
-        ToastSystem.Instance.DismissNotification(notif7);
-
-        ToastSystem.Instance.SendNotification("Now, defeat the rest of the enemy army to continue.", NotificationPriority.Low, true, 10f);
+        var notif6 = ToastSystem.Instance.SendNotification("Move to the green square to continue.", NotificationPriority.Low, false);
+        
 
         /*
         //reenable controls
