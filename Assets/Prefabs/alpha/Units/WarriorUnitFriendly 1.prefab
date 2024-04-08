@@ -392,6 +392,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAttacking: 0
   offCooldown: 1
+  juice: {fileID: 0}
+  renderer: {fileID: 0}
 --- !u!1001 &4935698287754090187
 PrefabInstance:
   m_ObjectHideFlags: 0
