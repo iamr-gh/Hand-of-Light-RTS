@@ -22,16 +22,50 @@ public class Level3Sequence : MonoBehaviour
         input.actions.FindActionMap("Player").Disable();
         cam_move.enabled = false;
 
-        ToastSystem.Instance.SendNotification("The enemy army have found themselves in a good position.", NotificationPriority.Low, true, 3f);
-        ToastSystem.Instance.SendNotification("It's unlikely we'll win if we attack head on.", NotificationPriority.Low, true, 3f);
-        yield return new WaitForSeconds(3f);
+        var notif = ToastSystem.Instance.SendNotification("Select a single unit type by holding control then clicking on a unit, or by double clicking.", NotificationPriority.Low, false);
+        var notif2 = ToastSystem.Instance.SendNotification("Select the archers.", NotificationPriority.Low, false);
+        input.actions["Select"].Enable();
+        while (controlSystem.controlledUnits.Count != 5)
+        {
+            yield return null;
+            yield return new WaitForSeconds(0.01f);
+        }
+        
+
+        yield return new WaitForSeconds(2f);
+        ToastSystem.Instance.DismissNotification(notif);
+        ToastSystem.Instance.DismissNotification(notif2);
+
+        var notif3 = ToastSystem.Instance.SendNotification("There is a technique known as kiting.", NotificationPriority.Low, false);
+        var notif4 = ToastSystem.Instance.SendNotification("As you fight this next battle, try control clicking your archers.", NotificationPriority.Low, false);
+        var notif5 = ToastSystem.Instance.SendNotification("Then make them retreat by moving them, then pressing attack move, and repeating.", NotificationPriority.Low, false);
+        var notif6 = ToastSystem.Instance.SendNotification("Press space to continue.", NotificationPriority.Low, false);
+
+        while (!Input.GetKeyDown(KeyCode.Space))
+        {
+            yield return null;
+            yield return new WaitForSeconds(0.01f);
+        }
+        ToastSystem.Instance.DismissNotification(notif3);
+        ToastSystem.Instance.DismissNotification(notif4);
+        ToastSystem.Instance.DismissNotification(notif5);
+        ToastSystem.Instance.DismissNotification(notif6);
+        input.actions.FindActionMap("Player").Enable();
+
+        cam_move.enabled = true;
+
+        ToastSystem.Instance.SendNotification("Defeat the enemies to continue.", NotificationPriority.Low, false);
+    }
+}
+
+/*
+ * var notif = ToastSystem.Instance.SendNotification("Select a single unit type by holding control then left click.", NotificationPriority.Low, false);
+        var notif2 = ToastSystem.Instance.SendNotification("Select a single unit type by double clicking.", NotificationPriority.Low, false);
+        var notif3 = ToastSystem.Instance.SendNotification("Select the archers.", NotificationPriority.Low, false);
 
         input.actions.FindActionMap("Player").Enable();
 
-        var notif = ToastSystem.Instance.SendNotification("To help you, cavalry units have reinforced your army.", NotificationPriority.Low, false);
-        var notif2 = ToastSystem.Instance.SendNotification("Select all your cavalry units.", NotificationPriority.Low, false);
-
-        while (controlSystem.controlledUnits.Count != 11)
+        while (controlSystem.controlledUnits.Count != 8)
         {
             yield return null;
             yield return new WaitForSeconds(0.01f);
@@ -40,11 +74,27 @@ public class Level3Sequence : MonoBehaviour
         yield return new WaitForSeconds(2f);
         ToastSystem.Instance.DismissNotification(notif);
         ToastSystem.Instance.DismissNotification(notif2);
-
+        ToastSystem.Instance.DismissNotification(notif3);
         cam_move.enabled = true;
 
-        ToastSystem.Instance.SendNotification("Split your troops up and attack from multiple angles.", NotificationPriority.Low, true, 5f);
+        var notif4 = ToastSystem.Instance.SendNotification("If you press 'S' as your units are moving, they will stop.", NotificationPriority.Low, false);
+
+        while (true)
+        {
+            //look at control system to get names of a specific actions
+            if (input.actions["Stop"].WasPerformedThisFrame())
+            {
+                break;
+            }
+            yield return null;
+            yield return new WaitForSeconds(0.01f);
+        }
+
         yield return new WaitForSeconds(2f);
-        ToastSystem.Instance.SendNotification("Good luck.", NotificationPriority.Low, true, 5f);
-    }
-}
+        ToastSystem.Instance.DismissNotification(notif4);
+
+        ToastSystem.Instance.SendNotification("There is a technique known as kiting.", NotificationPriority.Low, true, 5f);
+        yield return new WaitForSeconds(5f);
+        ToastSystem.Instance.SendNotification("As you fight this next battle, try control clicking your archers.", NotificationPriority.Low, true, 5f);
+        ToastSystem.Instance.SendNotification("Then make them retreat by moving them, then pressing stop, and repeating.", NotificationPriority.Low,
+ */

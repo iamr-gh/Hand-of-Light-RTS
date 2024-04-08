@@ -149,6 +149,7 @@ MonoBehaviour:
   turnDuration: 0.2
   hopHeight: 0.2
   hopRotation: 5
+  doHop: 0
 --- !u!1 &6836421769934326460
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,6 +394,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAttacking: 0
   offCooldown: 1
+  juice: {fileID: 0}
+  renderer: {fileID: 0}
 --- !u!114 &3728904848637807530
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -24,6 +24,7 @@ public class UnitJuice : MonoBehaviour
     [SerializeField] float turnDuration = 0.2f;
     [SerializeField] float hopHeight = 0.2f;
     [SerializeField] float hopRotation = 5f;
+    [SerializeField] bool doHop = true;
 
     private float moveStartTime;
 
@@ -31,6 +32,7 @@ public class UnitJuice : MonoBehaviour
     GameObject attackVFX;
 
     private bool damageJuiceActive = false;
+    private bool attackJuiceActive = false;
     private bool movementJuiceActive = false;
 
     // Start is called before the first frame update
@@ -53,17 +55,20 @@ public class UnitJuice : MonoBehaviour
         }
 
         // Sprite 'Hopping'
-        if (navAgent.velocity.magnitude < 0.5f) { // Randomize the start time so they all "hop" differently
-            moveStartTime = Time.time + Random.Range(0f, 0.3f); // Update the start time
+        if (doHop) {
+            if (navAgent.velocity.magnitude < 0.5f)
+            { // Randomize the start time so they all "hop" differently
+                moveStartTime = Time.time + Random.Range(0f, 0.3f); // Update the start time
+            }
+            else
+            {
+                float positionInCycle = Mathf.Abs(Mathf.Sin(2 * Mathf.PI * (Time.time - moveStartTime)));
+                transform.position = transform.parent.position + hopHeight * transform.up * positionInCycle;
+            }
         }
-        else
-        {
-            float positionInCycle = Mathf.Abs(Mathf.Sin(2 * Mathf.PI * (Time.time - moveStartTime)));
-            transform.position = transform.parent.position + hopHeight * transform.up * positionInCycle;
-        }
-
-        // Sprite Rotation: Only start a turn after one is finished
-        if (!isTurning) { 
+        
+        // Sprite Rotation: Only start a turn after one is finished and not attacking
+        if (!isTurning && !attackJuiceActive) { 
             if (facing == "Left" && navAgent.velocity.x > 0)
             {
                 facing = "Right";
@@ -88,6 +93,12 @@ public class UnitJuice : MonoBehaviour
         }
     }
 
+    public void TakeDamage(float damage)
+    {
+        parameters.setHP(parameters.getHP() - damage);
+        StartCoroutine(DamageJuice());
+    }
+
     IEnumerator MovementJuice() {
         movementJuiceActive = true;
 
@@ -98,10 +109,13 @@ public class UnitJuice : MonoBehaviour
         movementJuiceActive = false;
     }
 
-    IEnumerator AttackJuice() {
-        AudioSource.PlayClipAtPoint(attackSound, Camera.main.transform.position);
-        GameObject.Instantiate(attackVFX, transform.position, transform.rotation);
+    public IEnumerator AttackJuice() {
+        attackJuiceActive = true;
+        //AudioSource.PlayClipAtPoint(attackSound, Camera.main.transform.position);
+        GameObject slash = Instantiate(attackVFX, transform.position, transform.rotation);
         yield return new WaitForSeconds(parameters.getAttackDuration());
+        Destroy(slash);
+        attackJuiceActive = false;
     }
 
     IEnumerator DamageJuice() {

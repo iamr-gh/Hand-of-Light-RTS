@@ -9,7 +9,22 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 376bcbb35b5f4bf4998b11a878c4e91e
   - enabled: 1
-    path: Assets/Scenes/alpha/CommanderUnit/CommanderAbilityTesting.unity
-    guid: aea61663afd43b948bf4597f56bb3333
+    path: Assets/Scenes/alpha/Levels/A Tutorial.unity
+    guid: d5fcb5803ee4c40ed849044f89db6562
+  - enabled: 1
+    path: Assets/Scenes/alpha/Levels/B Tutorial.unity
+    guid: a67950563d17b40d5b62dd758e622291
+  - enabled: 1
+    path: Assets/Scenes/alpha/Levels/C Tutorial.unity
+    guid: 52eae3f3cf5cd4c819d1cf7329e407a0
+  - enabled: 1
+    path: Assets/Scenes/alpha/Levels/L1HoldPass.unity
+    guid: 9714efd112e3f664383b9604b36052b1
+  - enabled: 1
+    path: Assets/Scenes/alpha/Levels/L2KingOfHill.unity
+    guid: ac85c8dd86c54d5488a9ee4f351fe866
+  - enabled: 1
+    path: Assets/Scenes/alpha/Levels/L3BreakBorder.unity
+    guid: 825439d3c1fe63d4aa151e6e1bb24492
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: dec24f728498f6a47b97ce28c6187fed, type: 2}
