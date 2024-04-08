@@ -30,7 +30,7 @@ public class L1HoldPassDialogue : MonoBehaviour
         cam_move.enabled = false;
 
 
-        ToastSystem.Instance.SendDialogue("General! We’ve spotted movement, an advanced Rastran force is marching on a nearby village.",
+        ToastSystem.Instance.SendDialogue("General! We’ve spotted movement, an advanced Seleneian force is marching on a nearby village.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f);
 
         yield return new WaitForSeconds(5f);
