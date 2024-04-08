@@ -28,7 +28,7 @@ public class UnitJuice : MonoBehaviour
     private float moveStartTime;
 
     UnitParameters parameters;
-    GameObject attackSprite;
+    GameObject attackVFX;
 
     private bool damageJuiceActive = false;
     private bool movementJuiceActive = false;
@@ -42,7 +42,7 @@ public class UnitJuice : MonoBehaviour
         movementSound = Resources.Load<AudioClip>(movementAudio);
         parameters = GetComponentInParent<UnitParameters>();
         navAgent = GetComponentInParent<NavMeshAgent>();
-        //attackAnimation = GetComponent<>
+        attackVFX = Resources.Load<GameObject>("VisualEffects/SlashVFX");
     }
 
     // Update is called once per frame
@@ -100,9 +100,8 @@ public class UnitJuice : MonoBehaviour
 
     IEnumerator AttackJuice() {
         AudioSource.PlayClipAtPoint(attackSound, Camera.main.transform.position);
-        attackSprite.SetActive(true);
+        GameObject.Instantiate(attackVFX, transform.position, transform.rotation);
         yield return new WaitForSeconds(parameters.getAttackDuration());
-        attackSprite.SetActive(false);
     }
 
     IEnumerator DamageJuice() {
