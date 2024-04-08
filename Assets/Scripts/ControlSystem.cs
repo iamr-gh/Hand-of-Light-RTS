@@ -7,7 +7,6 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.EventSystems;
-using UnityEditor.Playables;
 
 [System.Serializable]
 public enum ControlState {
