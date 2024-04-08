@@ -1262,6 +1262,9 @@ MonoBehaviour:
   - type: Commando
     sprite: {fileID: 0}
     color: {r: 1, g: 0.9440995, b: 0, a: 1}
+  - type: General
+    sprite: {fileID: 21300000, guid: 89d02e641b7134a1dabc09aa103755e4, type: 3}
+    color: {r: 1, g: 0.9440995, b: 0, a: 1}
   allManaged: []
 --- !u!114 &281730187184124888
 MonoBehaviour:

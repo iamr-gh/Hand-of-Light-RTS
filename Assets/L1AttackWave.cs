@@ -5,17 +5,23 @@ using UnityEngine;
 
 public class L1AttackWave : MonoBehaviour
 {
-    public bool autoStart = false;
+    public bool start = false;
+    public bool defeated = false;
     private bool started = false;
     public Vector3 amove_location;
 
 
     void Update()
     {
-        if (!started && autoStart)
+        if (!started && start)
         {
             StartCoroutine(StartWave());
             started = true;
+        }
+        
+        if(transform.childCount == 0)
+        {
+            defeated = true;
         }
     }
 
@@ -29,7 +35,7 @@ public class L1AttackWave : MonoBehaviour
             child.gameObject.SetActive(true);
             Debug.Log("Child: " + child.name);
         }
-        
+
         yield return null;
 
         for (int i = 0; i < transform.childCount; i++)

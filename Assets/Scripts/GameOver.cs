@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour
 {
     public string message;
+    
+    public int deadCount = 0;
 
     // Start is called before the first frame update
     void Start()
