@@ -25,7 +25,7 @@ public class Level1Sequence : MonoBehaviour
         input.actions.FindActionMap("Player").Disable();
         cam_move.enabled = false;
         yield return new WaitForSeconds(1f);
-        var notif = ToastSystem.Instance.SendNotification("Use WASD or move your mouse to the edges of the screen to move the camera.", NotificationPriority.Low, false);
+        ToastSystem.Instance.SendDialogue("Use WASD or move your mouse to the edges of the screen to move the camera.", autoDismiss: false);
 
         cam_move.enabled = true;
         input.actions["Pan Camera"].Enable();
@@ -36,9 +36,9 @@ public class Level1Sequence : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
         yield return new WaitForSeconds(3f);
-        ToastSystem.Instance.DismissNotification(notif);
+        ToastSystem.Instance.AdvanceDialogue();
 
-        var notif4 = ToastSystem.Instance.SendNotification("Good, now select a troop with left click.", NotificationPriority.Low, false);
+        ToastSystem.Instance.SendDialogue("Good, now select a troop with left click.", autoDismiss: false);
 
         var controlSystem = GlobalUnitManager.singleton.GetComponent<ControlSystem>();
         input.actions["Select"].Enable();
@@ -48,8 +48,8 @@ public class Level1Sequence : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
         yield return new WaitForSeconds(2f);
-        ToastSystem.Instance.DismissNotification(notif4);
-        var notif5 = ToastSystem.Instance.SendNotification("The selected unit will move to the location you right click.", NotificationPriority.Low, false);
+        ToastSystem.Instance.AdvanceDialogue();
+        ToastSystem.Instance.SendDialogue("The selected unit will move to the location you right click.", autoDismiss: false);
         input.actions["Select"].Disable();
         input.actions["Move"].Enable();
         
@@ -66,12 +66,12 @@ public class Level1Sequence : MonoBehaviour
         }
         yield return new WaitForSeconds(3f);
         //yield return new WaitForSeconds(2f);
-        ToastSystem.Instance.DismissNotification(notif5);
+        ToastSystem.Instance.AdvanceDialogue();
 
         input.actions["Select"].Enable();
 
-        var notif6 = ToastSystem.Instance.SendNotification("Move to the green square to continue.", NotificationPriority.Low, false);
-        
+        ToastSystem.Instance.SendDialogue("Move to the green square to continue.", autoDismiss: false);
+
 
         /*
         //reenable controls
