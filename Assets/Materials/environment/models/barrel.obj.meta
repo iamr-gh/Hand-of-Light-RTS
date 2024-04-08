@@ -3,7 +3,12 @@ guid: 0e822024f9c858949bfc6847971aa9f1
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: barrelMat
+    second: {fileID: 2100000, guid: e175a1399a95746479052468426bf35e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
