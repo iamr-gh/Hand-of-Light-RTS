@@ -88,6 +88,12 @@ public class UnitJuice : MonoBehaviour
         }
     }
 
+    public void TakeDamage(float damage)
+    {
+        parameters.setHP(parameters.getHP() - damage);
+        StartCoroutine(DamageJuice());
+    }
+
     IEnumerator MovementJuice() {
         movementJuiceActive = true;
 
@@ -98,10 +104,11 @@ public class UnitJuice : MonoBehaviour
         movementJuiceActive = false;
     }
 
-    IEnumerator AttackJuice() {
-        AudioSource.PlayClipAtPoint(attackSound, Camera.main.transform.position);
-        GameObject.Instantiate(attackVFX, transform.position, transform.rotation);
+    public IEnumerator AttackJuice() {
+        //AudioSource.PlayClipAtPoint(attackSound, Camera.main.transform.position);
+        GameObject slash = Instantiate(attackVFX, transform.position, transform.rotation);
         yield return new WaitForSeconds(parameters.getAttackDuration());
+        Destroy(slash);
     }
 
     IEnumerator DamageJuice() {

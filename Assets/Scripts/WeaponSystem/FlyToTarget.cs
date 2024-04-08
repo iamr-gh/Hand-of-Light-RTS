@@ -24,9 +24,11 @@ public class FlyToTarget : MonoBehaviour
             var offset = target.transform.position - transform.position;
             if((offset).magnitude < rangeToDestroy) {
                 // Deal damage then destroy projectile
-                UnitInteractions targetInteractions = target.GetComponent<UnitInteractions>();
-                if (targetInteractions != null) {
-                    targetInteractions.TakeDamage(projectileDamage);
+                WeaponSystem weaponSystem = target.GetComponent<WeaponSystem>();
+                //UnitInteractions targetInteractions = target.GetComponent<UnitInteractions>();
+                if (weaponSystem.juice != null)
+                {
+                    weaponSystem.juice.TakeDamage(projectileDamage);
                 }
 
                 Destroy(gameObject);

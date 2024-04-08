@@ -12,6 +12,10 @@ public abstract class WeaponSystem : MonoBehaviour
     protected UnitAI unitAI;
     protected GameObject target;
 
+    // UI STUFF
+    public UnitJuice juice;
+    public GameObject renderer;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -19,6 +23,13 @@ public abstract class WeaponSystem : MonoBehaviour
         parameters = GetComponent<UnitParameters>();
         isAttacking = false;
         offCooldown = true;
+
+        for (int childIdx = 0; childIdx < transform.childCount; childIdx++) {
+            if (transform.GetChild(childIdx).gameObject.name == "RelativeRenderer") {
+                renderer = transform.GetChild(childIdx).gameObject;
+            }
+        }
+        if (renderer != null) { juice = renderer.GetComponent<UnitJuice>(); }
     }
 
     private void Update()

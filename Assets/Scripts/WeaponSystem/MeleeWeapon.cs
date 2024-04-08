@@ -5,13 +5,13 @@ using UnityEngine;
 public class MeleeWeapon : WeaponSystem
 {
     protected override IEnumerator Attack() {
-        // if (isAttacking) { yield break; } // If already attacking then return
-        // isAttacking = true;
 
         // Deal Damage
-        UnitInteractions targetInteractions = target.GetComponent<UnitInteractions>();
-        if (targetInteractions != null) {
-            targetInteractions.TakeDamage(parameters.getAttackDamage());
+        WeaponSystem weaponSystem = target.GetComponent<WeaponSystem>();
+        //UnitInteractions targetInteractions = target.GetComponent<UnitInteractions>();
+        if (weaponSystem.juice != null) {
+            StartCoroutine(juice.AttackJuice());
+            weaponSystem.juice.TakeDamage(parameters.getAttackDamage());
         }
         yield return null;
     }
