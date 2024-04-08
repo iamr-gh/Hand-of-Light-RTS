@@ -24,6 +24,7 @@ public class UnitJuice : MonoBehaviour
     [SerializeField] float turnDuration = 0.2f;
     [SerializeField] float hopHeight = 0.2f;
     [SerializeField] float hopRotation = 5f;
+    [SerializeField] bool doHop = true;
 
     private float moveStartTime;
 
@@ -54,16 +55,19 @@ public class UnitJuice : MonoBehaviour
         }
 
         // Sprite 'Hopping'
-        if (navAgent.velocity.magnitude < 0.5f) { // Randomize the start time so they all "hop" differently
-            moveStartTime = Time.time + Random.Range(0f, 0.3f); // Update the start time
+        if (doHop) {
+            if (navAgent.velocity.magnitude < 0.5f)
+            { // Randomize the start time so they all "hop" differently
+                moveStartTime = Time.time + Random.Range(0f, 0.3f); // Update the start time
+            }
+            else
+            {
+                float positionInCycle = Mathf.Abs(Mathf.Sin(2 * Mathf.PI * (Time.time - moveStartTime)));
+                transform.position = transform.parent.position + hopHeight * transform.up * positionInCycle;
+            }
         }
-        else
-        {
-            float positionInCycle = Mathf.Abs(Mathf.Sin(2 * Mathf.PI * (Time.time - moveStartTime)));
-            transform.position = transform.parent.position + hopHeight * transform.up * positionInCycle;
-        }
-
-        // Sprite Rotation: Only start a turn after one is finished
+        
+        // Sprite Rotation: Only start a turn after one is finished and not attacking
         if (!isTurning && !attackJuiceActive) { 
             if (facing == "Left" && navAgent.velocity.x > 0)
             {
