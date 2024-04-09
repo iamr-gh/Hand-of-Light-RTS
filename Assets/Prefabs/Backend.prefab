@@ -1254,17 +1254,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portraits:
   - type: Melee
-    sprite: {fileID: 21300000, guid: 89d02e641b7134a1dabc09aa103755e4, type: 3}
+    sprite: {fileID: 21300000, guid: ffb1a99db2d614684b29a1d4448dda76, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
   - type: Ranged
-    sprite: {fileID: 21300000, guid: acf9894f3e5b54aff91204b595f4fbcf, type: 3}
+    sprite: {fileID: 21300000, guid: e016e1e759eba4ae2a23ee93567f5033, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
   - type: Commando
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: ffb1a99db2d614684b29a1d4448dda76, type: 3}
     color: {r: 1, g: 0.9440995, b: 0, a: 1}
   - type: General
-    sprite: {fileID: 21300000, guid: 89d02e641b7134a1dabc09aa103755e4, type: 3}
+    sprite: {fileID: 21300000, guid: ffb1a99db2d614684b29a1d4448dda76, type: 3}
     color: {r: 1, g: 0.9440995, b: 0, a: 1}
+  - type: Cavalry
+    sprite: {fileID: 21300000, guid: ed57e3eea76334288903c70839fba173, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
   allManaged: []
 --- !u!114 &281730187184124888
 MonoBehaviour:

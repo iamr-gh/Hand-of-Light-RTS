@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   affiliation: White
-  unit_type: Melee
+  unit_type: Cavalry
 --- !u!54 &808145191893151107
 Rigidbody:
   m_ObjectHideFlags: 0
