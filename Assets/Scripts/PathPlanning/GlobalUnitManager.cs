@@ -27,6 +27,9 @@ public class GlobalUnitManager : MonoBehaviour {
 
     private LayerMask groundLayerMask;
 
+    private int unitLayer;
+    private int hiddenUnitLayer;
+
     public Plane groundPlane;
 
     // Start is called before the first frame update
@@ -41,6 +44,9 @@ public class GlobalUnitManager : MonoBehaviour {
 
         groundLayerMask = LayerMask.GetMask("Ground");
         groundPlane = new Plane(Vector3.up, 3);
+
+        unitLayer = LayerMask.NameToLayer("Units");
+        hiddenUnitLayer = LayerMask.NameToLayer("Hidden Units");
 
 
 
@@ -72,7 +78,13 @@ public class GlobalUnitManager : MonoBehaviour {
             }
         }
     }
-    
+
+    void Update() {
+        if (FogOfWarManager.instance != null) {
+            UpdateFogOfWar("White");
+        }
+    }
+
     public void Reindex() {
         allManaged = GameObject.FindGameObjectsWithTag("Managed");
         TryGetComponent(out ControlSystem controlSystem);
@@ -194,6 +206,49 @@ public class GlobalUnitManager : MonoBehaviour {
         var idx = portraits.FindIndex(portraitData => portraitData.type == type);
         if (idx == -1) return (null, Color.white);
         return (portraits[idx].sprite, portraits[idx].color);
+    }
+
+    void UpdateFogOfWar(string affiliation) {
+        foreach (var unit in allManaged) {
+            if (unit != null && unit.TryGetComponent(out UnitAffiliation unitAff) && unitAff.affiliation != affiliation) {
+                HideUnit(unit);
+            }
+        }
+        FogOfWarManager.instance.ResetFog();
+        foreach (var unit in units[affiliation]) {
+            if (unit != null && unit.TryGetComponent(out UnitParameters unitParams)) {
+                var pos = unit.transform.position;
+                var sightRange = unitParams.getSightRange();
+                var seenUnits = FindNearby(pos, sightRange);
+                foreach (var seenUnit in seenUnits) {
+                    if (seenUnit.TryGetComponent(out UnitAffiliation unitAff) && unitAff.affiliation != affiliation) {
+                        ShowUnit(seenUnit);
+                    }
+                }
+                FogOfWarManager.instance.UpdateFog(pos, sightRange);
+            }
+        }
+    }
+
+    void HideUnit(GameObject unit) {
+        SetLayerRecursively(unit, hiddenUnitLayer);
+    }
+
+    void ShowUnit(GameObject unit) {
+        SetLayerRecursively(unit, unitLayer);
+    }
+
+    void SetLayerRecursively(GameObject obj, int layer) {
+        if (obj == null) {
+            return;
+        }
+        obj.layer = layer;
+        foreach (Transform child in obj.transform) {
+            if (child ==null) {
+                continue;
+            }
+            SetLayerRecursively(child.gameObject, layer);
+        }
     }
     // void Update()
     // {
