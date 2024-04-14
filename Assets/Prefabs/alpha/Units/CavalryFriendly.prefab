@@ -250,7 +250,7 @@ MonoBehaviour:
   maxHP: 30
   HP: 30
   AttackDamage: 5
-  MovementSpeed: 2
+  MovementSpeed: 7
   AttackCooldown: 0.5
   AttackDuration: 0.25
   AggroRange: 10

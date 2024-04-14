@@ -101,7 +101,7 @@ MonoBehaviour:
   maxHP: 20
   HP: 20
   AttackDamage: 40
-  MovementSpeed: 1.25
+  MovementSpeed: 4
   AttackCooldown: 10
   AttackDuration: 0.25
   AggroRange: 0
@@ -244,6 +244,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAttacking: 0
   offCooldown: 1
+  juice: {fileID: 0}
+  renderer: {fileID: 0}
 --- !u!114 &7877020439672429823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,6 +414,7 @@ MonoBehaviour:
   turnDuration: 0.2
   hopHeight: 0.2
   hopRotation: 5
+  doHop: 1
 --- !u!1001 &5747393794630236935
 PrefabInstance:
   m_ObjectHideFlags: 0

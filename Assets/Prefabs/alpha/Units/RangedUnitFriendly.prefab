@@ -116,7 +116,7 @@ MonoBehaviour:
   maxHP: 20
   HP: 20
   AttackDamage: 4
-  MovementSpeed: 0.9
+  MovementSpeed: 3
   AttackCooldown: 0.75
   AttackDuration: 0.3
   AggroRange: 10
@@ -200,6 +200,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAttacking: 0
   offCooldown: 1
+  juice: {fileID: 0}
+  renderer: {fileID: 0}
   projectile: {fileID: 1670476911756737922, guid: 2b32ce351baf746b990e354f4adffed3, type: 3}
 --- !u!195 &358147964644742403
 NavMeshAgent:
@@ -380,6 +382,7 @@ MonoBehaviour:
   turnDuration: 0.2
   hopHeight: 0.2
   hopRotation: 5
+  doHop: 1
 --- !u!1001 &1910070570798204983
 PrefabInstance:
   m_ObjectHideFlags: 0

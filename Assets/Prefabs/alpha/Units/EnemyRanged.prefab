@@ -164,6 +164,7 @@ MonoBehaviour:
   turnDuration: 0.2
   hopHeight: 0.2
   hopRotation: 5
+  doHop: 1
 --- !u!1 &2562963851272848648
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,7 +264,7 @@ MonoBehaviour:
   maxHP: 20
   HP: 20
   AttackDamage: 4
-  MovementSpeed: 0.9
+  MovementSpeed: 3
   AttackCooldown: 0.75
   AttackDuration: 0.3
   AggroRange: 10
@@ -374,6 +375,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAttacking: 0
   offCooldown: 1
+  juice: {fileID: 0}
+  renderer: {fileID: 0}
   projectile: {fileID: 1670476911756737922, guid: 2b32ce351baf746b990e354f4adffed3, type: 3}
 --- !u!195 &1233922933221331239
 NavMeshAgent:
