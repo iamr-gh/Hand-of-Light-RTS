@@ -1,0 +1,7 @@
+https://www.indiedb.com/groups/rts-fans/news/devblog-indie-rts-hand-of-light
+TIG account is awaiting admin approval, will be posted there shortly
+
+Body text of first dev post:
+This is the first devblog post for our unit-focused RTS, <MASTERS OF MICRO>. We have moved past initial stages prototyping our backend, and are expanding into a full game.
+This week, we wanted to move beyond basic RTS control and begin implementing interesting decisions for players to make. We added a unit that can teleport other units to its location, and implemented higher and low ground terrain. Additionally, we refined the unit AI, and made a large amount of progress in visuals, theming and juice.
+Adding a unit with an active ability allowed us to force the player to make more creative choices. Movement based abilities fit well with various kinds of RTS balance, since they don’t deal damage, instead can only ever offer a support role. Implementing more complex terrain enhances the value of this unit and the decisions that can be made with it. In the future we intend to add at least one more unit with active abilities, and to implement further limitations to play knowledge with fog of war. 
