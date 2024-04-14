@@ -21,6 +21,7 @@ public enum ControlState {
     QueueMode,
     QueueAttackMode,
     AbilityMode,
+    Transient,
 }
 
 // Discrete input events
@@ -68,6 +69,25 @@ public class ControlSystem : MonoBehaviour {
     public float minDragDistance = 0.5f;
     public float doubleClickPeriod = 0.2f;
     public float continuousMovementPeriod = 0.1f;
+    public float selectVoiceLineCooldown = 1f;
+    public float moveVoiceLineCooldown = 1f;
+    public float attackMoveVoiceLineCooldown = 1f;
+
+    bool selectVoiceLineEnabled = true;
+    bool moveVoiceLineEnabled = true;
+    bool attackMoveVoiceLineEnabled = true;
+
+    void EnableSelectVoiceLine() {
+        selectVoiceLineEnabled = true;
+    }
+
+    void EnableMoveVoiceLine() {
+        moveVoiceLineEnabled = true;
+    }
+
+    void EnableAttackMoveVoiceLine() {
+        attackMoveVoiceLineEnabled = true;
+    }
 
     GlobalUnitManager globalUnitManager;
     PlayerInput input;
@@ -109,6 +129,11 @@ public class ControlSystem : MonoBehaviour {
     UnityEvent attachedActionEvent;
 
     List<Ability> selectedAbilities;
+
+    Ability currentAbility;
+    GameObject currentCaster;
+    Ability nextAbility;
+    GameObject nextCaster;
 
     public ControlState GetControlState() {
         return controlState;
@@ -180,6 +205,7 @@ public class ControlSystem : MonoBehaviour {
                     case ControlActions.Move:
                         controlState = ControlState.MovingUnits;
                         StartCoroutine(MoveWhileHoldingInput());
+                        PlayMoveVoiceLine();
                         break;
                     case ControlActions.SelectType:
                         SelectType();
@@ -294,6 +320,7 @@ public class ControlSystem : MonoBehaviour {
                             Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
                         }
                         AttackMove();
+                        PlayAttackMoveVoiceLine();
                         break;
                     case ControlActions.Move:
                         controlState = ControlState.MovingUnits;
@@ -338,6 +365,9 @@ public class ControlSystem : MonoBehaviour {
                 switch (action) {
                     case ControlActions.Move:
                         AddMoveToQueue();
+                        if (actionQueue.Count == 1) {
+                            PlayMoveVoiceLine();
+                        }
                         break;
                     case ControlActions.OpenSelectTypeMenu:
                         controlState = ControlState.SelectingTypeFromMenu;
@@ -360,6 +390,9 @@ public class ControlSystem : MonoBehaviour {
                 switch (action) {
                     case ControlActions.Move:
                         AddMoveToQueue();
+                        if (actionQueue.Count == 1) {
+                            PlayMoveVoiceLine();
+                        }
                         break;
                     case ControlActions.OpenSelectTypeMenu:
                         controlState = ControlState.SelectingTypeFromMenu;
@@ -368,6 +401,9 @@ public class ControlSystem : MonoBehaviour {
                         break;
                     case ControlActions.SelectOne:
                         AddAttackMoveToQueue();
+                        if (actionQueue.Count == 1) {
+                            PlayAttackMoveVoiceLine();
+                        }
                         break;
                     case ControlActions.DeactivateQueue:
                         controlState = ControlState.NormalMode;
@@ -382,6 +418,11 @@ public class ControlSystem : MonoBehaviour {
                         break;
                     case ControlActions.Move:
                         controlState = ControlState.NormalMode;
+                        break;
+                    case ControlActions.UseAbility:
+                        controlState = ControlState.Transient;
+                        nextAbility = ability;
+                        nextCaster = caster;
                         break;
                     case ControlActions.StopUsingAbility:
                         controlState = ControlState.NormalMode;
@@ -614,6 +655,10 @@ public class ControlSystem : MonoBehaviour {
     }
 
     IEnumerator UseAbility(Ability ability, GameObject caster) {
+        nextAbility = null;
+        nextCaster = null;
+        currentAbility = ability;
+        currentCaster = caster;
         switch (ability.type) {
             case AbilityTypes.GroundTargetedAOE:
                 var indicator = Instantiate(aoeIndicator);
@@ -639,6 +684,13 @@ public class ControlSystem : MonoBehaviour {
                     });
                 }
                 break;
+        }
+        if (controlState == ControlState.Transient) {
+            controlState = ControlState.AbilityMode;
+            StartCoroutine(UseAbility(nextAbility, nextCaster));
+        } else {
+            currentAbility = null;
+            currentCaster = null;
         }
     }
 
@@ -851,6 +903,7 @@ public class ControlSystem : MonoBehaviour {
     void RegisterUnit(GameObject unit) {
         if (unit == null) return;
         unit.transform.GetChild(0).gameObject.SetActive(true);
+        PlaySelectVoiceLine(unit);
     }
 
     void UnregisterUnit(GameObject unit) {
@@ -898,10 +951,16 @@ public class ControlSystem : MonoBehaviour {
         for (var i = 0; i < numSupportedAbilities; i++) {
             if (!setAbilities[i]) {
                 selectedAbilities[i] = null;
+                HudUI.instance.DeselectAbility(i);
                 HudUI.instance.HideAbilityInfo(i);
             } else {
                 setAnyAbility = true;
                 HudUI.instance.SetAbilityInfo(i, selectedAbilities[i].abilityName, selectedAbilities[i].abilityIcon, selectedAbilities[i].GetCooldownProgress());
+                if (currentAbility != null && currentAbility.abilitySlot - 1 == i) {
+                    HudUI.instance.SelectAbility(i);
+                } else {
+                    HudUI.instance.DeselectAbility(i);
+                }
                 HudUI.instance.ShowAbilityInfo(i);
             }
         }
@@ -933,5 +992,46 @@ public class ControlSystem : MonoBehaviour {
         selMenu.SetActive(false);
         selMenuDropdown.SetValueWithoutNotify(0);
         uiMap.Disable();
+    }
+
+    void PlaySelectVoiceLine(GameObject unit) {
+        if (selectVoiceLineEnabled && unit.TryGetComponent(out UnitParameters unitParams)) {
+            var selectVoiceLine = unitParams.getSelectVoiceLine();
+            if (selectVoiceLine != null) {
+                AudioManager.instance.PlayAudioClip(selectVoiceLine, unitParams.getSelectVoiceLineVolume());
+                selectVoiceLineEnabled = false;
+                Invoke("EnableSelectVoiceLine", selectVoiceLineCooldown);
+            }
+        }
+    }
+
+    void PlayMoveVoiceLine() {
+        if (controlledUnits.Count == 0) {
+            return;
+        }
+        var unit = controlledUnits[Random.Range(0, controlledUnits.Count)];
+        if (moveVoiceLineEnabled && unit.TryGetComponent(out UnitParameters unitParams)) {
+            var moveVoiceLine = unitParams.getMoveVoiceLine();
+            if (moveVoiceLine != null) {
+                AudioManager.instance.PlayAudioClip(moveVoiceLine, unitParams.getMoveVoiceLineVolume());
+                moveVoiceLineEnabled = false;
+                Invoke("EnableMoveVoiceLine", moveVoiceLineCooldown);
+            }
+        }
+    }
+
+    void PlayAttackMoveVoiceLine() {
+        if (controlledUnits.Count == 0) {
+            return;
+        }
+        var unit = controlledUnits[Random.Range(0, controlledUnits.Count)];
+        if (attackMoveVoiceLineEnabled && unit.TryGetComponent(out UnitParameters unitParams)) {
+            var attackMoveVoiceLine = unitParams.getSelectVoiceLine();
+            if (attackMoveVoiceLine != null) {
+                AudioManager.instance.PlayAudioClip(attackMoveVoiceLine, unitParams.getAttackMoveVoiceLineVolume());
+                attackMoveVoiceLineEnabled = false;
+                Invoke("EnableAttackMoveVoiceLine", attackMoveVoiceLineCooldown);
+            }
+        }
     }
 }

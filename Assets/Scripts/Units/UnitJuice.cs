@@ -88,7 +88,7 @@ public class UnitJuice : MonoBehaviour
         // Destroy dead unit
         if (parameters.getHP() <= 0)
         {
-            AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position);
+            AudioManager.instance.PlayAudioClip(deathSound);
             Destroy(transform.parent.gameObject);
         }
     }
@@ -103,7 +103,7 @@ public class UnitJuice : MonoBehaviour
         movementJuiceActive = true;
 
         // Play audio clip and sleep for it's length
-        AudioSource.PlayClipAtPoint(movementSound, Camera.main.transform.position);
+        AudioManager.instance.PlayAudioClip(movementSound);
         yield return new WaitForSeconds(movementSound.length);
 
         movementJuiceActive = false;
@@ -111,7 +111,7 @@ public class UnitJuice : MonoBehaviour
 
     public IEnumerator AttackJuice() {
         attackJuiceActive = true;
-        //AudioSource.PlayClipAtPoint(attackSound, Camera.main.transform.position);
+        AudioManager.instance.PlayAudioClip(attackSound);
         GameObject slash = Instantiate(attackVFX, transform.position, transform.rotation);
         yield return new WaitForSeconds(parameters.getAttackDuration());
         Destroy(slash);
@@ -122,7 +122,7 @@ public class UnitJuice : MonoBehaviour
         if (damageJuiceActive) { yield break; }
         damageJuiceActive = true;
 
-        AudioSource.PlayClipAtPoint(damageSound, Camera.main.transform.position);
+        AudioManager.instance.PlayAudioClip(damageSound);
         yield return new WaitForSeconds(damageSound.length);
 
         damageJuiceActive = false;

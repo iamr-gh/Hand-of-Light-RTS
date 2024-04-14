@@ -23,7 +23,7 @@ public class GoalScript : MonoBehaviour
 
     IEnumerator GoToNextLevel() {
         AudioClip levelComplete = Resources.Load<AudioClip>("Audio/LevelComplete");
-        AudioSource.PlayClipAtPoint(levelComplete, Camera.main.transform.position);
+        AudioManager.instance.PlayAudioClip(levelComplete);
 
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
