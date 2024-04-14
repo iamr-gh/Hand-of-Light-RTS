@@ -16,11 +16,14 @@ public class PlaytestTools : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R)){
+        if(Input.GetKeyDown(KeyCode.Slash)){
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        }
+        if(Input.GetKeyDown(KeyCode.Semicolon)){
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         
-        if(Input.GetKeyDown(KeyCode.G)){
+        if(Input.GetKeyDown(KeyCode.Quote)){
             SceneManager.LoadScene(0);
         }
     }
