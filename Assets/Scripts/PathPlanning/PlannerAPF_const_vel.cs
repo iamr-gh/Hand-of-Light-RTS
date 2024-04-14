@@ -77,7 +77,7 @@ public class PlannerAPF_const_vel : Planner
         next_vel = next_vel.normalized*maxvel;
 
         //note that AI now needs to be involved
-        rb.velocity = next_vel;
+        // rb.velocity = next_vel;
 
         if (!reachedGoal && Mathf.Approximately(next_vel.magnitude, 0)) {
             reachedGoalEvent.Invoke();
