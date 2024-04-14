@@ -451,7 +451,7 @@ public class ControlSystem : MonoBehaviour {
             ProcessInput(ControlActions.UseAbility, ability: selectedAbilities[3], caster: selectedAbilities[3].gameObject);
         }
     }
-    
+
     void OnAdvanceDialogue() {
         ProcessInput(ControlActions.AdvanceDialogue);
     }
@@ -861,6 +861,7 @@ public class ControlSystem : MonoBehaviour {
     void UpdateSelectionDisplay() {
         SortedDictionary<string, List<UnitParameters>> units = new();
         if (controlledUnits.Count == 0) {
+            ClearActionQueue();
             HudUI.instance.UpdateSelectedUnits(units);
             HudUI.instance.HideAbilities();
             for (var i = 0; i < numSupportedAbilities; i++) {
@@ -872,8 +873,10 @@ public class ControlSystem : MonoBehaviour {
         for (var i = 0; i < numSupportedAbilities; i++) {
             setAbilities.Add(false);
         }
+        bool foundUnit = false;
         foreach (var unit in controlledUnits) {
             if (unit != null) {
+                foundUnit = true;
                 if (unit.TryGetComponent(out UnitAffiliation unitaff) && unit.TryGetComponent(out UnitParameters unitparams)) {
                     if (units.ContainsKey(unitaff.unit_type)) {
                         units[unitaff.unit_type].Add(unitparams);
@@ -906,6 +909,9 @@ public class ControlSystem : MonoBehaviour {
             HudUI.instance.HideAbilities();
         } else {
             HudUI.instance.ShowAbilities();
+        }
+        if (!foundUnit) {
+            ClearActionQueue();
         }
     }
 
