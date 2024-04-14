@@ -22,7 +22,7 @@ public class Level2Sequence : MonoBehaviour
         cam_move.enabled = false;
 
         
-        ToastSystem.Instance.SendDialogue("Select a group of units by holding left click then dragging the mouse.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Select a group of units by holding left click then dragging the mouse.", autoDismiss: false);
         input.actions["Select"].Enable();
 
         while (controlSystem.controlledUnits.Count != 4)
@@ -32,11 +32,11 @@ public class Level2Sequence : MonoBehaviour
         }
 
         yield return new WaitForSeconds(2f);
-        ToastSystem.Instance.AdvanceDialogue();
+        ToastSystem.instance.AdvanceDialogue();
         cam_move.enabled = true;
 
-        ToastSystem.Instance.SendDialogue("Make your units attack an area by clicking 'Q' then left clicking the ground.", autoDismiss: false);
-        ToastSystem.Instance.SendNotification("Defeat the enemy units to continue.", NotificationPriority.Low, false);
+        ToastSystem.instance.SendDialogue("Make your units attack an area by clicking 'Q' then left clicking the ground.", autoDismiss: false);
+        ToastSystem.instance.SendNotification("Defeat the enemy units to continue.", false);
         input.actions["Activate Attack"].Enable();
 
         while (true)

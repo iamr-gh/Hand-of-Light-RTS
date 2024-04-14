@@ -38,7 +38,7 @@ public class GameOver : MonoBehaviour
         }
 
         // Print a Message
-        ToastSystem.Instance.SendDialogue(message, autoDismissTime: 5f);
+        ToastSystem.instance.SendDialogue(message, autoDismissTime: 5f);
         yield return new WaitForSeconds(5);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload current scene
     }

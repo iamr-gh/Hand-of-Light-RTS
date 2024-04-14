@@ -36,7 +36,7 @@ public class Level2Clear : MonoBehaviour
             if (GetActiveChildCount() <= 0) { break; }
             yield return null;
         }
-        ToastSystem.Instance.SendNotification("Level Clear!", NotificationPriority.Low, true, 5f);
+        ToastSystem.instance.SendNotification("Level Clear!", true, 5f);
         yield return new WaitForSeconds(5.0f);
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);

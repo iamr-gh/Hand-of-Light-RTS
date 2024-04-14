@@ -21,7 +21,7 @@ public class Level3Sequence : MonoBehaviour
         input.actions.FindActionMap("Player").Disable();
         cam_move.enabled = false;
 
-        ToastSystem.Instance.SendDialogue("Select a single unit type by holding control then clicking on a unit, or by double clicking. Try selecting the archers.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Select a single unit type by holding control then clicking on a unit, or by double clicking. Try selecting the archers.", autoDismiss: false);
         input.actions["Select"].Enable();
         while (controlSystem.controlledUnits.Count != 5)
         {
@@ -31,24 +31,24 @@ public class Level3Sequence : MonoBehaviour
         
 
         yield return new WaitForSeconds(2f);
-        ToastSystem.Instance.AdvanceDialogue();
+        ToastSystem.instance.AdvanceDialogue();
 
-        ToastSystem.Instance.SendDialogue("There is a technique known as kiting. As you fight this next battle, try control clicking your archers. Then make them retreat by moving them, then pressing attack move, and repeating.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("There is a technique known as kiting. As you fight this next battle, try control clicking your archers. Then make them retreat by moving them, then pressing attack move, and repeating.", autoDismiss: false);
 
-        var notif6 = ToastSystem.Instance.SendNotification("Press space to continue.", NotificationPriority.Low, false);
+        var notif6 = ToastSystem.instance.SendNotification("Press space to continue.", false);
 
         while (!Input.GetKeyDown(KeyCode.Space))
         {
             yield return null;
         }
-        ToastSystem.Instance.DismissNotification(notif6);
+        ToastSystem.instance.DismissNotification(notif6);
 
-        ToastSystem.Instance.AdvanceDialogue();
+        ToastSystem.instance.AdvanceDialogue();
         input.actions.FindActionMap("Player").Enable();
 
         cam_move.enabled = true;
 
-        ToastSystem.Instance.SendDialogue("Defeat the enemies at the top of the map to continue.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Defeat the enemies at the top of the map to continue.", autoDismiss: false);
     }
 }
 

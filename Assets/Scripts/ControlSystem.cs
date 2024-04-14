@@ -46,23 +46,22 @@ public enum ControlActions {
     Escape,
     OpenMenu,
     CloseMenu,
+    AdvanceDialogue,
 }
 
 [RequireComponent(typeof(PlayerInput))]
 public class ControlSystem : MonoBehaviour {
+    public static ControlSystem instance;
+
     public GameObject moveWaypointIndicator;
     public GameObject attackWaypointIndicator;
     public GameObject aoeIndicator;
     public GameObject linePrefab;
-    public GameObject unitInfoPrefab;
     public Texture2D defaultCursor;
     public Texture2D attackCursor;
-    public GameObject selectedUnitsPanel;
-    public GameObject selectedUnitsContainer;
     public GameObject canvas;
     public GameObject selBox;
     public GameObject selMenu;
-    public GameObject abilityBox;
     public GameObject menu;
     public string affiliation;
     public int numSupportedAbilities = 4;
@@ -113,6 +112,15 @@ public class ControlSystem : MonoBehaviour {
 
     public ControlState GetControlState() {
         return controlState;
+    }
+
+    void Awake() {
+        if (instance == null) {
+            instance = this;
+        } else {
+            Destroy(gameObject);
+            return;
+        }
     }
 
     // Start is called before the first frame update
@@ -200,6 +208,9 @@ public class ControlSystem : MonoBehaviour {
                     case ControlActions.UseAbility:
                         controlState = ControlState.AbilityMode;
                         StartCoroutine(UseAbility(ability, caster));
+                        break;
+                    case ControlActions.AdvanceDialogue:
+                        ToastSystem.instance.AdvanceDialogue();
                         break;
                     case ControlActions.Escape:
                         controlState = ControlState.InMenu;
@@ -439,6 +450,10 @@ public class ControlSystem : MonoBehaviour {
         if (selectedAbilities[3] != null && selectedAbilities[3].CanCast()) {
             ProcessInput(ControlActions.UseAbility, ability: selectedAbilities[3], caster: selectedAbilities[3].gameObject);
         }
+    }
+    
+    void OnAdvanceDialogue() {
+        ProcessInput(ControlActions.AdvanceDialogue);
     }
 
     void OnEscape() {
@@ -844,17 +859,15 @@ public class ControlSystem : MonoBehaviour {
     }
 
     void UpdateSelectionDisplay() {
+        SortedDictionary<string, List<UnitParameters>> units = new();
         if (controlledUnits.Count == 0) {
-            selectedUnitsPanel.SetActive(false);
-            abilityBox.SetActive(false);
+            HudUI.instance.UpdateSelectedUnits(units);
+            HudUI.instance.HideAbilities();
             for (var i = 0; i < numSupportedAbilities; i++) {
                 selectedAbilities[i] = null;
             }
             return;
         }
-        selectedUnitsPanel.SetActive(true);
-        SortedDictionary<string, List<UnitParameters>> units = new();
-        var foundUnit = false;
         List<bool> setAbilities = new(numSupportedAbilities);
         for (var i = 0; i < numSupportedAbilities; i++) {
             setAbilities.Add(false);
@@ -867,7 +880,6 @@ public class ControlSystem : MonoBehaviour {
                     } else {
                         units.Add(unitaff.unit_type, new List<UnitParameters> { unitparams });
                     }
-                    foundUnit = true;
                 }
                 var abilities = unit.GetComponents<Ability>();
                 foreach (var ability in abilities) {
@@ -878,59 +890,22 @@ public class ControlSystem : MonoBehaviour {
                 }
             }
         }
+        HudUI.instance.UpdateSelectedUnits(units);
         bool setAnyAbility = false;
         for (var i = 0; i < numSupportedAbilities; i++) {
             if (!setAbilities[i]) {
                 selectedAbilities[i] = null;
-                abilityBox.transform.GetChild(i + 1).gameObject.SetActive(false);
+                HudUI.instance.HideAbilityInfo(i);
             } else {
                 setAnyAbility = true;
-                var abilityInfoContainer = abilityBox.transform.GetChild(i + 1);
-                var abilityInfo = abilityInfoContainer.GetChild(0);
-                var abilityName = abilityInfo.GetComponentInChildren<TMP_Text>();
-                abilityName.text = selectedAbilities[i].abilityName;
-                var abilityIcon = abilityInfo.transform.GetChild(1).GetComponent<Image>();
-                abilityIcon.sprite = selectedAbilities[i].abilityIcon;
-                var abilityCooldown = abilityInfo.GetComponentInChildren<Slider>();
-                abilityCooldown.SetValueWithoutNotify(1 - selectedAbilities[i].GetCooldownProgress());
-                abilityInfoContainer.gameObject.SetActive(true);
+                HudUI.instance.SetAbilityInfo(i, selectedAbilities[i].abilityName, selectedAbilities[i].abilityIcon, selectedAbilities[i].GetCooldownProgress());
+                HudUI.instance.ShowAbilityInfo(i);
             }
         }
         if (!setAnyAbility) {
-            abilityBox.SetActive(false);
+            HudUI.instance.HideAbilities();
         } else {
-            abilityBox.SetActive(true);
-        }
-        if (!foundUnit) {
-            selectedUnitsPanel.SetActive(false);
-            return;
-        }
-        while (selectedUnitsContainer.transform.childCount > 0) {
-            DestroyImmediate(selectedUnitsContainer.transform.GetChild(0).gameObject);
-        }
-        var counter = 0;
-        foreach (var (type, typedUnits) in units) {
-            var totalHealth = 0f;
-            var maxHealth = 0f;
-            foreach (var unitparams in typedUnits) {
-                maxHealth += unitparams.maxHP;
-                totalHealth += unitparams.getHP();
-            }
-            var (sprite, color) = globalUnitManager.GetPortrait(type);
-            if (sprite == null) {
-                sprite = typedUnits[0].gameObject.GetComponentInChildren<SpriteRenderer>().sprite;
-            }
-            var unitInfo = Instantiate(unitInfoPrefab, selectedUnitsContainer.transform);
-            var image = unitInfo.GetComponentInChildren<Image>();
-            image.sprite = sprite;
-            image.color = color;
-            var text = unitInfo.GetComponentInChildren<TMP_Text>();
-            text.SetText("x" + typedUnits.Count.ToString());
-            var slider = unitInfo.GetComponentInChildren<Slider>();
-            slider.SetValueWithoutNotify(totalHealth / maxHealth);
-            unitInfo.TryGetComponent(out RectTransform rectTransform);
-            rectTransform.anchoredPosition = new Vector2(0, -125 * counter);
-            counter++;
+            HudUI.instance.ShowAbilities();
         }
     }
 

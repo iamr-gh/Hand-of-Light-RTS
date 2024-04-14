@@ -30,29 +30,29 @@ public class L1HoldPassDialogue : MonoBehaviour
         cam_move.enabled = false;
 
 
-        ToastSystem.Instance.SendDialogue("General! We’ve spotted movement, an advanced Seleneian force is marching on a nearby village.",
+        ToastSystem.instance.SendDialogue("General! We’ve spotted movement, an advanced Seleneian force is marching on a nearby village.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f);
 
         yield return new WaitForSeconds(5f);
 
         //make general speaker
-        ToastSystem.Instance.SendDialogue("What are we looking at exactly?",
+        ToastSystem.instance.SendDialogue("What are we looking at exactly?",
         //using ranged for general rn
         portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 5f);
 
         yield return new WaitForSeconds(5f);
 
-        ToastSystem.Instance.SendDialogue("A few contingents of knights. No other support. Though, some of their advanced party have captured several villagers.",
+        ToastSystem.instance.SendDialogue("A few contingents of knights. No other support. Though, some of their advanced party have captured several villagers.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 7f);
 
         yield return new WaitForSeconds(7f);
 
-        ToastSystem.Instance.SendDialogue("Those bastards...",
+        ToastSystem.instance.SendDialogue("Those bastards...",
         portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 5f);
 
         yield return new WaitForSeconds(5f);
 
-        ToastSystem.Instance.SendDialogue("Right. Our first priority is to hold the mountain passes until reinforcements arrive. We rescue the villagers when we get the opportunity. Move out!",
+        ToastSystem.instance.SendDialogue("Right. Our first priority is to hold the mountain passes until reinforcements arrive. We rescue the villagers when we get the opportunity. Move out!",
         portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 7f);
 
         yield return new WaitForSeconds(7f);
@@ -94,23 +94,23 @@ public class L1HoldPassDialogue : MonoBehaviour
 
         //on win
 
-        ToastSystem.Instance.SendDialogue("Enemy forces have been routed sir.",
+        ToastSystem.instance.SendDialogue("Enemy forces have been routed sir.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f);
 
         yield return new WaitForSeconds(5f);
 
-        ToastSystem.Instance.SendDialogue("Good. Now, we need to find out where this force came from. We’ve received no reports of enemy activity in this area. Split up, I want to know what route they’ve taken to sneak past our lines.",
+        ToastSystem.instance.SendDialogue("Good. Now, we need to find out where this force came from. We’ve received no reports of enemy activity in this area. Split up, I want to know what route they’ve taken to sneak past our lines.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 7f);
 
         yield return new WaitForSeconds(7f);
 
-        ToastSystem.Instance.SendDialogue("Understood, sir.",
+        ToastSystem.instance.SendDialogue("Understood, sir.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f);
 
         yield return new WaitForSeconds(5f);
 
         //level complete, move onto the next one
-        ToastSystem.Instance.SendDialogue("Move out.",
+        ToastSystem.instance.SendDialogue("Move out.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 5f);
 
         yield return new WaitForSeconds(5f);
@@ -130,7 +130,7 @@ public class L1HoldPassDialogue : MonoBehaviour
             child.gameObject.SetActive(true);
         }
 
-        ToastSystem.Instance.SendDialogue("Reinforcements have arrived!",
+        ToastSystem.instance.SendDialogue("Reinforcements have arrived!",
         portrait: GlobalUnitManager.singleton.GetPortrait("Scout").Item1, autoDismissTime: 5f);
 
         yield return null;

@@ -24,27 +24,27 @@ public class L2KingHillDialogue : MonoBehaviour
         cam_move.enabled = false;
 
 
-        ToastSystem.Instance.SendDialogue("General. We’ve located an enemy encampment. We believe this is where their forces have been moving through to avoid detection.",
+        ToastSystem.instance.SendDialogue("General. Weï¿½ve located an enemy encampment. We believe this is where their forces have been moving through to avoid detection.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 6f);
 
         yield return new WaitForSeconds(6f);
 
         //make general speaker
-        ToastSystem.Instance.SendDialogue("It’s a good tactical location, but they’ve chosen a poor position for a fight.",
+        ToastSystem.instance.SendDialogue("Itï¿½s a good tactical location, but theyï¿½ve chosen a poor position for a fight.",
         //using ranged for general rn
         portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 4f);
 
         yield return new WaitForSeconds(4f);
 
         //make general speaker
-        ToastSystem.Instance.SendDialogue("Archers, sieze the high ground and snipe them from afar.",
+        ToastSystem.instance.SendDialogue("Archers, sieze the high ground and snipe them from afar.",
         //using ranged for general rn
         portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 5f);
 
         yield return new WaitForSeconds(5f);
 
 
-        ToastSystem.Instance.SendDialogue("Yes sir.",
+        ToastSystem.instance.SendDialogue("Yes sir.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 2f);
 
         yield return new WaitForSeconds(2f);
@@ -59,23 +59,23 @@ public class L2KingHillDialogue : MonoBehaviour
 
         //on win
 
-        ToastSystem.Instance.SendDialogue("Enemy base has been cleared, sir.",
+        ToastSystem.instance.SendDialogue("Enemy base has been cleared, sir.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f);
 
         yield return new WaitForSeconds(5f);
 
-        ToastSystem.Instance.SendDialogue("We need to move fast. The unit here has likely already contacted the nearest base. \r\n",
+        ToastSystem.instance.SendDialogue("We need to move fast. The unit here has likely already contacted the nearest base. \r\n",
         portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 5f);
 
         yield return new WaitForSeconds(5f);
 
-        ToastSystem.Instance.SendDialogue("We need to blitz through enemy territory and take that base out before the enemy can regroup and launch a counterattack. Call for a commando and speeder unit.",
+        ToastSystem.instance.SendDialogue("We need to blitz through enemy territory and take that base out before the enemy can regroup and launch a counterattack. Call for a commando and speeder unit.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 7f);
 
         yield return new WaitForSeconds(7f);
 
         //level complete, move onto the next one
-        ToastSystem.Instance.SendDialogue("Understood.",
+        ToastSystem.instance.SendDialogue("Understood.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 2f);
 
         yield return new WaitForSeconds(2f);

@@ -1,64 +1,62 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
+
 
 //using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
-
-[Serializable]
-public enum NotificationPriority { High, Medium, Low }
+using UnityEngine.UIElements;
 
 public class ToastSystem : MonoBehaviour {
-    public GameObject dialoguePrefab;
-    public GameObject portraitDialoguePrefab;
-    public GameObject notificationPrefab;
-
-    public UnityEvent onRequest;
-
-    public static ToastSystem Instance;
+    public static ToastSystem instance;
     private class DialogueRequest {
         public string message;
         public bool autoDismiss = true;
         public float autoDismissTime = 3f;
         public Sprite portrait = null;
         public Nullable<Color> portraitColor = Color.white;
+        public string portraitLabel;
+        public bool blur = false;
     }
 
     private class NotificationRequest {
         public string message;
-        public NotificationPriority priority;
         public bool autoDismiss = true;
         public float autoDismissTime = 3f;
+        public Nullable<Color> boxColor = null;
+        public Nullable<Color> textColor = null;
+        public Nullable<Color> textOutlineColor = null;
     }
 
     Queue<DialogueRequest> dialogueQueue;
     Queue<Tuple<ulong, NotificationRequest>> notificationQueue;
+    Queue<Tuple<ulong, string>> objectiveQueue;
 
-    Tuple<DialogueRequest, GameObject> currentDialogue;
-    List<ValueTuple<ulong, NotificationRequest, GameObject, bool>> currentNotifications;
+    DialogueRequest currentDialogue;
+    Dictionary<ulong, (NotificationRequest, bool)> currentNotifications;
+    HashSet<ulong> currentObjectives;
 
     ulong notificationCounter = 0;
+    ulong objectiveCounter = 0;
 
-    //I don't need to store the queue myself, it will auto manage?
-    // public List<ToastMessageEvent> 
-    // Start is called before the first frame update
     void Awake() {
-        if (Instance != null && Instance != this) {
-            Destroy(gameObject);
+        if (instance == null) {
+            instance = this;
         } else {
-            Instance = this;
-            if (onRequest == null) {
-                onRequest = new UnityEvent();
-            }
-            dialogueQueue = new Queue<DialogueRequest>();
-            notificationQueue = new Queue<Tuple<ulong, NotificationRequest>>();
-            currentDialogue = null;
-            currentNotifications = new List<ValueTuple<ulong, NotificationRequest, GameObject, bool>>();
+            Destroy(gameObject);
+            return;
         }
+        dialogueQueue = new();
+        notificationQueue = new();
+        objectiveQueue = new();
+        currentDialogue = null;
+        currentNotifications = new();
+        currentObjectives = new();
     }
 
     private void Update() {
@@ -68,119 +66,140 @@ public class ToastSystem : MonoBehaviour {
         while (notificationQueue.Count > 0) {
             StartCoroutine(DisplayNotification(notificationQueue.Dequeue()));
         }
+        while (objectiveQueue.Count > 0) {
+            DisplayObjective(objectiveQueue.Dequeue());
+        }
     }
 
-    public void SendDialogue(string message, bool autoDismiss = true, float autoDismissTime = 3f, Sprite portrait = null, Nullable<Color> portraitColor = null) {
+    public void SendDialogue(string message, bool autoDismiss = true, float autoDismissTime = 3f, Sprite portrait = null, Nullable<Color> portraitColor = null, string portraitLabel = null, bool blur = false) {
         dialogueQueue.Enqueue(new DialogueRequest{
             message = message,
             autoDismiss = autoDismiss,
             autoDismissTime = autoDismissTime,
             portrait = portrait,
             portraitColor = portraitColor,
+            portraitLabel = portraitLabel,
+            blur = blur,
         });
     }
 
+    bool dialogueFullySent = false;
     bool dialogueAdvanced = false;
     public void AdvanceDialogue() {
+        if (!dialogueFullySent) {
+            dialogueFullySent = true;
+            return;
+        }
         dialogueAdvanced = true;
     }
 
     private IEnumerator DisplayDialogue(DialogueRequest dialogue) {
-        GameObject dialogueObject;
-        if (dialogue.portrait == null) {
-            dialogueObject = Instantiate(dialoguePrefab, transform);
-        } else {
-            dialogueObject = Instantiate(portraitDialoguePrefab, transform);
-            var image = dialogueObject.transform.GetChild(1).GetComponent<Image>();
-            image.sprite = dialogue.portrait;
-            if (dialogue.portraitColor != null) {
-                image.color = dialogue.portraitColor.Value;
-            } else {
-                image.color = Color.white;
-            }
-        }
-        var text = dialogueObject.GetComponentInChildren<TMP_Text>();
-        text.text = dialogue.message;
-        currentDialogue = Tuple.Create(dialogue, dialogueObject);
+        var message = "";
+        HudUI.instance.SetDialogueText(message);
+        HudUI.instance.SetDialoguePortrait(dialogue.portrait, dialogue.portraitColor);
+        HudUI.instance.SetDialoguePortraitLabel(dialogue.portraitLabel);
+        HudUI.instance.SetDialogueBlur(dialogue.blur);
+        HudUI.instance.ShowDialogue();
+        currentDialogue = dialogue;
+        yield return new WaitForSecondsRealtime(HudUI.instance.tweenDuration);
+        dialogueFullySent = false;
         dialogueAdvanced = false;
+        var messageIdx = 0;
         if (dialogue.autoDismiss) {
             var elapsedTime = 0f;
             while (!dialogueAdvanced && elapsedTime < dialogue.autoDismissTime) {
                 yield return null;
                 elapsedTime += Time.unscaledDeltaTime;
+                if (!dialogueFullySent) {
+                    message += dialogue.message[messageIdx++];
+                    HudUI.instance.SetDialogueText(message);
+                    if (messageIdx == dialogue.message.Length) {
+                        dialogueFullySent = true;
+                    }
+                } else {
+                    HudUI.instance.SetDialogueText(dialogue.message);
+                }
             }
         } else {
             while (!dialogueAdvanced) {
                 yield return null;
+                if (!dialogueFullySent) {
+                    message += dialogue.message[messageIdx++];
+                    HudUI.instance.SetDialogueText(message);
+                    if (messageIdx == dialogue.message.Length) {
+                        dialogueFullySent = true;
+                    }
+                } else {
+                    HudUI.instance.SetDialogueText(dialogue.message);
+                }
             }
         }
         currentDialogue = null;
-        Destroy(dialogueObject);
-    }
-
-    private void ReflowNotifications() {
-        currentNotifications.Sort((tuple1, tuple2) => tuple1.Item2.priority.CompareTo(tuple2.Item2.priority));
-        var counter = 0;
-        foreach (var (_, _, obj, _) in currentNotifications) {
-            obj.TryGetComponent(out RectTransform rectTransform);
-            rectTransform.anchoredPosition = new Vector2(0, -175 * counter);
-            counter++;
+        if (dialogueQueue.Count == 0) {
+            HudUI.instance.HideDialogue();
         }
     }
 
-    public ulong SendNotification(string message, NotificationPriority priority = NotificationPriority.Low, bool autoDismiss = true, float autoDismissTime = 3f) {
+    public ulong SendNotification(string message, bool autoDismiss = true, float autoDismissTime = 3f, Nullable<Color> boxColor = null, Nullable<Color> textColor = null, Nullable<Color> textOutlineColor = null) {
         var id = notificationCounter++;
         notificationQueue.Enqueue(Tuple.Create(id, new NotificationRequest {
             message = message,
-            priority = priority,
             autoDismiss = autoDismiss,
             autoDismissTime = autoDismissTime,
+            boxColor = boxColor,
+            textColor = textColor,
+            textOutlineColor = textOutlineColor,
         }));
         return id;
     }
 
     public void DismissNotification(ulong id) {
-        var idx = currentNotifications.FindIndex(tuple => tuple.Item1 == id);
-        var tuple = currentNotifications[idx];
-        tuple.Item4 = true;
-        currentNotifications[idx] = tuple;
+        var tuple = currentNotifications[id];
+        tuple.Item2 = true;
+        currentNotifications[id] = tuple;
     }
 
     private IEnumerator DisplayNotification(Tuple<ulong, NotificationRequest> request) {
         var (id, notification) = request;
-        var notificationObject = Instantiate(notificationPrefab, transform);
-        var text = notificationObject.GetComponentInChildren<TMP_Text>();
-        text.text = notification.message;
-        var background = notificationObject.GetComponentInChildren<Image>();
-        switch (notification.priority) {
-            case NotificationPriority.Low:
-                background.color = Color.green;
-                text.color = Color.black;
-                break;
-            case NotificationPriority.Medium:
-                background.color = Color.yellow;
-                text.color = Color.black;
-                break;
-            case NotificationPriority.High:
-                background.color = Color.red;
-                text.color = Color.white;
-                break;
-        }
-        currentNotifications.Add((id, notification, notificationObject, false));
-        ReflowNotifications();
+        HudUI.instance.AddNotification(id, notification.message, notification.boxColor, notification.textColor, notification.textOutlineColor);
+        currentNotifications[id] = (notification, false);
         if (notification.autoDismiss) {
             var elapsedTime = 0f;
-            while (!currentNotifications.Find(tuple => tuple.Item1 == id).Item4 && elapsedTime < notification.autoDismissTime) {
+            while (!currentNotifications[id].Item2 && elapsedTime < notification.autoDismissTime) {
                 yield return null;
                 elapsedTime += Time.unscaledDeltaTime;
             }
         } else {
-            while (!currentNotifications.Find(tuple => tuple.Item1 == id).Item4) {
+            while (!currentNotifications[id].Item2) {
                 yield return null;
             }
         }
-        Destroy(notificationObject);
-        currentNotifications.RemoveAll(tuple => tuple.Item1 == id);
-        ReflowNotifications();
+        HudUI.instance.RemoveNotification(id);
+        currentNotifications.Remove(id);
+    }
+
+    public ulong SendObjective(string objective) {
+        var id = objectiveCounter++;
+        objectiveQueue.Enqueue(Tuple.Create(id, objective));
+        return id;
+    }
+
+    public void CompleteObjective(ulong id) {
+        HudUI.instance.SetObjectiveComplete(id, true);
+    }
+
+    public void UncompleteObjective(ulong id) {
+        HudUI.instance.SetObjectiveComplete(id, false);
+    }
+
+    public void RemoveObjective(ulong id) {
+        HudUI.instance.RemoveObjective(id);
+        currentObjectives.Remove(id);
+    }
+
+    private void DisplayObjective(Tuple<ulong, string> objective) {
+        var (id, message) = objective;
+        HudUI.instance.AddObjective(id, message);
+        currentObjectives.Add(id);
     }
 }

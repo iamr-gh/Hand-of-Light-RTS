@@ -340,15 +340,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Center Camera",
-                    "type": "Button",
-                    "id": "e3d08a9d-68dd-4120-825f-fa70e066575c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Pan Camera",
                     "type": "Value",
                     "id": "4556b84e-8617-41e9-b080-27c82f7b0ee9",
@@ -468,17 +459,6 @@
                     "action": "Pan Camera",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "027992b6-4aad-4689-b2e3-2c6df7b5526f",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Center Camera",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -1021,6 +1001,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Advance Dialogue",
+                    "type": "Button",
+                    "id": "dd1479bd-6f88-471a-9d5e-8775f33f2b0a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1032,6 +1021,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8df58078-ccea-4711-a3c8-0c6f7c935e4b",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Advance Dialogue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

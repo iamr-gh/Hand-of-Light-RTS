@@ -1,0 +1,41 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="AbilityEntry" src="project://database/Assets/UI%20Toolkit/AbilityEntry.uxml?fileID=9197481963319205126&amp;guid=30b60c50a9a79a54d8a07b1d6ee16b7c&amp;type=3#AbilityEntry" />
+    <Style src="project://database/Assets/UI%20Toolkit/Style.uss?fileID=7433441132597879392&amp;guid=e793631355c34c5488f6730a6657e228&amp;type=3#Style" />
+    <ui:VisualElement style="flex-grow: 1; align-items: stretch; justify-content: space-between; flex-direction: column;">
+        <ui:VisualElement name="UpperHUD" style="flex-grow: 1; flex-direction: row; justify-content: space-between; align-items: flex-start; padding-top: 10px; padding-bottom: 10px; padding-right: 10px; padding-left: 10px;">
+            <ui:VisualElement name="Objectives" style="flex-grow: 0; align-items: flex-start; width: auto; height: auto; background-color: rgb(0, 4, 99); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; border-bottom-left-radius: 20px; padding-top: 15px; padding-right: 15px; padding-bottom: 15px; padding-left: 15px; overflow: hidden; max-width: 40%; transition-duration: 0.5s;">
+                <ui:Label tabindex="-1" text="Objectives" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; color: rgb(255, 255, 255); font-size: 25px;" />
+                <ui:VisualElement name="ObjectivesList" style="flex-grow: 1; align-items: flex-start; align-self: auto;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Notifications" style="flex-grow: 0; position: relative; align-self: auto; padding-top: 0; padding-bottom: 0; padding-left: 0; padding-right: 0;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="LowerHUD" style="flex-grow: 0; flex-direction: row; justify-content: flex-end; align-items: flex-end;">
+            <ui:VisualElement name="SelectedUnits" class="hud-bottom-panel" style="justify-content: center; border-left-color: rgb(200, 200, 200); border-right-color: rgb(200, 200, 200); border-top-color: rgb(200, 200, 200); border-bottom-color: rgb(200, 200, 200); transition-duration: 0.5s;">
+                <ui:Label tabindex="-1" text="Selected Units" parse-escape-sequences="true" display-tooltip-when-elided="true" class="hud-header" />
+                <ui:VisualElement name="SelectedUnitsList" style="flex-grow: 0; flex-direction: row; align-items: center; justify-content: flex-start; flex-shrink: 0; min-width: auto; min-height: 76px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Abilities" class="hud-bottom-panel" style="flex-grow: 0; display: flex; visibility: visible; overflow: visible; opacity: 1; background-color: rgb(0, 36, 106); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-left-color: rgb(200, 200, 200); border-right-color: rgb(200, 200, 200); border-top-color: rgb(200, 200, 200); border-bottom-color: rgb(200, 200, 200); transition-duration: 0.5s; position: absolute; align-self: auto;">
+                <ui:Label tabindex="-1" text="Abilities" parse-escape-sequences="true" display-tooltip-when-elided="true" class="hud-header" style="-unity-font: url(&apos;project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&apos;); -unity-font-definition: url(&apos;project://database/Assets/Thaleah_PixelFont/ThaleahFat.asset?fileID=11400000&amp;guid=23d4d74baa1e8441a9db5ad5556cd2b8&amp;type=2#ThaleahFat&apos;);" />
+                <ui:VisualElement name="AbilitiesList" style="flex-grow: 1; flex-shrink: 1; flex-direction: row; align-items: center; justify-content: center; min-height: 86.5px;">
+                    <ui:Instance template="AbilityEntry" name="AbilityEntry" style="display: flex;" />
+                    <ui:Instance template="AbilityEntry" name="AbilityEntry" style="display: flex;" />
+                    <ui:Instance template="AbilityEntry" name="AbilityEntry" style="display: flex;" />
+                    <ui:Instance template="AbilityEntry" name="AbilityEntry" style="display: flex;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="DialogueContainer" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; align-items: center; justify-content: flex-end; display: flex; transition-duration: 0.5s; top: 100%;">
+            <ui:VisualElement name="DialogueBlur" style="flex-grow: 1; width: 100%; height: 100%; position: absolute; background-color: rgba(100, 100, 100, 0.59);" />
+            <ui:VisualElement style="flex-grow: 1; position: absolute; align-self: auto; width: 100%; height: 100%; padding-left: 0; padding-bottom: 80px; padding-right: 25px; padding-top: 0; background-image: none; -unity-background-scale-mode: scale-and-crop; align-items: flex-end; justify-content: flex-end;">
+                <ui:VisualElement name="DialoguePortrait" style="flex-grow: 0; width: 40%; height: 95%; align-self: auto; background-image: url(&apos;project://database/Assets/Sprites/knightfriendly.png?fileID=2800000&amp;guid=ffb1a99db2d614684b29a1d4448dda76&amp;type=3#knightfriendly&apos;); -unity-background-scale-mode: scale-and-crop; align-items: flex-end; justify-content: flex-end; padding-bottom: 95px; padding-right: 50px;">
+                    <ui:Label tabindex="-1" text="Knight" parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="true" name="DialoguePortraitLabel" style="position: relative; align-items: auto; align-self: auto; flex-shrink: 0; flex-grow: 0; left: auto; top: auto; right: auto; background-image: url(&apos;project://database/Assets/Sprites/TextPanel.png?fileID=2800000&amp;guid=f2327ff4698394da8aba9b95752c31a8&amp;type=3#TextPanel&apos;); -unity-text-outline-color: rgb(0, 0, 0); -unity-text-outline-width: 1px; font-size: 40px; background-color: rgba(255, 15, 15, 0); -unity-background-image-tint-color: rgb(0, 132, 255); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 15px; padding-bottom: 0; padding-left: 15px; -unity-font-style: italic; color: rgb(255, 255, 255);" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 0; margin-bottom: 0; margin-right: 0; margin-left: 0; width: 100%; padding-right: 25px; padding-bottom: 25px; padding-left: 25px; align-items: stretch; justify-content: flex-start; flex-direction: column;">
+                <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 154, 255, 0); background-image: url(&apos;project://database/Assets/Sprites/TextPanel.png?fileID=2800000&amp;guid=f2327ff4698394da8aba9b95752c31a8&amp;type=3#TextPanel&apos;); height: 150px;">
+                    <ui:Label tabindex="-1" text="DIalogue Text" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DialogueText" style="font-size: 37px; color: rgb(255, 255, 255); width: 100%; height: 100%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 20px; padding-right: 60px; padding-bottom: 20px; padding-left: 60px; transition-property: all; white-space: normal; text-overflow: ellipsis; -unity-text-align: upper-left; overflow: hidden; -unity-text-outline-width: 0.5px; -unity-text-outline-color: rgb(0, 0, 0);" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

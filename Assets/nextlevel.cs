@@ -20,8 +20,8 @@ public class nextlevel : MonoBehaviour
 
     IEnumerator win()
     {
-        ToastSystem.Instance.AdvanceDialogue();
-        ToastSystem.Instance.SendDialogue("Level Complete.", autoDismiss: false);
+        ToastSystem.instance.AdvanceDialogue();
+        ToastSystem.instance.SendDialogue("Level Complete.", autoDismiss: false);
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }

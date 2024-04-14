@@ -45,13 +45,13 @@ public class cameraMovement : MonoBehaviour
     void Update()
     {
         Vector3 cameraLocation = transform.position;
-        if (input.FindAction("Center Camera").WasPressedThisFrame())
-        {
-            if (targetObject != null)
-            {
-                transform.position = targetObject.position - transform.forward * initialZoomDistance;
-            }
-        }
+        // if (input.FindAction("Center Camera").WasPressedThisFrame())
+        // {
+        //     if (targetObject != null)
+        //     {
+        //         transform.position = targetObject.position - transform.forward * initialZoomDistance;
+        //     }
+        // }
 
         // Zoom in and out with scroll wheel
         float scrollInput = input.FindAction("Zoom Camera").ReadValue<float>();

@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="NotificationBox" style="flex-grow: 1; width: 250px; height: 100px; background-image: url(&apos;project://database/Assets/Sprites/TextPanel.png?fileID=2800000&amp;guid=f2327ff4698394da8aba9b95752c31a8&amp;type=3#TextPanel&apos;); padding-top: 15px; padding-right: 25px; padding-bottom: 15px; padding-left: 25px; margin-bottom: 5px; transition-duration: 0.5s;">
+        <ui:Label tabindex="-1" text="Notification Text goes here asd asd asd asd asd as" parse-escape-sequences="true" display-tooltip-when-elided="true" name="NotificationText" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 23px; color: rgb(255, 255, 255); -unity-text-outline-color: rgb(0, 0, 0); -unity-text-outline-width: 0.5px; white-space: normal; overflow: hidden; text-overflow: ellipsis;" />
+    </ui:VisualElement>
+</ui:UXML>

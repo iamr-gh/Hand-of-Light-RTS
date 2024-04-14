@@ -27,7 +27,7 @@ public class LoseOnNoFriendlies : MonoBehaviour
             }
             
             if(!liveFriendlies){
-                ToastSystem.Instance.SendNotification("All Units Died, Resetting...", autoDismissTime: 5f);
+                ToastSystem.instance.SendNotification("All Units Died, Resetting...", autoDismissTime: 5f);
                 yield return new WaitForSeconds(5);
                 UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex); // Reload current scene
             }

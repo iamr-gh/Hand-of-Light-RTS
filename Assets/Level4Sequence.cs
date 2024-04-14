@@ -15,12 +15,15 @@ public class Level4Sequence : MonoBehaviour
     // Update is called once per frame
     IEnumerator tutorial()
     {
+        yield return null;
         var input = GlobalUnitManager.singleton.GetComponent<PlayerInput>();
         var cam_move = Camera.main.GetComponent<cameraMovement>();
         var controlSystem = GlobalUnitManager.singleton.GetComponent<ControlSystem>();
 
-        ToastSystem.Instance.SendDialogue("Commander, we must win!", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1);
-        ToastSystem.Instance.SendNotification("Use your new skills to defeat the enemy army.", NotificationPriority.Low, true, 5f);
+        ToastSystem.instance.SendDialogue("Commander, we must win! ajskldaklsdjalksjdkalsjdlkasjdlkasjdlkasdjalksjdehfgskreghu sah ahsjdhjaselkf huahe ulhaelf haeukdf ", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
+        ToastSystem.instance.SendNotification("Use your new skills to defeat the enemy army.", true, 5f);
+        var id = ToastSystem.instance.SendObjective("Win!");
         yield return new WaitForSeconds(3f);
+        ToastSystem.instance.CompleteObjective(id);
     }
 }

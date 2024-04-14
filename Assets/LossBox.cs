@@ -23,12 +23,12 @@ public class LossBox : MonoBehaviour
 
     IEnumerator end()
     {
-        ToastSystem.Instance.SendDialogue("We failed General, they breached the pass.",
+        ToastSystem.instance.SendDialogue("We failed General, they breached the pass.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f);
         yield return new WaitForSeconds(3f);
         
         
-        ToastSystem.Instance.SendNotification("Resetting Level...");
+        ToastSystem.instance.SendNotification("Resetting Level...");
         yield return new WaitForSeconds(2f);
         //reload scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

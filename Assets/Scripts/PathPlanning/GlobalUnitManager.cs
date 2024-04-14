@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,7 +20,10 @@ public class GlobalUnitManager : MonoBehaviour {
     public List<UnitPortraitData> portraits;
 
     //maps affiliation to unit type
-    private Dictionary<string, List<GameObject>> units = new();
+    public Dictionary<string, List<GameObject>> units = new();
+
+    private List<GameObject> visibleEnemies = new();
+    private List<GameObject> hiddenEnemies = new();
 
     public GameObject[] allManaged;
 
@@ -32,15 +36,18 @@ public class GlobalUnitManager : MonoBehaviour {
 
     public Plane groundPlane;
 
-    // Start is called before the first frame update
-    void Start() {
-        //there will be exactly one of these
+    void Awake() {
+        // there will be exactly one of these
         if (singleton == null) {
             singleton = this;
         } else {
             Destroy(gameObject);
             return;
         }
+    }
+
+    // Start is called before the first frame update
+    void Start() {
 
         groundLayerMask = LayerMask.GetMask("Ground");
         groundPlane = new Plane(Vector3.up, 3);
@@ -68,10 +75,15 @@ public class GlobalUnitManager : MonoBehaviour {
                         units.Add(unitaff.affiliation, new List<GameObject> { obj });
                     }
 
-                    if (controlSystem != null && unitaff.affiliation == controlSystem.affiliation) {
-                        var type = unitaff.unit_type;
-                        if (!unitTypes.Contains(type)) {
-                            unitTypes.Add(type);
+                    if (controlSystem != null) {
+                        if (unitaff.affiliation == controlSystem.affiliation) {
+                            var type = unitaff.unit_type;
+                            if (!unitTypes.Contains(type)) {
+                                unitTypes.Add(type);
+                            }
+                        } else {
+                            HideUnit(obj);
+                            hiddenEnemies.Add(obj);
                         }
                     }
                 }
@@ -81,7 +93,7 @@ public class GlobalUnitManager : MonoBehaviour {
 
     void Update() {
         if (FogOfWarManager.instance != null) {
-            UpdateFogOfWar("White");
+            UpdateFogOfWar();
         }
     }
 
@@ -122,6 +134,18 @@ public class GlobalUnitManager : MonoBehaviour {
         }
 
         return objs;
+    }
+
+    public bool CanFriendlySee(Vector3 pos) {
+        foreach (GameObject obj in units[ControlSystem.instance.affiliation]) {
+            if (obj == null) continue;
+            if (obj.TryGetComponent(out UnitParameters unitParams)) {
+                if ((obj.transform.position - pos).magnitude <= unitParams.getSightRange()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public List<GameObject> FindNearMouse(float radius) {
@@ -208,26 +232,46 @@ public class GlobalUnitManager : MonoBehaviour {
         return (portraits[idx].sprite, portraits[idx].color);
     }
 
-    void UpdateFogOfWar(string affiliation) {
-        foreach (var unit in allManaged) {
-            if (unit != null && unit.TryGetComponent(out UnitAffiliation unitAff) && unitAff.affiliation != affiliation) {
-                HideUnit(unit);
+    void UpdateFogOfWar() {
+        visibleEnemies = visibleEnemies.Where(unit => unit != null).ToList();
+        hiddenEnemies = hiddenEnemies.Where(unit => unit != null).ToList();
+        var toHide = new HashSet<int>();
+        var i = 0;
+        foreach (var unit in visibleEnemies) {
+            if (!CanFriendlySee(unit.transform.position)) {
+                toHide.Add(i);
             }
+            i++;
         }
-        FogOfWarManager.instance.ResetFog();
-        foreach (var unit in units[affiliation]) {
+        foreach (var unit in units[ControlSystem.instance.affiliation]) {
             if (unit != null && unit.TryGetComponent(out UnitParameters unitParams)) {
                 var pos = unit.transform.position;
                 var sightRange = unitParams.getSightRange();
-                var seenUnits = FindNearby(pos, sightRange);
-                foreach (var seenUnit in seenUnits) {
-                    if (seenUnit.TryGetComponent(out UnitAffiliation unitAff) && unitAff.affiliation != affiliation) {
-                        ShowUnit(seenUnit);
+                i = 0;
+                var toShow = new HashSet<int>();
+                foreach (var enemy in hiddenEnemies) {
+                    if (Vector3.Distance(enemy.transform.position, pos) <= sightRange) {
+                        toShow.Add(i);
                     }
+                    i++;
                 }
-                FogOfWarManager.instance.UpdateFog(pos, sightRange);
+                foreach (var idx in toShow) {
+                    var enemy = hiddenEnemies[idx];
+                    ShowUnit(enemy);
+                    visibleEnemies.Add(enemy);
+                }
+                i = 0;
+                hiddenEnemies.RemoveAll(_ => toShow.Contains(i++));
             }
         }
+        foreach (var idx in toHide) {
+            var enemy = visibleEnemies[idx];
+            HideUnit(enemy);
+            hiddenEnemies.Add(enemy);
+        }
+        i = 0;
+        visibleEnemies.RemoveAll(_ => toHide.Contains(i++));
+        FogOfWarManager.instance.UpdateFog();
     }
 
     void HideUnit(GameObject unit) {
@@ -244,7 +288,7 @@ public class GlobalUnitManager : MonoBehaviour {
         }
         obj.layer = layer;
         foreach (Transform child in obj.transform) {
-            if (child ==null) {
+            if (child == null) {
                 continue;
             }
             SetLayerRecursively(child.gameObject, layer);

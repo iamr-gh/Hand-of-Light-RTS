@@ -12,11 +12,11 @@ public class TutorialDialogue : MonoBehaviour
 
     void Start()
     {
-        toastSystem = ToastSystem.Instance;
+        toastSystem = ToastSystem.instance;
         tutorialNotificationId = toastSystem.SendNotification("Press \"T\" for tutorial", autoDismiss: false);
-        toastSystem.SendNotification("I was sent second!", priority: NotificationPriority.High, autoDismissTime: 2f);
-        toastSystem.SendNotification("I was sent third!", priority: NotificationPriority.Low, autoDismissTime: 6f);
-        toastSystem.SendNotification("I was sent fourth!", priority: NotificationPriority.Medium, autoDismissTime: 4f);
+        toastSystem.SendNotification("I was sent second!", autoDismissTime: 2f);
+        toastSystem.SendNotification("I was sent third!", autoDismissTime: 6f);
+        toastSystem.SendNotification("I was sent fourth!", autoDismissTime: 4f);
         if (level == 1 && Input.GetKeyDown(KeyCode.T)) { StartCoroutine(TutorialLevel1()); }
         else if (level == 2) { StartCoroutine(TutorialLevel2()); }
         else if (level == 3) { StartCoroutine(TutorialLevel3()); }

@@ -24,7 +24,7 @@ public class Level1Sequence : MonoBehaviour
         input.actions.FindActionMap("Player").Disable();
         cam_move.enabled = false;
         yield return new WaitForSeconds(1f);
-        ToastSystem.Instance.SendDialogue("Use WASD or move your mouse to the edges of the screen to move the camera.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Use WASD or move your mouse to the edges of the screen to move the camera.", autoDismiss: false);
 
         cam_move.enabled = true;
         input.actions["Pan Camera"].Enable();
@@ -35,9 +35,9 @@ public class Level1Sequence : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
         yield return new WaitForSeconds(3f);
-        ToastSystem.Instance.AdvanceDialogue();
+        ToastSystem.instance.AdvanceDialogue();
 
-        ToastSystem.Instance.SendDialogue("Good, now select a troop with left click.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Good, now select a troop with left click.", autoDismiss: false);
 
         var controlSystem = GlobalUnitManager.singleton.GetComponent<ControlSystem>();
         input.actions["Select"].Enable();
@@ -47,8 +47,8 @@ public class Level1Sequence : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
         yield return new WaitForSeconds(2f);
-        ToastSystem.Instance.AdvanceDialogue();
-        ToastSystem.Instance.SendDialogue("The selected unit will move to the location you right click.", autoDismiss: false);
+        ToastSystem.instance.AdvanceDialogue();
+        ToastSystem.instance.SendDialogue("The selected unit will move to the location you right click.", autoDismiss: false);
         input.actions["Select"].Disable();
         input.actions["Move"].Enable();
         
@@ -65,11 +65,11 @@ public class Level1Sequence : MonoBehaviour
         }
         yield return new WaitForSeconds(3f);
         //yield return new WaitForSeconds(2f);
-        ToastSystem.Instance.AdvanceDialogue();
+        ToastSystem.instance.AdvanceDialogue();
 
         input.actions["Select"].Enable();
 
-        ToastSystem.Instance.SendDialogue("Move to the green square to continue.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Move to the green square to continue.", autoDismiss: false);
 
 
         /*
