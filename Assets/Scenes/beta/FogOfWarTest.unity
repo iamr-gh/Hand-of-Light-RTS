@@ -28242,6 +28242,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cloudPrefab: {fileID: 3977646832006054623, guid: 240f22fa842168b4d97032b114880676, type: 3}
   cloudYOffset: 1.5
+  gridUnitSize: 1
+  gridXLimits: {x: -100, y: 100}
+  gridYLimits: {x: -100, y: 100}
+  gridHeight: 100
 --- !u!1001 &1121315089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34116,6 +34120,14 @@ PrefabInstance:
     - target: {fileID: 983845803532244299, guid: b4e057fc1aa40384c9a1f6e38b6b93aa, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4255879185904980314, guid: b4e057fc1aa40384c9a1f6e38b6b93aa, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4255879185904980314, guid: b4e057fc1aa40384c9a1f6e38b6b93aa, type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -50223,6 +50235,10 @@ PrefabInstance:
     - target: {fileID: 983845803532244299, guid: b4e057fc1aa40384c9a1f6e38b6b93aa, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4255879185904980314, guid: b4e057fc1aa40384c9a1f6e38b6b93aa, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
