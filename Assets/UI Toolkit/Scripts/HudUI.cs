@@ -105,6 +105,7 @@ public class AbilityUI {
     private Label abilityNumber;
     private VisualElement abilityIcon;
     private VisualElement abilityCooldownIndicator;
+    private VisualElement abilitySelectionIndicator;
 
     public AbilityUI(VisualElement e) {
         root = e;
@@ -113,6 +114,7 @@ public class AbilityUI {
         abilityNumber = root.Q<Label>("AbilityNumber");
         abilityIcon = root.Q("AbilityIcon");
         abilityCooldownIndicator = root.Q("AbilityCooldownIndicator");
+        abilitySelectionIndicator = root.Q("AbilitySelectionIndicator");
         SetCooldownProgress(1);
     }
 
@@ -130,6 +132,14 @@ public class AbilityUI {
 
     public void SetCooldownProgress(float value) {
         abilityCooldownIndicator.style.width = Length.Percent(100f - value * 100f);
+    }
+
+    public void ShowSelectionIndicator() {
+        abilitySelectionIndicator.style.display = DisplayStyle.Flex;
+    }
+
+    public void HideSelectionIndicator() {
+        abilitySelectionIndicator.style.display = DisplayStyle.None;
     }
 
     public void Hide() {
@@ -326,6 +336,14 @@ public class HudUI : MonoBehaviour {
         ability.SetName(name);
         ability.SetIcon(icon);
         ability.SetCooldownProgress(cooldown);
+    }
+
+    public void SelectAbility(int number) {
+        abilities[number].ShowSelectionIndicator();
+    }
+
+    public void DeselectAbility(int number) {
+        abilities[number].HideSelectionIndicator();
     }
 
     public void ShowAbilityInfo(int number) {

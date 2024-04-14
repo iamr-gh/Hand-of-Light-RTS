@@ -97,7 +97,7 @@ public class EnemyRangedWeaponSystem : MonoBehaviour
             }
         }
 
-        AudioSource.PlayClipAtPoint(damageSound, Camera.main.transform.position);
+        AudioManager.instance.PlayAudioClip(damageSound);
         // UI JUICE STUFF TODO: MOVE TO AN EVENT-BASED SYSTEM
         float damageFlashPeriod = 0.1f; // Seconds
         if (otherSpriteRenderer != null) { otherSpriteRenderer.color = Color.red; }
