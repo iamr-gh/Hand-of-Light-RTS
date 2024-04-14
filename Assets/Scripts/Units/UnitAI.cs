@@ -25,7 +25,7 @@ public class UnitAI : MonoBehaviour
         TryGetComponent(out parameters);
         TryGetComponent(out navAgent);
         TryGetComponent(out weaponSystem);
-/*        planner.maxvel = parameters.getMovementSpeed();*/
+        navAgent.speed = parameters.getMovementSpeed();
     }
     
     protected virtual void Update(){
