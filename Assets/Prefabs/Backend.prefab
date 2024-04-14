@@ -1530,7 +1530,7 @@ MonoBehaviour:
   zoomSpeed: 5
   zoomSensitivity: 50
   maxZoomDistance: 5
-  maxMoveDist: 15
+  maxMoveDist: 40
   targetObject: {fileID: 0}
 --- !u!114 &722267207065457516
 MonoBehaviour:
