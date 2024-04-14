@@ -20,10 +20,12 @@ public class Level4Sequence : MonoBehaviour
         var cam_move = Camera.main.GetComponent<cameraMovement>();
         var controlSystem = GlobalUnitManager.singleton.GetComponent<ControlSystem>();
 
-        ToastSystem.instance.SendDialogue("Commander, we must win! ajskldaklsdjalksjdkalsjdlkasjdlkasjdlkasdjalksjdehfgskreghu sah ahsjdhjaselkf huahe ulhaelf haeukdf ", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Commander, we must win! ajskldaklsdjalksjdkalsjdlkasjdlkasjdlkasdjalksjdehfgskreghu sah ahsjdhjaselkf huahe ulhaelf haeukdf ", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, portraitLabel: "Knight", autoDismiss: false, blur: true);
         ToastSystem.instance.SendNotification("Use your new skills to defeat the enemy army.", true, 5f);
+        var nid = ToastSystem.instance.SendNotification("Use your new skills to defeat the enemy army.", autoDismiss: false, boxColor: Color.red);
         var id = ToastSystem.instance.SendObjective("Win!");
         yield return new WaitForSeconds(3f);
         ToastSystem.instance.CompleteObjective(id);
+        ToastSystem.instance.DismissNotification(nid);
     }
 }

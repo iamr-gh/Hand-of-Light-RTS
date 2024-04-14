@@ -8,10 +8,12 @@ using UnityEngine.UIElements;
 public class NotificationUI {
     public VisualElement root;
     private Label notificationText;
+    private VisualElement notificationBox;
 
     public NotificationUI(VisualElement e) {
         root = e;
         notificationText = root.Q<Label>("NotificationText");
+        notificationBox = root.Q("NotificationBox");
     }
 
     public void SetText(string text) {
@@ -26,7 +28,7 @@ public class NotificationUI {
     }
 
     public void SetBoxColor(Color color) {
-        root.style.backgroundColor = color;
+        notificationBox.style.unityBackgroundImageTintColor = color;
     }
 }
 
