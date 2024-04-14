@@ -31,7 +31,7 @@ public class Intro : MonoBehaviour {
         // Dramatic pause.
         yield return new WaitForSeconds(1.0f);
 
-        AudioSource.PlayClipAtPoint(background_music_clip, Camera.main.transform.position);
+        AudioManager.instance.PlayAudioClip(background_music_clip);
 
         // Dramatic pause.
         yield return new WaitForSeconds(1.0f);
@@ -54,7 +54,7 @@ public class Intro : MonoBehaviour {
             text_c.text += next_char;
 
             if(next_char != ' ')
-                AudioSource.PlayClipAtPoint(typing_sound_clip, Camera.main.transform.position);
+                AudioManager.instance.PlayAudioClip(typing_sound_clip);
 
             if (text_c.text.Length >= desired_text.Length)
                 break;

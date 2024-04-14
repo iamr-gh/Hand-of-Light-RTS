@@ -11,11 +11,23 @@ public class UnitParameters : MonoBehaviour
     [SerializeField] private float MovementSpeed = 2f;
     [SerializeField] private float AttackCooldown = 0.5f; // s
     [SerializeField] private float AttackDuration = 0.1f; // s, frozen for that time period
+    [SerializeField] private float Mana = 100f;
+    [SerializeField] private float HitboxSize = 1f;
+
+    [Header("Vision Settings")]
     [SerializeField] private float AggroRange = 10f;
     [SerializeField] private float SightRange = 10f;
     [SerializeField] private float AttackRange = 2f; // Range from center of object
-    [SerializeField] private float Mana = 100f;
-    [SerializeField] private float HitboxSize = 1f;
+
+    [Header("Voice Line Settings")]
+    [SerializeField] private AudioClip SelectVoiceLine;
+    [SerializeField] private float SelectVoiceLineVolume = 1f;
+    [SerializeField] private AudioClip MoveVoiceLine;
+    [SerializeField] private float MoveVoiceLineVolume = 1f;
+    [SerializeField] private AudioClip AttackMoveVoiceLine;
+    [SerializeField] private float AttackMoveVoiceLineVolume = 1f;
+    [SerializeField] private AudioClip DeathVoiceLine;
+    [SerializeField] private float DeathVoiceLineVolume = 1f;
     private int NumberOfKills = 0;
 
     // Start is called before the first frame update
@@ -43,6 +55,15 @@ public class UnitParameters : MonoBehaviour
     public void setHitboxSize(float size) { HitboxSize = size; }
     public void setNumberOfKills(int kills) { NumberOfKills = kills; }
 
+    public void setSelectVoiceLine(AudioClip clip) { SelectVoiceLine = clip; }
+    public void setMoveVoiceLine(AudioClip clip) { MoveVoiceLine = clip; }
+    public void setAttackMoveVoiceLine(AudioClip clip) { AttackMoveVoiceLine = clip; }
+    public void setDeathVoiceLine(AudioClip clip) { DeathVoiceLine = clip; }
+    public void setSelectVoiceLineVolume(float volume) { SelectVoiceLineVolume = volume; }
+    public void setMoveVoiceLineVolume(float volume) { MoveVoiceLineVolume = volume; }
+    public void setAttackMoveVoiceLineVolume(float volume) { AttackMoveVoiceLineVolume = volume; }
+    public void setDeathVoiceLineVolume(float volume) { DeathVoiceLineVolume = volume; }
+
     // Getters
     public float getHP() { return HP; }
     public float getAttackDamage() { return AttackDamage; }
@@ -57,4 +78,12 @@ public class UnitParameters : MonoBehaviour
     public float getHitboxSize() { return HitboxSize; }
     public float getNumberOfKills() { return NumberOfKills; }
 
+    public AudioClip getSelectVoiceLine() { return SelectVoiceLine; }
+    public AudioClip getMoveVoiceLine() { return MoveVoiceLine; }
+    public AudioClip getAttackMoveVoiceLine() { return AttackMoveVoiceLine; }
+    public AudioClip getDeathVoiceLine() { return DeathVoiceLine; }
+    public float getSelectVoiceLineVolume() { return SelectVoiceLineVolume; }
+    public float getMoveVoiceLineVolume() { return MoveVoiceLineVolume; }
+    public float getAttackMoveVoiceLineVolume() { return AttackMoveVoiceLineVolume; }
+    public float getDeathVoiceLineVolume() { return DeathVoiceLineVolume; }
 }

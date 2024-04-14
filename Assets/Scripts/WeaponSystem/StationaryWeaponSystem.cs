@@ -90,7 +90,7 @@ public class StationaryWeaponSystem : MonoBehaviour
                 otherSpriteRenderer = child.GetComponent<SpriteRenderer>();
             }
         }
-        AudioSource.PlayClipAtPoint(damageSound, Camera.main.transform.position);
+        AudioManager.instance.PlayAudioClip(damageSound);
 
         // UI JUICE STUFF TODO: MOVE TO AN EVENT-BASED SYSTEM
         Color originalOtherColor = otherSpriteRenderer.color;
