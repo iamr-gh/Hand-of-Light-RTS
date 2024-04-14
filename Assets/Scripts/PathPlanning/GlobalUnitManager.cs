@@ -81,7 +81,7 @@ public class GlobalUnitManager : MonoBehaviour {
                             if (!unitTypes.Contains(type)) {
                                 unitTypes.Add(type);
                             }
-                        } else {
+                        } else if (FogOfWarManager.instance != null) {
                             HideUnit(obj);
                             hiddenEnemies.Add(obj);
                         }
