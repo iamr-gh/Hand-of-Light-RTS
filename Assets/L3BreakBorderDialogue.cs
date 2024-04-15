@@ -28,26 +28,25 @@ public class L3BreakBorderDialogue : MonoBehaviour
         ToastSystem.instance.SendDialogue("Commando and speeder unit, reporting for duty.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 4f);
 
-        yield return new WaitForSeconds(4f);
 
         //make general speaker
-        ToastSystem.instance.SendDialogue("Alright, commandos, infiltrate the enemy base. There�s a small clearing you can teleport units in from. Tear them apart from the inside.",
+        ToastSystem.instance.SendDialogue("Alright, commandos, infiltrate the enemy base. There's a small clearing you can teleport units in from. Tear them apart from the inside.",
         //using ranged for general rn
         portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 10f);
 
-        yield return new WaitForSeconds(10f);
 
         ToastSystem.instance.SendDialogue("Roger that.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 2f);
 
-        yield return new WaitForSeconds(2f);
+        input.actions.FindActionMap("Player").Enable();
+        cam_move.enabled = true;
 
         var notif6 = ToastSystem.instance.SendNotification("Press 1 to use a units ability.", false);
+        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(10f);
         yield return new WaitForSeconds(4f);
         ToastSystem.instance.DismissNotification(notif6);
 
-        input.actions.FindActionMap("Player").Enable();
-        cam_move.enabled = true;
 
         while (!(enemy.transform.childCount == 1))
         {
@@ -61,22 +60,22 @@ public class L3BreakBorderDialogue : MonoBehaviour
 
         //on win
 
-        ToastSystem.instance.SendDialogue("Stellen scum! You�ll pay for this treachery!",
+        ToastSystem.instance.SendDialogue("Stellen scum! You'll pay for this treachery!",
         portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f);
 
         yield return new WaitForSeconds(5f);
 
-        ToastSystem.instance.SendDialogue("Treachery�?",
+        ToastSystem.instance.SendDialogue("Treachery?",
         portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 3f);
 
         yield return new WaitForSeconds(3f);
 
-        ToastSystem.instance.SendDialogue("General, what�s our next move?",
+        ToastSystem.instance.SendDialogue("General, what's our next move?",
         portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 4f);
 
         yield return new WaitForSeconds(4f);
 
-        ToastSystem.instance.SendDialogue("For now, we retreat. They�ll likely regroup and counterattack and we can�t afford to be caught by a larger force.",
+        ToastSystem.instance.SendDialogue("For now, we retreat. They'll likely regroup and counterattack and we can�t afford to be caught by a larger force.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 6f);
 
         yield return new WaitForSeconds(6f);
@@ -87,10 +86,11 @@ public class L3BreakBorderDialogue : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        ToastSystem.instance.SendDialogue("Congratulations, you have completed the game!", autoDismissTime: 5.0f);
-        yield return new WaitForSeconds(5f);
+        // ToastSystem.instance.SendDialogue("Congratulations, you have completed the game!", autoDismissTime: 5.0f);
+        // yield return new WaitForSeconds(5f);
         //load next level
-        SceneManager.LoadScene(0);
+        //NO LONGER LAST LEVEL
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
     }
 }

@@ -30,27 +30,19 @@ public class L1HoldPassDialogue : MonoBehaviour
         cam_move.enabled = false;
 
 
-        ToastSystem.instance.SendDialogue("General! We’ve spotted movement, an advanced Seleneian force is marching on a nearby village.",
+        ToastSystem.instance.SendDialogue("General! We've spotted movement, an advanced Seleneian force is marching on a nearby village.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f);
-
-        yield return new WaitForSeconds(5f);
 
         //make general speaker
         ToastSystem.instance.SendDialogue("What are we looking at exactly?",
         //using ranged for general rn
         portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 5f);
 
-        yield return new WaitForSeconds(5f);
-
         ToastSystem.instance.SendDialogue("A few contingents of knights. No other support. Though, some of their advanced party have captured several villagers.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 7f);
 
-        yield return new WaitForSeconds(7f);
-
         ToastSystem.instance.SendDialogue("Those bastards...",
         portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 5f);
-
-        yield return new WaitForSeconds(5f);
 
         ToastSystem.instance.SendDialogue("Right. Our first priority is to hold the mountain passes until reinforcements arrive. We rescue the villagers when we get the opportunity. Move out!",
         portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 7f);
@@ -99,7 +91,7 @@ public class L1HoldPassDialogue : MonoBehaviour
 
         yield return new WaitForSeconds(5f);
 
-        ToastSystem.instance.SendDialogue("Good. Now, we need to find out where this force came from. We’ve received no reports of enemy activity in this area. Split up, I want to know what route they’ve taken to sneak past our lines.",
+        ToastSystem.instance.SendDialogue("Good. Now, we need to find out where this force came from. We've received no reports of enemy activity in this area. Split up, I want to know what route they’ve taken to sneak past our lines.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 7f);
 
         yield return new WaitForSeconds(7f);

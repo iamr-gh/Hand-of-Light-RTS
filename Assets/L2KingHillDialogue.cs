@@ -24,30 +24,26 @@ public class L2KingHillDialogue : MonoBehaviour
         cam_move.enabled = false;
 
 
-        ToastSystem.instance.SendDialogue("General. We�ve located an enemy encampment. We believe this is where their forces have been moving through to avoid detection.",
+        ToastSystem.instance.SendDialogue("General. We've located an enemy encampment. We believe this is where their forces have been moving through to avoid detection.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 6f);
 
-        yield return new WaitForSeconds(6f);
-
         //make general speaker
-        ToastSystem.instance.SendDialogue("It�s a good tactical location, but they�ve chosen a poor position for a fight.",
+        ToastSystem.instance.SendDialogue("It's a good tactical location, but they�ve chosen a poor position for a fight.",
         //using ranged for general rn
         portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 4f);
 
-        yield return new WaitForSeconds(4f);
 
         //make general speaker
         ToastSystem.instance.SendDialogue("Archers, sieze the high ground and snipe them from afar.",
         //using ranged for general rn
         portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 5f);
 
-        yield return new WaitForSeconds(5f);
 
 
         ToastSystem.instance.SendDialogue("Yes sir.",
         portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 2f);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
 
         input.actions.FindActionMap("Player").Enable();
         cam_move.enabled = true;
