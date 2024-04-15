@@ -10,13 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: faf7db05d259ffb47b2b158a2e462d2a, type: 3}
-  m_Name: ColorPalette-Default
+  m_Name: ColorPalette-Default 1
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  current: {r: 0.466, g: 0.466, b: 0.466, a: 1}
-=======
-  current: {r: 0.39607844, g: 0.6666667, b: 0.12941177, a: 1}
->>>>>>> 07c88cf7c9afd84e88d15b07e7a9eb5ae3d9671c
+  current: {r: 1, g: 1, b: 1, a: 1}
   colors:
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 0.866, g: 0.866, b: 0.866, a: 1}
@@ -37,9 +33,3 @@ MonoBehaviour:
   - {r: 0.352, g: 0.533, b: 0, a: 1}
   - {r: 0.976, g: 0.729, b: 0, a: 1}
   - {r: 0.258, g: 0.737, b: 1, a: 1}
-  - {r: 0.2901961, g: 0.81960785, b: 0.47058824, a: 1}
-  - {r: 0.2901961, g: 0.49019608, b: 0.09411765, a: 1}
-  - {r: 0.49019608, g: 0.3254902, b: 0.09411765, a: 1}
-  - {r: 0.5764706, g: 0.49803922, b: 0.11764706, a: 1}
-  - {r: 0.52156866, g: 0.52156866, b: 0.52156866, a: 1}
-  - {r: 0.39607844, g: 0.6666667, b: 0.12941177, a: 1}

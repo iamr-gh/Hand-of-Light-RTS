@@ -17,6 +17,8 @@ public class GlobalUnitManager : MonoBehaviour {
     //we're doing singleton
     public static GlobalUnitManager singleton;
 
+    public float minGroundHeight = -4f;
+
     public List<UnitPortraitData> portraits;
 
     //maps affiliation to unit type
@@ -50,7 +52,7 @@ public class GlobalUnitManager : MonoBehaviour {
     void Start() {
 
         groundLayerMask = LayerMask.GetMask("Ground");
-        groundPlane = new Plane(Vector3.up, 3);
+        groundPlane = new Plane(Vector3.up, -minGroundHeight);
 
         unitLayer = LayerMask.NameToLayer("Units");
         hiddenUnitLayer = LayerMask.NameToLayer("Hidden Units");
