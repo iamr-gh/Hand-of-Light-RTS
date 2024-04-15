@@ -560,6 +560,7 @@ GameObject:
   - component: {fileID: 8147432354152518630}
   - component: {fileID: 2629014098051360875}
   - component: {fileID: 266072892624647770}
+  - component: {fileID: 8007112047684727795}
   m_Layer: 5
   m_Name: Sizing Panel
   m_TagString: Untagged
@@ -610,6 +611,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 3
   m_AspectRatio: 1.7777778
+--- !u!114 &8007112047684727795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069316030225526028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c99110e958f0d24ba0cf8ed85626308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2297436759740278885
 GameObject:
   m_ObjectHideFlags: 0
