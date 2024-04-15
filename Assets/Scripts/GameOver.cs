@@ -8,6 +8,7 @@ public class GameOver : MonoBehaviour
     public string message;
     
     public int deadCount = 0;
+    [SerializeField] int minimumAliveFriendlies = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -33,13 +34,13 @@ public class GameOver : MonoBehaviour
         // Wait for all enemies to be defeated
         while (true)
         {
-            if (GetActiveChildCount() <= 0) { break; }
+            if (GetActiveChildCount() <= minimumAliveFriendlies) { break; }
             yield return null;
         }
 
         // Print a Message
         ToastSystem.instance.SendDialogue(message, autoDismissTime: 5f);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload current scene
     }
 }

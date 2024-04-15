@@ -116,14 +116,22 @@ MonoBehaviour:
   maxHP: 20
   HP: 20
   AttackDamage: 4
-  MovementSpeed: 0.9
+  MovementSpeed: 3
   AttackCooldown: 0.75
   AttackDuration: 0.3
+  Mana: 100
+  HitboxSize: 1
   AggroRange: 10
   SightRange: 10
   AttackRange: 8
-  Mana: 100
-  HitboxSize: 1
+  SelectVoiceLine: {fileID: 0}
+  SelectVoiceLineVolume: 1
+  MoveVoiceLine: {fileID: 0}
+  MoveVoiceLineVolume: 1
+  AttackMoveVoiceLine: {fileID: 0}
+  AttackMoveVoiceLineVolume: 1
+  DeathVoiceLine: {fileID: 0}
+  DeathVoiceLineVolume: 1
 --- !u!136 &2357805414798820628
 CapsuleCollider:
   m_ObjectHideFlags: 0
