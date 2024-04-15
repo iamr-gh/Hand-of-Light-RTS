@@ -132,5 +132,5 @@
     padding-bottom: 5px;
     padding-left: 20px;
     margin-top: 10px;
-    -unity-text-align: middle-left;
+    -unity-text-align: middle-center;
 }

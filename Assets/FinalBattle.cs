@@ -14,6 +14,7 @@ public class FinalBattle : MonoBehaviour
 
     IEnumerator finale()
     {
+        yield return null;
         var input = GlobalUnitManager.singleton.GetComponent<PlayerInput>();
         var cam_move = Camera.main.GetComponent<cameraMovement>();
         var controlSystem = GlobalUnitManager.singleton.GetComponent<ControlSystem>();
@@ -29,7 +30,7 @@ public class FinalBattle : MonoBehaviour
         while (!Input.GetKeyDown(KeyCode.Space)) {
             yield return null;
         }
-        ToastSystem.instance.SendDialogue("But sir! What about the Seleneians?", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
+        ToastSystem.instance.SendDialogue("But sir! What about the Seleneians?", portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
         while (!Input.GetKeyDown(KeyCode.Space)) {
             yield return null;
         }
@@ -41,7 +42,7 @@ public class FinalBattle : MonoBehaviour
         while (!Input.GetKeyDown(KeyCode.Space)) {
             yield return null;
         }
-        ToastSystem.instance.SendDialogue("Sir yes sir!", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Sir yes sir!", portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
         yield return new WaitForSeconds(7f);
         input.actions.FindActionMap("Player").Enable();
         cam_move.enabled = true;

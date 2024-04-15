@@ -992,6 +992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c1cac59b5af14940afd744a1ff34599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minGroundHeight: -4
   portraits:
   - type: Melee
     sprite: {fileID: 21300000, guid: ffb1a99db2d614684b29a1d4448dda76, type: 3}
@@ -1010,6 +1011,9 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
   - type: Mage
     sprite: {fileID: 91171567, guid: 0f41f1dfc68802b42bbf8c5ec2c99943, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - type: Scout
+    sprite: {fileID: 21300000, guid: ffb1a99db2d614684b29a1d4448dda76, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
   allManaged: []
 --- !u!114 &281730187184124888
@@ -1188,6 +1192,7 @@ MonoBehaviour:
   objectiveTemplate: {fileID: 9197481963319205126, guid: 7c36845d86dab4e44af4c3cedd091e4d, type: 3}
   selectedUnitsTemplate: {fileID: 9197481963319205126, guid: af8f3dceb77031e47bd7874ca3094fe8, type: 3}
   checkmarkTexture: {fileID: 3316425174430470091, guid: d0fc48f8c1c35714fb07857b413feda0, type: 3}
+  anticheckTexture: {fileID: -6527069497977903076, guid: d0fc48f8c1c35714fb07857b413feda0, type: 3}
 --- !u!114 &6715914599052553227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1200,6 +1205,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5eccfb07402ff040be1019268b1c21f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onDialogueAdvanced:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5996908438413732657
 GameObject:
   m_ObjectHideFlags: 0

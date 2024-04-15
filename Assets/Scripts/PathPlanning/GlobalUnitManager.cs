@@ -113,10 +113,15 @@ public class GlobalUnitManager : MonoBehaviour {
                         units.Add(unitaff.affiliation, new List<GameObject> { obj });
                     }
 
-                    if (controlSystem != null && unitaff.affiliation == controlSystem.affiliation) {
-                        var type = unitaff.unit_type;
-                        if (!unitTypes.Contains(type)) {
-                            unitTypes.Add(type);
+                    if (controlSystem != null) {
+                        if (unitaff.affiliation == controlSystem.affiliation) {
+                            var type = unitaff.unit_type;
+                            if (!unitTypes.Contains(type)) {
+                                unitTypes.Add(type);
+                            }
+                        } else if (FogOfWarManager.instance != null) {
+                            HideUnit(obj);
+                            hiddenEnemies.Add(obj);
                         }
                     }
                 }
@@ -276,11 +281,11 @@ public class GlobalUnitManager : MonoBehaviour {
         FogOfWarManager.instance.UpdateFog();
     }
 
-    void HideUnit(GameObject unit) {
+    public void HideUnit(GameObject unit) {
         SetLayerRecursively(unit, hiddenUnitLayer);
     }
 
-    void ShowUnit(GameObject unit) {
+    public void ShowUnit(GameObject unit) {
         SetLayerRecursively(unit, unitLayer);
     }
 

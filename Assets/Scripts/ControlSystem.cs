@@ -1025,7 +1025,7 @@ public class ControlSystem : MonoBehaviour {
             return;
         }
         var unit = controlledUnits[Random.Range(0, controlledUnits.Count)];
-        if (attackMoveVoiceLineEnabled && unit.TryGetComponent(out UnitParameters unitParams)) {
+        if (unit != null && attackMoveVoiceLineEnabled && unit.TryGetComponent(out UnitParameters unitParams)) {
             var attackMoveVoiceLine = unitParams.getSelectVoiceLine();
             if (attackMoveVoiceLine != null) {
                 AudioManager.instance.PlayAudioClip(attackMoveVoiceLine, unitParams.getAttackMoveVoiceLineVolume());

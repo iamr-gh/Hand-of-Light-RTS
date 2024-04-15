@@ -54,6 +54,10 @@ public class ObjectiveUI {
             objectiveCheckbox.style.backgroundImage = StyleKeyword.None;
         }
     }
+
+    public void SetFailed() {
+        objectiveCheckbox.style.backgroundImage = HudUI.instance.anticheckTexture;
+    }
 }
 
 public class SelectedUnitsUI {
@@ -160,6 +164,7 @@ public class HudUI : MonoBehaviour {
     public VisualTreeAsset objectiveTemplate;
     public VisualTreeAsset selectedUnitsTemplate;
     public Texture2D checkmarkTexture;
+    public Texture2D anticheckTexture;
 
     private VisualElement notificationsContainer;
     private VisualElement objectivesContainer;
@@ -284,6 +289,10 @@ public class HudUI : MonoBehaviour {
 
     public void SetObjectiveComplete(ulong id, bool val) {
         objectives[id].SetChecked(val);
+    }
+
+    public void SetObjectiveFailed(ulong id) {
+        objectives[id].SetFailed();
     }
 
     public void UpdateSelectedUnits(SortedDictionary<string, List<UnitParameters>> unitInfo) {

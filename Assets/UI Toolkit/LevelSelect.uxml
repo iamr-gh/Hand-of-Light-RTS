@@ -4,14 +4,17 @@
         <ui:VisualElement name="MenuElements" style="flex-grow: 1; justify-content: center; align-items: center; background-image: none;">
             <ui:Label tabindex="-1" text="Level Select" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font: url(&apos;project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&apos;); -unity-font-definition: url(&apos;project://database/Assets/Thaleah_PixelFont/ThaleahFat.asset?fileID=11400000&amp;guid=23d4d74baa1e8441a9db5ad5556cd2b8&amp;type=2#ThaleahFat&apos;); font-size: 80px; align-self: center; top: auto; -unity-text-outline-color: rgb(0, 179, 255); -unity-text-outline-width: 2px;" />
             <ui:ScrollView name="Levels" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="credits-container" style="overflow: visible; width: auto;">
-                <LevelButton level="1" text="1 - First Steps" class="level-button" />
-                <LevelButton level="2" text="2 - Second Steps" class="level-button" />
-                <LevelButton level="3" text="3 - Third Steps" class="level-button" />
-                <LevelButton level="4" text="4 - Foruth Steps" class="level-button" />
-                <LevelButton level="5" text="5 - Fifth Steps" class="level-button" />
-                <LevelButton level="6" text="6 - Sixth Steps" class="level-button" />
-                <LevelButton level="7" text="7 - Seventh Steps" class="level-button" />
-                <LevelButton level="8" text="8 - Eighth Steps" class="level-button" />
+                <LevelButton level="1" text="Tutorial A" class="level-button" />
+                <LevelButton level="2" text="Tutorial B" class="level-button" />
+                <LevelButton level="3" text="Tutorial C" class="level-button" />
+                <LevelButton level="4" text="Tutorial D" class="level-button" />
+                <LevelButton level="5" text="Hold the Pass" class="level-button" />
+                <LevelButton level="6" text="King of the Hill" class="level-button" />
+                <LevelButton level="7" text="Break the Border" class="level-button" />
+                <LevelButton level="8" text="High Ground Woes" class="level-button" />
+                <LevelButton level="9" text="Run Away" class="level-button" />
+                <LevelButton level="10" text="Mountain Pass" class="level-button" />
+                <LevelButton level="11" text="Final Battle" class="level-button" />
             </ui:ScrollView>
             <ui:Button text="Return to Main Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ReturnToMainMenuButton" class="menu-button" />
         </ui:VisualElement>

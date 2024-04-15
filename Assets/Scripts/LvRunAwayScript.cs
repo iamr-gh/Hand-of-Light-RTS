@@ -25,6 +25,7 @@ public class LvRunAwayScript : MonoBehaviour
     }
 
     IEnumerator dialogue() {
+        yield return null;
         var input = GlobalUnitManager.singleton.GetComponent<PlayerInput>();
         var cam_move = Camera.main.GetComponent<cameraMovement>();
         var controlSystem = GlobalUnitManager.singleton.GetComponent<ControlSystem>();
@@ -38,13 +39,13 @@ public class LvRunAwayScript : MonoBehaviour
         Camera.main.transform.position = new Vector3(5.5f, 40f, 60f); // Move camera to correct spot
 
         ToastSystem.instance.SendDialogue("Commander! Our scouts have found the enemy forces. Unfortunately, they also found us.",
-        portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
+        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
 
         ToastSystem.instance.SendDialogue("There's some commandos coming in later that will help you to move between the islands",
-        portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
+        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
 
         ToastSystem.instance.SendDialogue("Get the scouts out and link up with the main army!",
-        portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
+        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
 
         while (timesAdvanced < 3) { yield return null; } // Do nothing while dialogue hasn't finished
 
@@ -62,7 +63,7 @@ public class LvRunAwayScript : MonoBehaviour
         //ToastSystem.instance.DismissNotification(notif6);
 
         StartCoroutine(watchFriendlies(aliveObjectiveID)); // Start in background
-        while (!(finalCheckpointEnemies.transform.childCount > 0) && !escaped) {
+        while (finalCheckpointEnemies.transform.childCount > 0 || !escaped) {
             yield return null;
         }
 
@@ -71,12 +72,14 @@ public class LvRunAwayScript : MonoBehaviour
         //on win
 
         ToastSystem.instance.SendDialogue("We've reached the main army, the intelligence gathered today will be critical in finding good terrain to engage them on",
-        portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f);
+        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f);
 
         ToastSystem.instance.SendDialogue("Finally, we'll be able to destroy their main army!",
-        portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 3f);
+        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 3f);
 
         yield return new WaitForSeconds(5f);
+
+        ToastSystem.instance.onDialogueAdvanced.RemoveListener(TickDialogue);
 
         //load next level
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);

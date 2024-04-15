@@ -14,6 +14,7 @@ public class Level3Sequence : MonoBehaviour
 
     IEnumerator tutorial()
     {
+        yield return null;
         var input = GlobalUnitManager.singleton.GetComponent<PlayerInput>();
         var cam_move = Camera.main.GetComponent<cameraMovement>();
         var controlSystem = GlobalUnitManager.singleton.GetComponent<ControlSystem>();
@@ -23,6 +24,7 @@ public class Level3Sequence : MonoBehaviour
 
         ToastSystem.instance.SendDialogue("Select a single unit type by holding control then clicking on a unit, or by double clicking. Select the archers.", autoDismiss: false);
         input.actions["Select"].Enable();
+        input.actions["Select Type"].Enable();
         while (controlSystem.controlledUnits.Count != 5)
         {
             yield return null;

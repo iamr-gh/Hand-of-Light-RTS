@@ -13,6 +13,7 @@ public class L5_High_Ground_Woes_Dialogue : MonoBehaviour
     }
     
     IEnumerator dialogue(){
+        yield return null;
         var input = GlobalUnitManager.singleton.GetComponent<PlayerInput>();
         var cam_move = Camera.main.GetComponent<cameraMovement>();
         var controlSystem = GlobalUnitManager.singleton.GetComponent<ControlSystem>();
@@ -28,14 +29,14 @@ public class L5_High_Ground_Woes_Dialogue : MonoBehaviour
         // yield return new WaitForSeconds(3f);
 
         ToastSystem.instance.SendDialogue("General, there are archers on the cliffs...",
-        portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f);
+        portraitLabel: "Melee", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f);
         // yield return new WaitForSeconds(5f);
         
         ToastSystem.instance.SendDialogue("Let's use these new mages, they should be able to blind them long enough for you to run past.",autoDismissTime: 5f);
         // yield return new WaitForSeconds(5f);
         
         ToastSystem.instance.SendDialogue("Reporting in, ready to blind some archers.",
-        portrait: GlobalUnitManager.singleton.GetPortrait("Mage").Item1, autoDismissTime: 5f); yield return new WaitForSeconds(5f);
+        portraitLabel: "Mage", portrait: GlobalUnitManager.singleton.GetPortrait("Mage").Item1, autoDismissTime: 5f); yield return new WaitForSeconds(5f);
         
         input.actions.FindActionMap("Player").Enable();
         cam_move.enabled = true;

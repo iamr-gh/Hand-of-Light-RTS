@@ -95,7 +95,7 @@ MonoBehaviour:
     name: Flowers_02
   - gameObject: {fileID: 108507113624723981, guid: eebb56c82efbd8d4bb0eb6bd925a0e9d, type: 3}
     settings:
-      m_Strength: 50
+      m_Strength: 28
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 0, y: 0, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}

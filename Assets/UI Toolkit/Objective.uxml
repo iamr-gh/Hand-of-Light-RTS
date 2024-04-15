@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <ui:VisualElement style="flex-grow: 0; flex-direction: row; align-items: flex-start; margin-top: 8px; overflow: visible;">
-        <ui:VisualElement name="ObjectiveCheckbox" style="flex-grow: 1; background-image: none; width: 16px; height: 16px; background-color: rgb(255, 255, 255); flex-shrink: 0;" />
+        <ui:VisualElement name="ObjectiveCheckbox" style="flex-grow: 1; background-image: none; width: 16px; height: 16px; background-color: rgb(255, 255, 255); flex-shrink: 0; -unity-background-image-tint-color: rgb(0, 0, 0);" />
         <ui:Label tabindex="-1" text="Objective text goes here" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ObjectiveText" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 10px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 18px; color: rgb(255, 255, 255); overflow: hidden; white-space: normal; text-overflow: ellipsis; -unity-text-align: upper-left;" />
     </ui:VisualElement>
 </ui:UXML>

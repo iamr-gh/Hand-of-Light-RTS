@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -14,6 +13,7 @@ public class Tutorial4Sequence : MonoBehaviour
 
     IEnumerator tutorial()
     {
+        yield return null;
         var input = GlobalUnitManager.singleton.GetComponent<PlayerInput>();
         var cam_move = Camera.main.GetComponent<cameraMovement>();
         var controlSystem = GlobalUnitManager.singleton.GetComponent<ControlSystem>();
@@ -21,7 +21,7 @@ public class Tutorial4Sequence : MonoBehaviour
         input.actions.FindActionMap("Player").Disable();
         cam_move.enabled = false;
 
-        ToastSystem.instance.SendDialogue("Some special units have abilities,which will appear in an additional menu", autoDismissTime: 5f);
+        ToastSystem.instance.SendDialogue("Some special units have abilities, which will appear in an additional menu", autoDismissTime: 5f);
         yield return new WaitForSeconds(5f);
 
         var notif1 = ToastSystem.instance.SendNotification("Select the Commando at the top of the screen", autoDismiss: false);
@@ -49,7 +49,7 @@ public class Tutorial4Sequence : MonoBehaviour
 
         // ToastSystem.instance.SendDialogue("Press 1 and click to use the Commando's ability to recall your units", autoDismiss: false);
 
-        var notif6 = ToastSystem.instance.SendNotification("Press 1 and click to use Commando's ability to recall your units", false);
+        var notif6 = ToastSystem.instance.SendNotification("Press 1 and click your units to use Commando's recall!", false);
         
         //get positions of existing non-commando units
         Dictionary<GameObject, Vector3> unitPositions = new();

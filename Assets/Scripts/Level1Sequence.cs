@@ -16,6 +16,7 @@ public class Level1Sequence : MonoBehaviour
 
     IEnumerator tutorial()
     {
+        yield return null;
         var input = GlobalUnitManager.singleton.GetComponent<PlayerInput>();
         var cam_move = Camera.main.GetComponent<cameraMovement>();
 

@@ -40,15 +40,8 @@ public class ToastSystem : MonoBehaviour {
         public float audioVolume = 1f;
     }
 
-    private class ObjectiveRequest {
-        public string message;
-        public AudioClip audioClip = null;
-        public float audioVolume = 1f;
-    }
-
     Queue<DialogueRequest> dialogueQueue;
     Queue<Tuple<ulong, NotificationRequest>> notificationQueue;
-    Queue<Tuple<ulong, ObjectiveRequest>> objectiveQueue;
 
     DialogueRequest currentDialogue;
     Dictionary<ulong, (NotificationRequest, bool, AudioClip, float)> currentNotifications;
@@ -66,7 +59,6 @@ public class ToastSystem : MonoBehaviour {
         }
         dialogueQueue = new();
         notificationQueue = new();
-        objectiveQueue = new();
         currentDialogue = null;
         currentNotifications = new();
         currentObjectives = new();
@@ -78,9 +70,6 @@ public class ToastSystem : MonoBehaviour {
         }
         while (notificationQueue.Count > 0) {
             StartCoroutine(DisplayNotification(notificationQueue.Dequeue()));
-        }
-        while (objectiveQueue.Count > 0) {
-            DisplayObjective(objectiveQueue.Dequeue());
         }
     }
 
@@ -214,11 +203,11 @@ public class ToastSystem : MonoBehaviour {
 
     public ulong SendObjective(string message, AudioClip audioClip = null, float audioVolume = 1f) {
         var id = objectiveCounter++;
-        objectiveQueue.Enqueue(Tuple.Create(id, new ObjectiveRequest {
-            message = message,
-            audioClip = audioClip,
-            audioVolume = audioVolume,
-        }));
+        HudUI.instance.AddObjective(id, message);
+        if (audioClip != null) {
+            AudioManager.instance.PlayAudioClip(audioClip, audioVolume);
+        }
+        currentObjectives.Add(id);
         return id;
     }
 
@@ -236,20 +225,18 @@ public class ToastSystem : MonoBehaviour {
         }
     }
 
+    public void FailObjective(ulong id, AudioClip audioClip = null, float audioVolume = 1f) {
+        HudUI.instance.SetObjectiveFailed(id);
+        if (audioClip != null) {
+            AudioManager.instance.PlayAudioClip(audioClip, audioVolume);
+        }
+    }
+
     public void RemoveObjective(ulong id, AudioClip audioClip = null, float audioVolume = 1f) {
         HudUI.instance.RemoveObjective(id);
         currentObjectives.Remove(id);
         if (audioClip != null) {
             AudioManager.instance.PlayAudioClip(audioClip, audioVolume);
         }
-    }
-
-    private void DisplayObjective(Tuple<ulong, ObjectiveRequest> request) {
-        var (id, objective) = request;
-        HudUI.instance.AddObjective(id, objective.message);
-        if (objective.audioClip != null) {
-            AudioManager.instance.PlayAudioClip(objective.audioClip, objective.audioVolume);
-        }
-        currentObjectives.Add(id);
     }
 }
