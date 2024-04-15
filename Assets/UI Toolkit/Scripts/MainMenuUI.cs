@@ -23,6 +23,7 @@ public class MainMenuUI : MonoBehaviour {
     private Button quitButton;
     private Button creditsReturnButton;
     private Button levelSelectReturnButton;
+    private VisualElement loadingOverlayElement;
     private ProgressBar progressBar;
 
     // Start is called before the first frame update
@@ -38,7 +39,6 @@ public class MainMenuUI : MonoBehaviour {
         levelSelectButton = mainMenuUiDocument.rootVisualElement.Q("LevelSelectButton") as Button;
         creditsButton = mainMenuUiDocument.rootVisualElement.Q("CreditsButton") as Button;
         quitButton = mainMenuUiDocument.rootVisualElement.Q("QuitButton") as Button;
-        progressBar = mainMenuUiDocument.rootVisualElement.Q("LoadingBar") as ProgressBar;
         startButton.RegisterCallback<ClickEvent>(StartGame);
         levelSelectButton.RegisterCallback<ClickEvent>(SwitchToLevelSelect);
         creditsButton.RegisterCallback<ClickEvent>(SwitchToCredits);
@@ -50,6 +50,8 @@ public class MainMenuUI : MonoBehaviour {
         creditsReturnButton = creditsUiDocument.rootVisualElement.Q("ReturnToMainMenuButton") as Button;
         creditsReturnButton.RegisterCallback<ClickEvent>(SwitchToMainMenu);
         loadingOverlayUiDocument = loadingOverlay.GetComponent<UIDocument>();
+        loadingOverlayElement = loadingOverlayUiDocument.rootVisualElement.Q("LoadingOverlayElement");
+        progressBar = loadingOverlayUiDocument.rootVisualElement.Q("LoadingBar") as ProgressBar;
         mainMenuUiDocument.rootVisualElement.style.display = DisplayStyle.Flex;
         levelSelectUiDocument.rootVisualElement.style.display = DisplayStyle.None;
         creditsUiDocument.rootVisualElement.style.display = DisplayStyle.None;
@@ -96,9 +98,10 @@ public class MainMenuUI : MonoBehaviour {
     }
 
     private IEnumerator LoadSceneCoroutine(int id) {
+        progressBar.value = 0;
         loadingOverlayUiDocument.rootVisualElement.style.display = DisplayStyle.Flex;
         yield return null;
-        loadingOverlayUiDocument.rootVisualElement.style.opacity = 100;
+        loadingOverlayElement.style.opacity = 100;
         var asyncLoad = SceneManager.LoadSceneAsync(id);
         while (!asyncLoad.isDone) {
             if (progressBar != null) {
