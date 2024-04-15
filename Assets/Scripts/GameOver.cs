@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class GameOver : MonoBehaviour
 {
@@ -34,12 +35,17 @@ public class GameOver : MonoBehaviour
         // Wait for all enemies to be defeated
         while (true)
         {
+            Debug.Log("AliveUnits: " + GetActiveChildCount());
             if (GetActiveChildCount() <= minimumAliveFriendlies) { break; }
             yield return null;
         }
 
+        // Lock inputs
+        GlobalUnitManager.singleton.GetComponent<PlayerInput>().actions.FindActionMap("Player").Disable();
+        Camera.main.GetComponent<cameraMovement>().enabled = false;
+
         // Print a Message
-        ToastSystem.instance.SendDialogue(message, autoDismissTime: 5f);
+        ToastSystem.instance.SendDialogue(message, autoDismissTime: 3f);
         yield return new WaitForSeconds(3);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload current scene
     }
