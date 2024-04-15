@@ -42,7 +42,7 @@ public class L5_High_Ground_Woes_Dialogue : MonoBehaviour
 
         yield return new WaitForSeconds(15f);
 
-        var notif6 = ToastSystem.instance.SendNotification("Press 1 to use a selected unit's ability.", false);
+        var notif6 = ToastSystem.instance.SendNotification("Press 1 to use the Mage's ability to blind archers", false);
         yield return new WaitForSeconds(4f);
         ToastSystem.instance.DismissNotification(notif6);
     }
