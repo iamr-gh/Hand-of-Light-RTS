@@ -22,12 +22,26 @@ public class FinalBattle : MonoBehaviour
         cam_move.enabled = false;
         yield return new WaitForSeconds(0.1f);
         ToastSystem.instance.SendDialogue("Is that...?", autoDismiss: false);
+        while (!Input.GetKeyDown(KeyCode.Space)) {
+            yield return null;
+        }
         ToastSystem.instance.SendDialogue("Quickly! Back into position!", autoDismiss: false);
+        while (!Input.GetKeyDown(KeyCode.Space)) {
+            yield return null;
+        }
         ToastSystem.instance.SendDialogue("But sir! What about the Seleneians?", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
+        while (!Input.GetKeyDown(KeyCode.Space)) {
+            yield return null;
+        }
         ToastSystem.instance.SendDialogue("Get into position with them! The incoming Astran force is too large for us to fight alone!", autoDismiss: false);
+        while (!Input.GetKeyDown(KeyCode.Space)) {
+            yield return null;
+        }
         ToastSystem.instance.SendDialogue("Move move move!", autoDismiss: false);
+        while (!Input.GetKeyDown(KeyCode.Space)) {
+            yield return null;
+        }
         ToastSystem.instance.SendDialogue("Sir yes sir!", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
-
         yield return new WaitForSeconds(7f);
         input.actions.FindActionMap("Player").Enable();
         cam_move.enabled = true;
