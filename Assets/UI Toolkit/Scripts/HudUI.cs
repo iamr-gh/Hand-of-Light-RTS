@@ -371,6 +371,8 @@ public class HudUI : MonoBehaviour {
             dialoguePortrait.style.backgroundImage = new StyleBackground(portrait);
             if (color != null) {
                 dialoguePortrait.style.unityBackgroundImageTintColor = color.Value;
+            } else {
+                dialoguePortrait.style.unityBackgroundImageTintColor = Color.white;
             }
             dialoguePortrait.style.display = DisplayStyle.Flex;
         } else {

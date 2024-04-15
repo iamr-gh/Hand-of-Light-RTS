@@ -1,0 +1,93 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
+public class MountainPassEndDialogue : MonoBehaviour {
+    public GameObject chasers;
+    public GameObject friendlies;
+    private bool started = false;
+    private List<GameObject> inTrigger = new();
+    private int numInitialFriendlies;
+
+    void Start() {
+        numInitialFriendlies = friendlies.transform.childCount;
+    }
+
+    void OnTriggerEnter(Collider other) {
+        // check if unit is friendly
+        if (!started && other.TryGetComponent(out UnitAffiliation unitAffiliation) && unitAffiliation.affiliation == "White") {
+            inTrigger.Add(other.gameObject);
+            if (inTrigger.Count == friendlies.transform.childCount) {
+                started = true;
+                chasers.SetActive(false);
+                StartCoroutine(dialogue());
+            }
+        }
+    }
+
+    void OnTriggerExit(Collider other) {
+        if (!started && other.TryGetComponent(out UnitAffiliation unitAffiliation) && unitAffiliation.affiliation == "White") {
+            inTrigger.Remove(other.gameObject);
+        }
+    }
+
+    void Update() {
+        inTrigger.RemoveAll(obj => obj == null);
+        if (!started && inTrigger.Count == friendlies.transform.childCount) {
+            started = true;
+            chasers.SetActive(false);
+            StartCoroutine(dialogue());
+        }
+    }
+
+    IEnumerator dialogue() {
+        var input = GlobalUnitManager.singleton.GetComponent<PlayerInput>();
+        var cam_move = Camera.main.GetComponent<cameraMovement>();
+        var controlSystem = GlobalUnitManager.singleton.GetComponent<ControlSystem>();
+
+        //disable controls for dialogue
+        input.actions.FindActionMap("Player").Disable();
+        cam_move.enabled = false;
+        var (commandoPortrait, commandoColor) = GlobalUnitManager.singleton.GetPortrait("Commando");
+
+        if (friendlies.transform.childCount >= numInitialFriendlies / 2) {
+            ToastSystem.instance.SendDialogue("We made it!",
+            portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, portraitLabel: "Knight", autoDismissTime: 5f);
+            // yield return new WaitForSeconds(5f);
+
+            ToastSystem.instance.SendDialogue("We won't forget those who fell this day. Let's get out of here.",
+            portrait: commandoPortrait, portraitColor: commandoColor, portraitLabel: "Commando", autoDismissTime: 5f);
+            // yield return new WaitForSeconds(5f);
+            ToastSystem.instance.onDialogueAdvanced.AddListener(TickDialogue);
+            dialogueTicked = false;
+            while (!dialogueTicked) {
+                yield return null;
+            }
+            ToastSystem.instance.onDialogueAdvanced.RemoveListener(TickDialogue);
+
+            //advance level
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        } else {
+            ToastSystem.instance.SendDialogue("We lost too many men. The enemy has bested us.",
+            portrait: commandoPortrait, portraitColor: commandoColor, portraitLabel: "Commando", autoDismissTime: 5f);
+
+            ToastSystem.instance.onDialogueAdvanced.AddListener(TickDialogue);
+            dialogueTicked = false;
+            while (!dialogueTicked) {
+                yield return null;
+            }
+            ToastSystem.instance.onDialogueAdvanced.RemoveListener(TickDialogue);
+
+            //restart level
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
+
+    bool dialogueTicked = false;
+    void TickDialogue() {
+        dialogueTicked = true;
+    }
+}

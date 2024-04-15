@@ -28,6 +28,12 @@ public class AudioManager : MonoBehaviour {
         bgmStatus = BGMStatus.Playing;
     }
 
+    private void Update() {
+        if (Camera.main != null) {
+            transform.position = Camera.main.transform.position;
+        }
+    }
+
     public void SetBGMVolume(float volume) {
         audioSource.volume = volume;
     }

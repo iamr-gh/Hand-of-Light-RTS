@@ -14,6 +14,9 @@ using UnityEngine.UIElements;
 
 public class ToastSystem : MonoBehaviour {
     public static ToastSystem instance;
+
+    public UnityEvent onDialogueAdvanced;
+
     private class DialogueRequest {
         public string message;
         public bool autoDismiss = true;
@@ -153,6 +156,7 @@ public class ToastSystem : MonoBehaviour {
         if (dialogueQueue.Count == 0) {
             HudUI.instance.HideDialogue();
         }
+        onDialogueAdvanced.Invoke();
     }
 
     public ulong SendNotification(string message, bool autoDismiss = true, float autoDismissTime = 3f, Nullable<Color> boxColor = null, Nullable<Color> textColor = null, Nullable<Color> textOutlineColor = null, AudioClip audioClip = null, float audioVolume = 1f) {
@@ -171,6 +175,9 @@ public class ToastSystem : MonoBehaviour {
     }
 
     public void DismissNotification(ulong id, AudioClip audioClip = null, float audioVolume = 1f) {
+        if (!currentNotifications.ContainsKey(id)) {
+            return;
+        }
         var tuple = currentNotifications[id];
         tuple.Item2 = true;
         tuple.Item3 = audioClip;
