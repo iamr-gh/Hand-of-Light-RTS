@@ -21,7 +21,7 @@ public class Level3Sequence : MonoBehaviour
         input.actions.FindActionMap("Player").Disable();
         cam_move.enabled = false;
 
-        ToastSystem.instance.SendDialogue("Select a single unit type by holding control then clicking on a unit, or by double clicking. Try selecting the archers.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Select a single unit type by holding control then clicking on a unit, or by double clicking. Select the archers.", autoDismiss: false);
         input.actions["Select"].Enable();
         while (controlSystem.controlledUnits.Count != 5)
         {
@@ -33,22 +33,22 @@ public class Level3Sequence : MonoBehaviour
         yield return new WaitForSeconds(2f);
         ToastSystem.instance.AdvanceDialogue();
 
-        ToastSystem.instance.SendDialogue("There is a technique known as kiting. As you fight this next battle, try control clicking your archers. Then make them retreat by moving them, then pressing attack move, and repeating.", autoDismiss: false);
-
-        var notif6 = ToastSystem.instance.SendNotification("Press space to continue.", false);
+        ToastSystem.instance.SendDialogue("There is a technique known as kiting. Kiting is when you run away from your enemies then shoot, then repeat.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("This allows your ranged units to attack while staying out of reach of melee troops.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("You can achieve this by move commanding your units away then attack move commanding them back towards the enemy.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Try this out in the next battle by selecting your archers then kiting with them.", autoDismiss: false);
 
         while (!Input.GetKeyDown(KeyCode.Space))
         {
             yield return null;
         }
-        ToastSystem.instance.DismissNotification(notif6);
 
         ToastSystem.instance.AdvanceDialogue();
         input.actions.FindActionMap("Player").Enable();
 
         cam_move.enabled = true;
 
-        ToastSystem.instance.SendDialogue("Defeat the enemies at the top of the map to continue.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Defeat the enemies at the top of the map to finish your promotion to general. Good luck commander.", autoDismiss: false);
     }
 }
 
