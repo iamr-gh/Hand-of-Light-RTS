@@ -255,9 +255,9 @@ MonoBehaviour:
   AttackDuration: 0.25
   Mana: 100
   HitboxSize: 1
-  AggroRange: 10
-  SightRange: 50
-  AttackRange: 2
+  AggroRange: 1
+  SightRange: 20
+  AttackRange: 1
   SelectVoiceLine: {fileID: 0}
   SelectVoiceLineVolume: 1
   MoveVoiceLine: {fileID: 0}

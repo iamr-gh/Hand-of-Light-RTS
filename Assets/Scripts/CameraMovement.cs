@@ -102,7 +102,7 @@ public class cameraMovement : MonoBehaviour
         {
             mouseMovement -= cameraRight;
         }
-        else if (mousePosition.x >= Screen.width - edgeSize && (transform.position.x <= maxMoveDist))
+        else if (mousePosition.x >= Screen.width - edgeSize && (transform.position.x <= initialx + maxMoveDist))
         {
             mouseMovement += cameraRight;
         }

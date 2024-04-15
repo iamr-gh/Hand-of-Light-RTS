@@ -271,7 +271,7 @@ MonoBehaviour:
   HitboxSize: 1
   AggroRange: 30
   SightRange: 30
-  AttackRange: 20
+  AttackRange: 10
   SelectVoiceLine: {fileID: 0}
   SelectVoiceLineVolume: 1
   MoveVoiceLine: {fileID: 0}
