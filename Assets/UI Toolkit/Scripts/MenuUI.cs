@@ -8,6 +8,7 @@ public class MenuUI : MonoBehaviour {
     private Button restartLevelButton;
     private Button quitToMainMenuButton;
     private VisualElement loadingOverlay;
+    private VisualElement loadingOverlayElement;
     private ProgressBar progressBar;
 
     // Start is called before the first frame update
@@ -16,9 +17,11 @@ public class MenuUI : MonoBehaviour {
         restartLevelButton = uiDocument.rootVisualElement.Q("RestartLevelButton") as Button;
         quitToMainMenuButton = uiDocument.rootVisualElement.Q("QuitToMainMenuButton") as Button;
         loadingOverlay = uiDocument.rootVisualElement.Q("LoadingOverlay");
+        loadingOverlayElement = uiDocument.rootVisualElement.Q("LoadingOverlayElement");
         progressBar = uiDocument.rootVisualElement.Q("LoadingBar") as ProgressBar;
         restartLevelButton.RegisterCallback<ClickEvent>(RestartLevel);
         quitToMainMenuButton.RegisterCallback<ClickEvent>(QuitToMainMenu);
+        loadingOverlay.style.display = DisplayStyle.None;
     }
 
     private void OnDisable() {
@@ -35,11 +38,15 @@ public class MenuUI : MonoBehaviour {
     }
 
     private IEnumerator LoadScene(int sceneIndex) {
+        progressBar.value = 0;
+        loadingOverlay.style.display = DisplayStyle.Flex;
+        yield return null;
+        loadingOverlayElement.style.opacity = 100;
         var asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
-        loadingOverlay.style.visibility = Visibility.Visible;
-        loadingOverlay.style.opacity = 100;
         while (!asyncLoad.isDone) {
-            progressBar.value = asyncLoad.progress;
+            if (progressBar != null) {
+                progressBar.value = asyncLoad.progress;
+            }
             yield return null;
         }
     }

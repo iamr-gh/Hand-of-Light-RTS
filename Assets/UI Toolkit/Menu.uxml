@@ -7,6 +7,6 @@
             <ui:Button text="Restart Level" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RestartLevelButton" class="button" />
             <ui:Button text="Quit to Main Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="QuitToMainMenuButton" class="button" />
         </ui:VisualElement>
-        <ui:Instance template="LoadingOverlay" name="LoadingOverlay" />
+        <ui:Instance template="LoadingOverlay" name="LoadingOverlay" style="flex-grow: 0; position: absolute; width: 100%; height: 100%; display: none;" />
     </ui:VisualElement>
 </ui:UXML>
