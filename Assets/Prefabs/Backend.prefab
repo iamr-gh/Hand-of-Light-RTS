@@ -1008,6 +1008,9 @@ MonoBehaviour:
   - type: Cavalry
     sprite: {fileID: 21300000, guid: ed57e3eea76334288903c70839fba173, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
+  - type: Mage
+    sprite: {fileID: 91171567, guid: 0f41f1dfc68802b42bbf8c5ec2c99943, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
   allManaged: []
 --- !u!114 &281730187184124888
 MonoBehaviour:
