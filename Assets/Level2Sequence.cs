@@ -35,8 +35,14 @@ public class Level2Sequence : MonoBehaviour
         ToastSystem.instance.AdvanceDialogue();
         cam_move.enabled = true;
 
-        ToastSystem.instance.SendDialogue("Make your units attack an area by clicking 'Q' then left clicking the ground.", autoDismiss: false);
-        ToastSystem.instance.SendNotification("Defeat the enemy units to continue.", false);
+        ToastSystem.instance.SendDialogue("There are two types of movement commands.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Move command with right click only moves your units.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("When give a move command, units will not attack until they either reach the given location or given an attack move command.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("When give an attack move command, your units will try to move to the location, but if they spot an enemy they will attack.", autoDismiss: false);
+
+
+        ToastSystem.instance.SendDialogue("Give your units an attack move command by clicking 'Q' then left clicking the ground.", autoDismiss: false);
+        
         input.actions["Activate Attack"].Enable();
 
         while (true)
@@ -50,5 +56,8 @@ public class Level2Sequence : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
         input.actions.FindActionMap("Player").Enable();
+        ToastSystem.instance.AdvanceDialogue();
+
+        ToastSystem.instance.SendDialogue("Defeat the enemy units to continue.", autoDismiss: false);
     }
 }
