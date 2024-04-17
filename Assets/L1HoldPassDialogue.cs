@@ -9,6 +9,9 @@ public class L1HoldPassDialogue : MonoBehaviour
     public GameObject firstWave;
     public GameObject secondWave;
     public GameObject thirdWave;
+    public GameObject fourthWave;
+    
+    //maybe should include another wave
 
     public GameObject reinforcements;
     public float reinforcementDelay = 40f;
@@ -60,25 +63,26 @@ public class L1HoldPassDialogue : MonoBehaviour
 
         input.actions.FindActionMap("Player").Enable();
         cam_move.enabled = true;
+        
+        var wav1obj = ToastSystem.instance.SendObjective("Hold the mountain pass! (Wave 1/4)");
 
         //have a reinforcment condition on timer
         StartCoroutine(triggerReinforcements());
 
         //start triggering enemy waves
+        //at least after 2 waves of stacking
         var awave1 = firstWave.GetComponent<L1AttackWave>();
         awave1.start = true;
 
         yield return new WaitForSeconds(15f);
 
+        ToastSystem.instance.RemoveObjective(wav1obj);
+        var wav2obj = ToastSystem.instance.SendObjective("Hold the mountain pass! (Wave 2/4)");
         var awave2 = secondWave.GetComponent<L1AttackWave>();
         awave2.start = true;
-
-
-        yield return new WaitForSeconds(20f);
-        var awave3 = thirdWave.GetComponent<L1AttackWave>();
-        awave3.start = true;
         
-        //wait until all are defeated
+        //after this, wait for defeat for stacking
+
         while (!awave1.defeated)
         {
             yield return null;
@@ -87,12 +91,30 @@ public class L1HoldPassDialogue : MonoBehaviour
         {
             yield return null;
         }
+        
+        //could make reinforcements not be timed based, but that seems wrong?
+
+        ToastSystem.instance.RemoveObjective(wav2obj);
+        var wav3obj = ToastSystem.instance.SendObjective("Hold the mountain pass! (Wave 3/4)");
+        var awave3 = thirdWave.GetComponent<L1AttackWave>();
+        awave3.start = true;
+        
         while (!awave3.defeated)
         {
             yield return null;
         }
 
+        ToastSystem.instance.RemoveObjective(wav3obj);
+        var obj = ToastSystem.instance.SendObjective("Hold the mountain pass! (Wave 4/4)");
+        var awave4 = fourthWave.GetComponent<L1AttackWave>();
+        awave4.start = true;
 
+        while (!awave4.defeated)
+        {
+            yield return null;
+        }
+
+        ToastSystem.instance.CompleteObjective(obj);
         //on win
 
         ToastSystem.instance.SendDialogue("Enemy forces have been routed sir.",
