@@ -7,6 +7,11 @@ public class Tutorial4Sequence : MonoBehaviour {
     public GameObject enemyToKill;
     
     public GameObject magesToUse;
+
+    // let's just dactivate commando when we're done with it 
+    public GameObject commandoToUse;
+    
+    public GameObject archersToUse;
     // Start is called before the first frame update
     
     bool dialogueDismissed = false;
@@ -132,6 +137,7 @@ public class Tutorial4Sequence : MonoBehaviour {
         //maybe some camera pan
         dialogueDismissed = false;
         ToastSystem.instance.SendDialogue("There are other units with abilities", autoDismissTime: 3.0f);
+
         
         while(!dialogueDismissed) {
             yield return null;
@@ -141,24 +147,52 @@ public class Tutorial4Sequence : MonoBehaviour {
         dialogueDismissed = false;
         ToastSystem.instance.SendDialogue("These mages can blind archers, to stop them from attacking within a zone", autoDismiss: false);
         magesToUse.SetActive(true);
+        commandoToUse.SetActive(false);
+        
+        GlobalUnitManager.singleton.Reindex();
         
         while(!dialogueDismissed) {
+            yield return null;
+        }
+        
+        
+        dialogueDismissed = false;
+        ToastSystem.instance.SendDialogue("Blind the archers on the plateau to protect your units", autoDismiss: false);
+        archersToUse.SetActive(true);
+        GlobalUnitManager.singleton.Reindex();
+        
+        while(true){
+            //check if archers ever blinded
+            //check if attack range is zero in archers to use children
+            bool foundBlind = false;
+            for(int i=0; i < archersToUse.transform.childCount;i++){
+                if(archersToUse.transform.GetChild(i).TryGetComponent(out UnitParameters param)){
+                    if(param.getAttackRange() == 0){
+                        foundBlind = true;
+                        break;
+                    }
+                }
+            }
+            
+            if(foundBlind){
+                break;
+            }
             yield return null;
         }
         
         //now force mages to do something
         //come up with a way to introduce mage
         
-        
+        //introduce archers on platform? 
 
-
+        //how do I verify use?
 
 
         //how I transition to mages?       
         // will be another tutorial??
 
         // should this have a portrait?
-        ToastSystem.instance.SendDialogue("Promotion Exam Complete! Let's get you into the field.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Congratulations, you are now qualified to use spellcasters in the field!", autoDismiss: false);
 
         yield return new WaitForSeconds(5f);
 
