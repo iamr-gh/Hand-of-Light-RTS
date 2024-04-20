@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   affiliation: White
-  unit_type: Commando
+  unit_type: Mage
 --- !u!54 &2443248127101409410
 Rigidbody:
   m_ObjectHideFlags: 0

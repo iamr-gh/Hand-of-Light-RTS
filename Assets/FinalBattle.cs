@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class FinalBattle : MonoBehaviour
 {
-    // Start is called before the first frame update
+    //they should all begin attack moving you
+    public GameObject allEnemies;
+    public Vector3 attackMoveLocation;
+
     void Start()
     {
         StartCoroutine(finale());
@@ -43,8 +46,20 @@ public class FinalBattle : MonoBehaviour
             yield return null;
         }
         ToastSystem.instance.SendDialogue("Sir yes sir!", portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
-        yield return new WaitForSeconds(7f);
         input.actions.FindActionMap("Player").Enable();
         cam_move.enabled = true;
+
+        //give them some time to look at what they have
+        yield return new WaitForSeconds(7f);
+        
+        //move all enemies to the player
+        for(int i=0;i<allEnemies.transform.childCount;i++)
+        {
+            
+            if(allEnemies.transform.GetChild(i).TryGetComponent(out UnitAI ai))
+            {
+                ai.AttackMoveToCoordinate(attackMoveLocation);
+            }
+        }
     }
 }
