@@ -37,7 +37,7 @@ public class L3BreakBorderDialogue : MonoBehaviour
 
 
         ToastSystem.instance.SendDialogue("Roger that.",
-        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 2f);
+        portraitLabel: "Commando", portrait: GlobalUnitManager.singleton.GetPortrait("Commando").Item1, autoDismissTime: 2f);
 
         input.actions.FindActionMap("Player").Enable();
         cam_move.enabled = true;

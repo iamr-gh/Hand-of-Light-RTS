@@ -104,11 +104,19 @@ MonoBehaviour:
   MovementSpeed: 4
   AttackCooldown: 10
   AttackDuration: 0.25
+  Mana: 100
+  HitboxSize: 1
   AggroRange: 0
   SightRange: 10
   AttackRange: 2
-  Mana: 100
-  HitboxSize: 1
+  SelectVoiceLine: {fileID: 0}
+  SelectVoiceLineVolume: 1
+  MoveVoiceLine: {fileID: 0}
+  MoveVoiceLineVolume: 1
+  AttackMoveVoiceLine: {fileID: 0}
+  AttackMoveVoiceLineVolume: 1
+  DeathVoiceLine: {fileID: 0}
+  DeathVoiceLineVolume: 1
 --- !u!114 &1006128000066160810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,8 +391,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 89d02e641b7134a1dabc09aa103755e4, type: 3}
-  m_Color: {r: 0.91541535, g: 0.9245283, b: 0.0052331034, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 958b264240bc6494f927bf4eea9f50c0, type: 3}
+  m_Color: {r: 0.9547169, g: 0.9547169, b: 0.9547169, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
