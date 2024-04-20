@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 public class Tutorial4Sequence : MonoBehaviour {
     public GameObject enemyToKill;
+    
+    public GameObject magesToUse;
     // Start is called before the first frame update
     
     bool dialogueDismissed = false;
@@ -119,7 +121,7 @@ public class Tutorial4Sequence : MonoBehaviour {
 
         //wait till death of this unit
         dialogueDismissed = false;
-        ToastSystem.instance.SendDialogue("As seen, this is a double edged sword.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("As seen, this is a double edged sword.", autoDismissTime: 3.0f);
 
         while(!dialogueDismissed) {
             yield return null;
@@ -128,9 +130,23 @@ public class Tutorial4Sequence : MonoBehaviour {
         //honestly just make another tutorial
 
         //maybe some camera pan
-        // ToastSystem.instance.SendDialogue("There are other units with abilities", autoDismiss: false);
-        // ToastSystem.instance.SendDialogue("These mages can blind archers, to allow your units to safely pass by", autoDismiss: false);
+        dialogueDismissed = false;
+        ToastSystem.instance.SendDialogue("There are other units with abilities", autoDismissTime: 3.0f);
         
+        while(!dialogueDismissed) {
+            yield return null;
+        }
+        
+
+        dialogueDismissed = false;
+        ToastSystem.instance.SendDialogue("These mages can blind archers, to stop them from attacking within a zone", autoDismiss: false);
+        magesToUse.SetActive(true);
+        
+        while(!dialogueDismissed) {
+            yield return null;
+        }
+        
+        //now force mages to do something
         //come up with a way to introduce mage
         
         

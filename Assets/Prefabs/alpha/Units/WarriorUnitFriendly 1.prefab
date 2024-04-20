@@ -253,11 +253,19 @@ MonoBehaviour:
   MovementSpeed: 4
   AttackCooldown: 0.5
   AttackDuration: 0.25
-  AggroRange: 10
-  SightRange: 10
-  AttackRange: 2
   Mana: 100
   HitboxSize: 1
+  AggroRange: 5
+  SightRange: 10
+  AttackRange: 2
+  SelectVoiceLine: {fileID: 0}
+  SelectVoiceLineVolume: 1
+  MoveVoiceLine: {fileID: 0}
+  MoveVoiceLineVolume: 1
+  AttackMoveVoiceLine: {fileID: 0}
+  AttackMoveVoiceLineVolume: 1
+  DeathVoiceLine: {fileID: 0}
+  DeathVoiceLineVolume: 1
 --- !u!114 &4172141171261938112
 MonoBehaviour:
   m_ObjectHideFlags: 0
