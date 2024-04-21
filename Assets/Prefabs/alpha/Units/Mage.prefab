@@ -19,7 +19,6 @@ GameObject:
   - component: {fileID: 142329011937919098}
   - component: {fileID: 4616472003367913777}
   - component: {fileID: 345926328529366120}
-  - component: {fileID: 6015745741710454270}
   - component: {fileID: 7698887029191654454}
   m_Layer: 7
   m_Name: Mage
@@ -59,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   affiliation: White
-  unit_type: Commando
+  unit_type: Mage
 --- !u!54 &7054150866086992332
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -105,11 +104,19 @@ MonoBehaviour:
   MovementSpeed: 4
   AttackCooldown: 10
   AttackDuration: 0.25
+  Mana: 100
+  HitboxSize: 1
   AggroRange: 0
   SightRange: 10
   AttackRange: 10
-  Mana: 100
-  HitboxSize: 1
+  SelectVoiceLine: {fileID: 0}
+  SelectVoiceLineVolume: 1
+  MoveVoiceLine: {fileID: 0}
+  MoveVoiceLineVolume: 1
+  AttackMoveVoiceLine: {fileID: 0}
+  AttackMoveVoiceLineVolume: 1
+  DeathVoiceLine: {fileID: 0}
+  DeathVoiceLineVolume: 1
 --- !u!114 &2476804454073885305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,25 +255,6 @@ MonoBehaviour:
   juice: {fileID: 0}
   renderer: {fileID: 0}
   projectile: {fileID: 1670476911756737922, guid: 1d0a513ffd1f6eb44a1a45ab8a3b97e2, type: 3}
---- !u!114 &6015745741710454270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3813608503213668810}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cae2e5c404338b84094f11f3fcd613cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Recall
-  abilityIcon: {fileID: 21300000, guid: 36e8a648acb9b994ea61aa233ef1f590, type: 3}
-  abilitySlot: 1
-  cooldown: 2
-  type: 0
-  aoeRadius: 3
-  delay: 1
 --- !u!114 &7698887029191654454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,11 +268,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Blinding Cloud
-  abilityIcon: {fileID: 0}
+  abilityIcon: {fileID: 21300000, guid: ec8466ff586cc61469b564b2678c04fd, type: 3}
   abilitySlot: 1
   cooldown: 3
   type: 0
-  aoeRadius: 5
+  aoeRadius: 3
   cloudPrefab: {fileID: 1343800599591229233, guid: 03511fb1ec2a51d499bd42f271f6b095, type: 3}
   cast_delay: 0.5
   cloud_duration: 6
@@ -407,8 +395,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 89d02e641b7134a1dabc09aa103755e4, type: 3}
-  m_Color: {r: 0.0039215744, g: 0.9254902, b: 0.19531052, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 46d94288c36c73d4b9ff140005445ec4, type: 3}
+  m_Color: {r: 0.61960787, g: 0.95686275, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

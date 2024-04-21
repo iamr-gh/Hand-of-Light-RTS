@@ -36,7 +36,7 @@ public class LvRunAwayScript : MonoBehaviour
 
         ToastSystem.instance.onDialogueAdvanced.AddListener(TickDialogue);
 
-        Camera.main.transform.position = new Vector3(5.5f, 40f, 60f); // Move camera to correct spot
+        // Camera.main.transform.position = new Vector3(5.5f, 40f, 60f); // Move camera to correct spot
 
         ToastSystem.instance.SendDialogue("Commander! Our scouts have found the enemy forces. Unfortunately, they also found us.",
         portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);

@@ -128,7 +128,7 @@ public class ControlSystem : MonoBehaviour {
     Queue<GameObject> queueLines = new();
     UnityEvent attachedActionEvent;
 
-    List<Ability> selectedAbilities;
+    List<List<Ability>> selectedAbilities;
 
     Ability currentAbility;
     GameObject currentCaster;
@@ -179,7 +179,7 @@ public class ControlSystem : MonoBehaviour {
         controlState = ControlState.NormalMode;
         selectedAbilities = new(numSupportedAbilities);
         for (var i = 0; i < numSupportedAbilities; i++) {
-            selectedAbilities.Add(null);
+            selectedAbilities.Add(new());
         }
     }
 
@@ -351,6 +351,11 @@ public class ControlSystem : MonoBehaviour {
                         controlState = ControlState.QueueAttackMode;
                         StartCoroutine(ManageQueueMode());
                         break;
+                    case ControlActions.UseAbility:
+                        controlState = ControlState.AbilityMode;
+                        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+                        StartCoroutine(UseAbility(ability, caster));
+                        break;
                     case ControlActions.DeactivateAttack:
                         controlState = ControlState.NormalMode;
                         Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
@@ -470,27 +475,31 @@ public class ControlSystem : MonoBehaviour {
         ProcessInput(ControlActions.ActivateQueue);
     }
 
-    void OnAbility1() {
-        if (selectedAbilities[0] != null && selectedAbilities[0].CanCast()) {
-            ProcessInput(ControlActions.UseAbility, ability: selectedAbilities[0], caster: selectedAbilities[0].gameObject);
+    void TryCastAbility(int number) {
+        if (number < numSupportedAbilities) {
+            var abilities = selectedAbilities[number];
+            foreach (var ability in abilities) {
+                if (ability.CanCast()) {
+                    ProcessInput(ControlActions.UseAbility, ability: ability, caster: ability.gameObject);
+                    return;
+                }
+            }
         }
     }
+
+    void OnAbility1() {
+        TryCastAbility(0);
+    }
     void OnAbility2() {
-        if (selectedAbilities[1] != null && selectedAbilities[1].CanCast()) {
-            ProcessInput(ControlActions.UseAbility, ability: selectedAbilities[1], caster: selectedAbilities[1].gameObject);
-        }
+        TryCastAbility(1);
     }
 
     void OnAbility3() {
-        if (selectedAbilities[2] != null && selectedAbilities[2].CanCast()) {
-            ProcessInput(ControlActions.UseAbility, ability: selectedAbilities[2], caster: selectedAbilities[2].gameObject);
-        }
+        TryCastAbility(2);
     }
 
     void OnAbility4() {
-        if (selectedAbilities[3] != null && selectedAbilities[3].CanCast()) {
-            ProcessInput(ControlActions.UseAbility, ability: selectedAbilities[3], caster: selectedAbilities[3].gameObject);
-        }
+        TryCastAbility(3);
     }
 
     void OnAdvanceDialogue() {
@@ -917,10 +926,10 @@ public class ControlSystem : MonoBehaviour {
             ClearActionQueue();
             HudUI.instance.UpdateSelectedUnits(units);
             HudUI.instance.HideAbilities();
-            for (var i = 0; i < numSupportedAbilities; i++) {
-                selectedAbilities[i] = null;
-            }
             return;
+        }
+        for (var i = 0; i < numSupportedAbilities; i++) {
+            selectedAbilities[i].Clear();
         }
         List<bool> setAbilities = new(numSupportedAbilities);
         for (var i = 0; i < numSupportedAbilities; i++) {
@@ -939,9 +948,15 @@ public class ControlSystem : MonoBehaviour {
                 }
                 var abilities = unit.GetComponents<Ability>();
                 foreach (var ability in abilities) {
-                    if (ability.abilitySlot <= numSupportedAbilities && ability.abilitySlot > 0) {
-                        selectedAbilities[ability.abilitySlot - 1] = ability;
-                        setAbilities[ability.abilitySlot - 1] = true;
+                    if (ability.enabled && ability.abilitySlot <= numSupportedAbilities && ability.abilitySlot > 0) {
+                        var slot = ability.abilitySlot - 1;
+                        if (selectedAbilities[slot].Count > 0 && selectedAbilities[slot][0].abilityName != ability.abilityName) {
+                            continue;
+                        }
+                        if (!selectedAbilities[slot].Contains(ability)) {
+                            selectedAbilities[slot].Add(ability);
+                        }
+                        setAbilities[slot] = true;
                     }
                 }
             }
@@ -950,18 +965,25 @@ public class ControlSystem : MonoBehaviour {
         bool setAnyAbility = false;
         for (var i = 0; i < numSupportedAbilities; i++) {
             if (!setAbilities[i]) {
-                selectedAbilities[i] = null;
+                selectedAbilities[i].Clear();
                 HudUI.instance.DeselectAbility(i);
                 HudUI.instance.HideAbilityInfo(i);
             } else {
                 setAnyAbility = true;
-                HudUI.instance.SetAbilityInfo(i, selectedAbilities[i].abilityName, selectedAbilities[i].abilityIcon, selectedAbilities[i].GetCooldownProgress());
+                var maxCooldown = selectedAbilities[i].Max(ability => ability.GetCooldownProgress());
+                var charges = selectedAbilities[i].Count(ability => ability.CanCast());
+                HudUI.instance.SetAbilityInfo(i, selectedAbilities[i][0].abilityName, selectedAbilities[i][0].abilityIcon, maxCooldown, charges);
                 if (currentAbility != null && currentAbility.abilitySlot - 1 == i) {
                     HudUI.instance.SelectAbility(i);
                 } else {
                     HudUI.instance.DeselectAbility(i);
                 }
                 HudUI.instance.ShowAbilityInfo(i);
+                if (selectedAbilities[i].Count > 1) {
+                    HudUI.instance.ShowAbilityCharges(i);
+                } else {
+                    HudUI.instance.HideAbilityCharges(i);
+                }
             }
         }
         if (!setAnyAbility) {

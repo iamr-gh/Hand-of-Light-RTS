@@ -125,7 +125,6 @@ GameObject:
   - component: {fileID: 7987691995008569242}
   - component: {fileID: 6322080006214651065}
   - component: {fileID: 3828781160609350223}
-  - component: {fileID: 4290047748651024318}
   - component: {fileID: 4489155931898250357}
   m_Layer: 7
   m_Name: Mage
@@ -362,25 +361,6 @@ MonoBehaviour:
   juice: {fileID: 0}
   renderer: {fileID: 0}
   projectile: {fileID: 1670476911756737922, guid: 1d0a513ffd1f6eb44a1a45ab8a3b97e2, type: 3}
---- !u!114 &4290047748651024318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6877517997634991511}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cae2e5c404338b84094f11f3fcd613cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Recall
-  abilityIcon: {fileID: 21300000, guid: 36e8a648acb9b994ea61aa233ef1f590, type: 3}
-  abilitySlot: 1
-  cooldown: 2
-  type: 0
-  aoeRadius: 3
-  delay: 1
 --- !u!114 &4489155931898250357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,11 +374,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Blinding Cloud
-  abilityIcon: {fileID: 0}
+  abilityIcon: {fileID: 21300000, guid: ec8466ff586cc61469b564b2678c04fd, type: 3}
   abilitySlot: 1
   cooldown: 3
   type: 0
-  aoeRadius: 5
+  aoeRadius: 3
   cloudPrefab: {fileID: 1343800599591229233, guid: 03511fb1ec2a51d499bd42f271f6b095, type: 3}
   cast_delay: 0.5
   cloud_duration: 6

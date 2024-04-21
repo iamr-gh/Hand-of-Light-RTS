@@ -995,25 +995,19 @@ MonoBehaviour:
   minGroundHeight: -4
   portraits:
   - type: Melee
-    sprite: {fileID: 21300000, guid: ffb1a99db2d614684b29a1d4448dda76, type: 3}
+    sprite: {fileID: -1065588696, guid: ffb1a99db2d614684b29a1d4448dda76, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
   - type: Ranged
-    sprite: {fileID: 21300000, guid: e016e1e759eba4ae2a23ee93567f5033, type: 3}
+    sprite: {fileID: 1152262226, guid: e016e1e759eba4ae2a23ee93567f5033, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
   - type: Commando
-    sprite: {fileID: 21300000, guid: e5bd57bca19ea6f46afc418c5ee22c5d, type: 3}
+    sprite: {fileID: -479051745, guid: e5bd57bca19ea6f46afc418c5ee22c5d, type: 3}
     color: {r: 0.94716984, g: 0.94716984, b: 0.94716984, a: 1}
-  - type: General
-    sprite: {fileID: 21300000, guid: ffb1a99db2d614684b29a1d4448dda76, type: 3}
-    color: {r: 1, g: 0.9440995, b: 0, a: 1}
   - type: Cavalry
-    sprite: {fileID: 21300000, guid: ed57e3eea76334288903c70839fba173, type: 3}
+    sprite: {fileID: -913394415, guid: ed57e3eea76334288903c70839fba173, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
   - type: Mage
-    sprite: {fileID: 21300000, guid: d37e7c306a863014dafaf23a4c1249d0, type: 3}
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - type: Scout
-    sprite: {fileID: 21300000, guid: ffb1a99db2d614684b29a1d4448dda76, type: 3}
+    sprite: {fileID: 2074057733, guid: d37e7c306a863014dafaf23a4c1249d0, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
   allManaged: []
 --- !u!114 &281730187184124888

@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -121,7 +121,28 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: speederfriendly_1
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 785
+        width: 5407
+        height: 2253
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76e4e509adf1a0b4dbe51380185ec7df
+      internalID: -913394415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +153,14 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      speederfriendly_0: -1442984791
+      speederfriendly_1: -913394415
+      speederfriendly_2: 1405996914
+      speederfriendly_3: 1412578035
+      speederfriendly_4: -2019949701
+      speederfriendly_5: 878245988
+      speederfriendly_6: 1706793105
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.WSA;
 
 public class Level1Sequence : MonoBehaviour
 {
+    public nextlevel nl;
     //bool step1Camera = false;
 
     // Start is called before the first frame update
@@ -27,6 +29,7 @@ public class Level1Sequence : MonoBehaviour
         yield return new WaitForSeconds(1f);
         ToastSystem.instance.SendDialogue("Commander! You're running late for your promotion exam! Press space to advance dialogue.", autoDismiss: false);
         ToastSystem.instance.SendDialogue("Use WASD or move your mouse to the edges of the screen to move the camera.", autoDismiss: false);
+        var obj1 = ToastSystem.instance.SendObjective("Move the camera");
 
         cam_move.enabled = true;
         input.actions["Pan Camera"].Enable();
@@ -36,10 +39,13 @@ public class Level1Sequence : MonoBehaviour
             yield return null;
             yield return new WaitForSeconds(0.01f);
         }
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
+        ToastSystem.instance.CompleteObjective(obj1);
         ToastSystem.instance.AdvanceDialogue();
 
         ToastSystem.instance.SendDialogue("Now select a troop with left click. You need to select units to issue orders.", autoDismiss: false);
+
+        var obj2 = ToastSystem.instance.SendObjective("Select a troop");
 
         var controlSystem = GlobalUnitManager.singleton.GetComponent<ControlSystem>();
         input.actions["Select"].Enable();
@@ -48,12 +54,14 @@ public class Level1Sequence : MonoBehaviour
             yield return null;
             yield return new WaitForSeconds(0.01f);
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
+        ToastSystem.instance.CompleteObjective(obj2);
         ToastSystem.instance.AdvanceDialogue();
         ToastSystem.instance.SendDialogue("Right click to issue a move command order. The unit will move to the location you right click.", autoDismiss: false);
         input.actions["Select"].Disable();
         input.actions["Move"].Enable();
         
+        var obj3 = ToastSystem.instance.SendObjective("Move your troop");
 
         while (true)
         {
@@ -65,7 +73,8 @@ public class Level1Sequence : MonoBehaviour
             yield return null;
             yield return new WaitForSeconds(0.01f);
         }
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
+        ToastSystem.instance.CompleteObjective(obj3);
         //yield return new WaitForSeconds(2f);
         ToastSystem.instance.AdvanceDialogue();
 
@@ -73,7 +82,9 @@ public class Level1Sequence : MonoBehaviour
 
         ToastSystem.instance.SendDialogue("Move through the pass to the east to continue.", autoDismiss: false);
 
+        finishObj = ToastSystem.instance.SendObjective("Move your troop into the green box");
 
+        nl.onAdvancing.AddListener(Finish);
         /*
         //reenable controls
         input.actions.FindActionMap("Player").Enable();
@@ -146,5 +157,11 @@ public class Level1Sequence : MonoBehaviour
        //do left click and drag to select units in a box, use controlledUnits.Count to verify it's what you want 
        //input.actions["Attack"] for attack move tracking
         */
+    }
+
+    ulong finishObj;
+    void Finish() {
+        ToastSystem.instance.CompleteObjective(finishObj);
+        nl.onAdvancing.RemoveListener(Finish);
     }
 }

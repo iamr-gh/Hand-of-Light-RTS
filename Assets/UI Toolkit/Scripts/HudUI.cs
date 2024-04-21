@@ -107,6 +107,7 @@ public class AbilityUI {
     private VisualElement root;
     private Label abilityName;
     private Label abilityNumber;
+    private Label abilityCharges;
     private VisualElement abilityIcon;
     private VisualElement abilityCooldownIndicator;
     private VisualElement abilitySelectionIndicator;
@@ -116,6 +117,7 @@ public class AbilityUI {
         Hide();
         abilityName = root.Q<Label>("AbilityName");
         abilityNumber = root.Q<Label>("AbilityNumber");
+        abilityCharges = root.Q<Label>("AbilityCharges");
         abilityIcon = root.Q("AbilityIcon");
         abilityCooldownIndicator = root.Q("AbilityCooldownIndicator");
         abilitySelectionIndicator = root.Q("AbilitySelectionIndicator");
@@ -128,6 +130,18 @@ public class AbilityUI {
 
     public void SetNumber(int number) {
         abilityNumber.text = number.ToString();
+    }
+
+    public void SetCharges(int number) {
+        abilityCharges.text = number.ToString();
+    }
+
+    public void ShowCharges() {
+        abilityCharges.style.display = DisplayStyle.Flex;
+    }
+
+    public void HideCharges() {
+        abilityCharges.style.display = DisplayStyle.None;
     }
 
     public void SetIcon(Sprite icon) {
@@ -232,7 +246,7 @@ public class HudUI : MonoBehaviour {
     private IEnumerator AddNotificationCoroutine(ulong id, string text, Nullable<Color> boxColor = null, Nullable<Color> textColor = null, Nullable<Color> textOutlineColor = null) {
         var e = notificationTemplate.Instantiate();
         notificationsContainer.Add(e);
-        e.style.transitionDuration = new StyleList<TimeValue>(new List<TimeValue>{new TimeValue(tweenDuration)});
+        e.style.transitionDuration = new StyleList<TimeValue>(new List<TimeValue> { new TimeValue(tweenDuration) });
         e.style.right = Length.Percent(-125f);
         var notification = new NotificationUI(e);
         notification.SetText(text);
@@ -340,11 +354,12 @@ public class HudUI : MonoBehaviour {
         }
     }
 
-    public void SetAbilityInfo(int number, string name, Sprite icon, float cooldown) {
+    public void SetAbilityInfo(int number, string name, Sprite icon, float cooldown, int charges) {
         var ability = abilities[number];
         ability.SetName(name);
         ability.SetIcon(icon);
         ability.SetCooldownProgress(cooldown);
+        ability.SetCharges(charges);
     }
 
     public void SelectAbility(int number) {
@@ -359,8 +374,17 @@ public class HudUI : MonoBehaviour {
         abilities[number].Show();
     }
 
+    public void ShowAbilityCharges(int number) {
+        abilities[number].ShowCharges();
+    }
+
+    public void HideAbilityCharges(int number) {
+        abilities[number].HideCharges();
+    }
+
     public void HideAbilityInfo(int number) {
         abilities[number].Hide();
+        abilities[number].HideCharges();
     }
 
     public void ShowAbilities() {

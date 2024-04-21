@@ -31,7 +31,7 @@ public class BlindingCloudAbility : Ability
         // spawn a cloud at the target location after a delay
         var blinding_cloud = Instantiate(cloudPrefab, castData.targetPosition + cloud_height*Vector3.up, Quaternion.identity);
         //scale with radius
-        blinding_cloud.transform.localScale = new Vector3(aoeRadius, blinding_cloud.transform.localScale.y, aoeRadius);
+        blinding_cloud.transform.localScale = new Vector3(aoeRadius * 2, blinding_cloud.transform.localScale.y, aoeRadius * 2);
         if(blinding_cloud.TryGetComponent(out ExpireWithTime expire)){
             expire.timeToLive = cloud_duration;
         }
