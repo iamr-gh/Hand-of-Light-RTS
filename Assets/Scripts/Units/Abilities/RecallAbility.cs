@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class RecallAbility : Ability {
     public float delay = 1.0f;
+    public GameObject circlePrefab;
     private Dictionary<GameObject, Color> unitColorMap = new();
     RecallAbility() : base() {
         abilityName = "Recall";
@@ -16,6 +17,12 @@ public class RecallAbility : Ability {
     }
 
     public override void OnCast(AbilityCastData castData) {
+        StartCoroutine(CastCoroutine(castData));
+    }
+
+    IEnumerator CastCoroutine(AbilityCastData castData) {
+        var circle = Instantiate(circlePrefab, castData.targetPosition, Quaternion.identity);
+        circle.transform.localScale = new Vector3(aoeRadius * 2, circle.transform.localScale.y, aoeRadius * 2);
         // let's teleport all units back to the caster
         foreach (GameObject unit in castData.friendlyUnitsHit) {
             if (unit != castData.caster) {
@@ -26,6 +33,8 @@ public class RecallAbility : Ability {
         foreach (GameObject unit in castData.enemyUnitsHit) {
             StartCoroutine(TeleportUnit(unit, castData.caster.transform.position + new Vector3(castData.targetPosition.x - unit.transform.position.x, 0, castData.targetPosition.z - unit.transform.position.z)));
         }
+        yield return new WaitForSeconds(delay);
+        Destroy(circle);
     }
 
     private IEnumerator TeleportUnit(GameObject unit, Vector3 newLoc) {

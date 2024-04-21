@@ -109,13 +109,13 @@ MonoBehaviour:
   AggroRange: 0
   SightRange: 10
   AttackRange: 2
-  SelectVoiceLine: {fileID: 0}
+  SelectVoiceLines: []
   SelectVoiceLineVolume: 1
-  MoveVoiceLine: {fileID: 0}
+  MoveVoiceLines: []
   MoveVoiceLineVolume: 1
-  AttackMoveVoiceLine: {fileID: 0}
+  AttackMoveVoiceLines: []
   AttackMoveVoiceLineVolume: 1
-  DeathVoiceLine: {fileID: 0}
+  DeathVoiceLines: []
   DeathVoiceLineVolume: 1
 --- !u!114 &1006128000066160810
 MonoBehaviour:
@@ -267,12 +267,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Recall
-  abilityIcon: {fileID: 21300000, guid: 36e8a648acb9b994ea61aa233ef1f590, type: 3}
+  abilityIcon: {fileID: -1300925557, guid: 7fa0528db905fbb4b944524d4decfadd, type: 3}
   abilitySlot: 1
   cooldown: 2
   type: 0
   aoeRadius: 3
   delay: 1
+  circlePrefab: {fileID: 5471718417984487937, guid: dec6386d48a915541a6334d476d85ffd, type: 3}
 --- !u!1 &6622969027507383801
 GameObject:
   m_ObjectHideFlags: 0

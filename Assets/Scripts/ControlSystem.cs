@@ -671,7 +671,7 @@ public class ControlSystem : MonoBehaviour {
         switch (ability.type) {
             case AbilityTypes.GroundTargetedAOE:
                 var indicator = Instantiate(aoeIndicator);
-                indicator.transform.localScale = Vector3.one * ability.aoeRadius * 2;
+                indicator.transform.localScale = new Vector3(ability.aoeRadius * 2, indicator.transform.localScale.y, ability.aoeRadius * 2);
                 var cast = false;
                 while (controlState == ControlState.AbilityMode) {
                     if (input.actions["Select"].WasPerformedThisFrame()) {
