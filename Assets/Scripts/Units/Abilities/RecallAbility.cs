@@ -7,6 +7,9 @@ using UnityEngine.AI;
 public class RecallAbility : Ability {
     public float delay = 1.0f;
     public GameObject circlePrefab;
+
+    public GameObject summoningVfx;
+
     private Dictionary<GameObject, Color> unitColorMap = new();
     RecallAbility() : base() {
         abilityName = "Recall";
@@ -41,7 +44,7 @@ public class RecallAbility : Ability {
         //add some juice
         // set halo component to E64BD7
         // nope we can't do that for some reason?
-
+        var vfx = Instantiate(summoningVfx, unit.transform);
         //if we can, do sprite lerp to black
         if (unit.transform.childCount > 2 && unit.transform.GetChild(2).TryGetComponent(out SpriteRenderer sr)) {
             // sr.color = Color.black;
@@ -81,7 +84,7 @@ public class RecallAbility : Ability {
                 unit.transform.position = newLoc;
             }
         }
-
+        Destroy(vfx);
     }
     void OnDestroy() {
         Debug.Log("Destroying Recall Ability Resetting:" + unitColorMap.Count.ToString() + " sprites");

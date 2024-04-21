@@ -274,6 +274,7 @@ MonoBehaviour:
   aoeRadius: 3
   delay: 1
   circlePrefab: {fileID: 5471718417984487937, guid: dec6386d48a915541a6334d476d85ffd, type: 3}
+  summoningVfx: {fileID: 29932112551961916, guid: 2af31349f45884dda8f3204225a2a87a, type: 3}
 --- !u!1 &6622969027507383801
 GameObject:
   m_ObjectHideFlags: 0
