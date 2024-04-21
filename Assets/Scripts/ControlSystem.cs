@@ -1018,11 +1018,11 @@ public class ControlSystem : MonoBehaviour {
 
     void PlaySelectVoiceLine(GameObject unit) {
         if (selectVoiceLineEnabled && unit.TryGetComponent(out UnitParameters unitParams)) {
-            var selectVoiceLine = unitParams.getSelectVoiceLine();
-            if (selectVoiceLine != null) {
-                AudioManager.instance.PlayAudioClip(selectVoiceLine, unitParams.getSelectVoiceLineVolume());
+            var selectVoiceLines = unitParams.getSelectVoiceLines();
+            if (selectVoiceLines != null && selectVoiceLines.Count > 0) {
+                AudioManager.instance.PlayAudioClip(selectVoiceLines[Random.Range(0, selectVoiceLines.Count)], unitParams.getSelectVoiceLineVolume());
                 selectVoiceLineEnabled = false;
-                Invoke("EnableSelectVoiceLine", selectVoiceLineCooldown);
+                Invoke(nameof(EnableSelectVoiceLine), selectVoiceLineCooldown);
             }
         }
     }
@@ -1033,11 +1033,11 @@ public class ControlSystem : MonoBehaviour {
         }
         var unit = controlledUnits[Random.Range(0, controlledUnits.Count)];
         if (unit != null && moveVoiceLineEnabled && unit.TryGetComponent(out UnitParameters unitParams)) {
-            var moveVoiceLine = unitParams.getMoveVoiceLine();
-            if (moveVoiceLine != null) {
-                AudioManager.instance.PlayAudioClip(moveVoiceLine, unitParams.getMoveVoiceLineVolume());
+            var moveVoiceLines = unitParams.getMoveVoiceLines();
+            if (moveVoiceLines != null && moveVoiceLines.Count > 0) {
+                AudioManager.instance.PlayAudioClip(moveVoiceLines[Random.Range(0, moveVoiceLines.Count)], unitParams.getMoveVoiceLineVolume());
                 moveVoiceLineEnabled = false;
-                Invoke("EnableMoveVoiceLine", moveVoiceLineCooldown);
+                Invoke(nameof(EnableMoveVoiceLine), moveVoiceLineCooldown);
             }
         }
     }
@@ -1048,11 +1048,11 @@ public class ControlSystem : MonoBehaviour {
         }
         var unit = controlledUnits[Random.Range(0, controlledUnits.Count)];
         if (unit != null && attackMoveVoiceLineEnabled && unit.TryGetComponent(out UnitParameters unitParams)) {
-            var attackMoveVoiceLine = unitParams.getSelectVoiceLine();
-            if (attackMoveVoiceLine != null) {
-                AudioManager.instance.PlayAudioClip(attackMoveVoiceLine, unitParams.getAttackMoveVoiceLineVolume());
+            var attackMoveVoiceLines = unitParams.getAttackMoveVoiceLines();
+            if (attackMoveVoiceLines != null && attackMoveVoiceLines.Count > 0) {
+                AudioManager.instance.PlayAudioClip(attackMoveVoiceLines[Random.Range(0, attackMoveVoiceLines.Count)], unitParams.getAttackMoveVoiceLineVolume());
                 attackMoveVoiceLineEnabled = false;
-                Invoke("EnableAttackMoveVoiceLine", attackMoveVoiceLineCooldown);
+                Invoke(nameof(EnableAttackMoveVoiceLine), attackMoveVoiceLineCooldown);
             }
         }
     }

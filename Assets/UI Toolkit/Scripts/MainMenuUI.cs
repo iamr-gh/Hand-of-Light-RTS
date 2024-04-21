@@ -12,6 +12,9 @@ public class MainMenuUI : MonoBehaviour {
     public GameObject credits;
     public GameObject loadingOverlay;
 
+    public AudioClip menuMusic;
+    public AudioClip backgroundMusic;
+
     private UIDocument mainMenuUiDocument;
     private UIDocument levelSelectUiDocument;
     private UIDocument creditsUiDocument;
@@ -56,6 +59,11 @@ public class MainMenuUI : MonoBehaviour {
         levelSelectUiDocument.rootVisualElement.style.display = DisplayStyle.None;
         creditsUiDocument.rootVisualElement.style.display = DisplayStyle.None;
         loadingOverlayUiDocument.rootVisualElement.style.display = DisplayStyle.None;
+        AudioManager.instance.StopBGM();
+        if (menuMusic != null) {
+            AudioManager.instance.ChangeBGMClip(menuMusic);
+            AudioManager.instance.PlayBGM();
+        }
     }
 
     private void OnDisable() {
@@ -102,6 +110,11 @@ public class MainMenuUI : MonoBehaviour {
         loadingOverlayUiDocument.rootVisualElement.style.display = DisplayStyle.Flex;
         yield return null;
         loadingOverlayElement.style.opacity = 100;
+        if (backgroundMusic != null) {
+            AudioManager.instance.StopBGM();
+            AudioManager.instance.ChangeBGMClip(backgroundMusic);
+            AudioManager.instance.PlayBGM();
+        }
         var asyncLoad = SceneManager.LoadSceneAsync(id);
         while (!asyncLoad.isDone) {
             if (progressBar != null) {
