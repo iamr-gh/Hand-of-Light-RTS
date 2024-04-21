@@ -142,7 +142,7 @@ MonoBehaviour:
   DeathVoiceLines:
   - {fileID: 8300000, guid: 4b672cb74eae12b4497d0cafa38109a2, type: 3}
   - {fileID: 8300000, guid: a2e9893a3f98abe44b8cfd79af22b398, type: 3}
-  DeathVoiceLineVolume: 1
+  DeathVoiceLineVolume: 0.5
 --- !u!136 &2357805414798820628
 CapsuleCollider:
   m_ObjectHideFlags: 0
