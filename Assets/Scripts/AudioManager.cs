@@ -72,7 +72,7 @@ public class AudioManager : MonoBehaviour {
         return bgmStatus == BGMStatus.Playing;
     }
 
-    public void PlayAudioClip(AudioClip clip, float volume = 0.1f) {
+    public void PlayAudioClip(AudioClip clip, float volume = 0.05f) {
         audioSource.PlayOneShot(clip, volume);
     }
 }

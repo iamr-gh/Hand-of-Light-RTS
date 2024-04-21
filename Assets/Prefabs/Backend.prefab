@@ -1067,9 +1067,9 @@ MonoBehaviour:
   minDragDistance: 0.5
   doubleClickPeriod: 0.5
   continuousMovementPeriod: 0.1
-  selectVoiceLineCooldown: 1
-  moveVoiceLineCooldown: 1
-  attackMoveVoiceLineCooldown: 1
+  selectVoiceLineCooldown: 2
+  moveVoiceLineCooldown: 2
+  attackMoveVoiceLineCooldown: 2
   controlledUnits: []
 --- !u!114 &2560267422574346734
 MonoBehaviour:
@@ -1313,7 +1313,8 @@ MonoBehaviour:
   zoomSpeed: 5
   zoomSensitivity: 50
   maxZoomDistance: 5
-  maxMoveDist: 40
+  maxMoveDistX: {x: -15, y: 15}
+  maxMoveDistZ: {x: -15, y: 15}
   targetObject: {fileID: 0}
 --- !u!114 &722267207065457516
 MonoBehaviour:
