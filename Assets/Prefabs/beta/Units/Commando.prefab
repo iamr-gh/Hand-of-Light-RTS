@@ -101,7 +101,7 @@ MonoBehaviour:
   maxHP: 20
   HP: 20
   AttackDamage: 40
-  MovementSpeed: 4.5
+  MovementSpeed: 4
   AttackCooldown: 10
   AttackDuration: 0.25
   Mana: 100
