@@ -26,6 +26,7 @@ public class RecallAbility : Ability {
     IEnumerator CastCoroutine(AbilityCastData castData) {
         var circle = Instantiate(circlePrefab, castData.targetPosition, Quaternion.identity);
         circle.transform.localScale = new Vector3(aoeRadius * 2, circle.transform.localScale.y, aoeRadius * 2);
+        var vfx = Instantiate(summoningVfx, new Vector3(castData.targetPosition.x, castData.targetPosition.y + 0.1f, castData.targetPosition.z), Quaternion.identity);
         // let's teleport all units back to the caster
         foreach (GameObject unit in castData.friendlyUnitsHit) {
             if (unit != castData.caster) {
@@ -38,13 +39,13 @@ public class RecallAbility : Ability {
         }
         yield return new WaitForSeconds(delay);
         Destroy(circle);
+        Destroy(vfx);
     }
 
     private IEnumerator TeleportUnit(GameObject unit, Vector3 newLoc) {
         //add some juice
         // set halo component to E64BD7
         // nope we can't do that for some reason?
-        var vfx = Instantiate(summoningVfx, unit.transform);
         //if we can, do sprite lerp to black
         if (unit.transform.childCount > 2 && unit.transform.GetChild(2).TryGetComponent(out SpriteRenderer sr)) {
             // sr.color = Color.black;
@@ -84,7 +85,6 @@ public class RecallAbility : Ability {
                 unit.transform.position = newLoc;
             }
         }
-        Destroy(vfx);
     }
     void OnDestroy() {
         Debug.Log("Destroying Recall Ability Resetting:" + unitColorMap.Count.ToString() + " sprites");
