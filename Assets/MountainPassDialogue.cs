@@ -4,17 +4,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class MountainPassDialogue : MonoBehaviour
-{
+public class MountainPassDialogue : MonoBehaviour {
     public GameObject chasers;
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         chasers.SetActive(false);
-        StartCoroutine(dialogue()); 
+        StartCoroutine(dialogue());
     }
-    
-    IEnumerator dialogue(){
+
+    IEnumerator dialogue() {
         yield return null;
         var input = GlobalUnitManager.singleton.GetComponent<PlayerInput>();
         var cam_move = Camera.main.GetComponent<cameraMovement>();
@@ -36,7 +34,7 @@ public class MountainPassDialogue : MonoBehaviour
         portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 6f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine12"));
 
         ToastSystem.instance.SendDialogue("Reporting in!",
-        portraitLabel: "Commando", portrait: GlobalUnitManager.singleton.GetPortrait("Commando").Item1, autoDismissTime: 2f, audioClip: Resources.Load<AudioClip>("Audio/Commando Lines/AmirNassiri_CommandoLinesThree"));
+        portraitLabel: "Super Commando", portraitColor: Color.yellow, portrait: GlobalUnitManager.singleton.GetPortrait("Commando").Item1, autoDismissTime: 2f, audioClip: Resources.Load<AudioClip>("Audio/Commando Lines/AmirNassiri_CommandoLinesThree"));
 
         //ToastSystem.instance.SendDialogue("General, we're trapped on this mountain face! Our reports say this area is covered in powerful sniper nests!",
         //portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, portraitLabel: "Knight", autoDismissTime: 5f);
@@ -61,7 +59,7 @@ public class MountainPassDialogue : MonoBehaviour
         ulong prompt = 0;
         while (timesAdvanced < 6) {
             yield return null;
-            if (!sentNoti && timesAdvanced == 5) {
+            if (!sentNoti && timesAdvanced == 4) {
                 prompt = ToastSystem.instance.SendNotification("Press space to begin!", autoDismissTime: 5f);
                 sentNoti = true;
 
@@ -71,7 +69,7 @@ public class MountainPassDialogue : MonoBehaviour
         ToastSystem.instance.DismissNotification(prompt);
 
         ToastSystem.instance.onDialogueAdvanced.RemoveListener(TickDialogue);
-        
+
         input.actions.FindActionMap("Player").Enable();
         cam_move.enabled = true;
 
