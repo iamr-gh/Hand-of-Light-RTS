@@ -27,7 +27,7 @@ public class Level1Sequence : MonoBehaviour
         input.actions.FindActionMap("Player").Disable();
         cam_move.enabled = false;
         yield return new WaitForSeconds(1f);
-        ToastSystem.instance.SendDialogue("Commander! You're running late for your promotion exam! Press space to advance dialogue.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Commander! You're running late for your promotion exam! Press space to advance dialogue.", autoDismiss: false, audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/tutorial-1-line-1_t178hwGV"));
         ToastSystem.instance.SendDialogue("Use WASD or move your mouse to the edges of the screen to move the camera.", autoDismiss: false);
         var obj1 = ToastSystem.instance.SendObjective("Move the camera");
 
