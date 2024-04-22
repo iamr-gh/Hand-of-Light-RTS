@@ -23,10 +23,12 @@ public class RecallAbility : Ability {
         StartCoroutine(CastCoroutine(castData));
     }
 
+    GameObject circle;
+    GameObject vfx;
     IEnumerator CastCoroutine(AbilityCastData castData) {
-        var circle = Instantiate(circlePrefab, castData.targetPosition, Quaternion.identity);
+        circle = Instantiate(circlePrefab, castData.targetPosition, Quaternion.identity);
         circle.transform.localScale = new Vector3(aoeRadius * 2, circle.transform.localScale.y, aoeRadius * 2);
-        var vfx = Instantiate(summoningVfx, new Vector3(castData.targetPosition.x, castData.targetPosition.y + 0.1f, castData.targetPosition.z), Quaternion.identity);
+        vfx = Instantiate(summoningVfx, new Vector3(castData.targetPosition.x, castData.targetPosition.y + 0.1f, castData.targetPosition.z), Quaternion.identity);
         // let's teleport all units back to the caster
         foreach (GameObject unit in castData.friendlyUnitsHit) {
             if (unit != castData.caster) {
@@ -95,5 +97,7 @@ public class RecallAbility : Ability {
                 sr.color = color;
             }
         }
+        if (circle != null) Destroy(circle);
+        if (vfx != null) Destroy(vfx);
     }
 }

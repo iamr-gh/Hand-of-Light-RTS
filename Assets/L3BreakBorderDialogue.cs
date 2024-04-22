@@ -33,7 +33,7 @@ public class L3BreakBorderDialogue : MonoBehaviour
         //make general speaker
         ToastSystem.instance.SendDialogue("Alright, commandos, infiltrate the enemy base. There's a small clearing you can teleport units in from. Tear them apart from the inside.",
         //using ranged for general rn
-        portraitLabel: "Archer", portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 10f);
+        portraitLabel: "General", autoDismissTime: 10f);
 
 
         ToastSystem.instance.SendDialogue("Roger that.",
@@ -88,7 +88,7 @@ public class L3BreakBorderDialogue : MonoBehaviour
 
         //level complete, move onto the next one
         ToastSystem.instance.SendDialogue("Understood.",
-        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 2f);
+        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 2f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine9"));
 
         yield return new WaitForSeconds(2f);
 
