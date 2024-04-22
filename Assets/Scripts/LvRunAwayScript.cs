@@ -38,7 +38,7 @@ public class LvRunAwayScript : MonoBehaviour
 
         // Camera.main.transform.position = new Vector3(5.5f, 40f, 60f); // Move camera to correct spot
 
-        ToastSystem.instance.SendDialogue("Sir! We have been spotted by enemy forces! A massive army is approaching our location!",
+        ToastSystem.instance.SendDialogue("Sir! We've been spotted by enemy forces! A massive army is approaching our location!",
         portraitLabel: "Scout", portrait: GlobalUnitManager.singleton.GetPortrait("Cavalry").Item1, autoDismiss: false);
 
         ToastSystem.instance.SendDialogue("We need to retreat as fast as we can. Are our commando units in position?",
@@ -74,10 +74,10 @@ public class LvRunAwayScript : MonoBehaviour
 
         //on win
 
-        ToastSystem.instance.SendDialogue("We?ve made it!",
+        ToastSystem.instance.SendDialogue("We've made it!",
         portraitLabel: "Scout", portrait: GlobalUnitManager.singleton.GetPortrait("Cavalry").Item1, autoDismiss: false);
 
-        ToastSystem.instance.SendDialogue("Don?t get too excited. We need to keep moving or they?ll catch us. Let?s go!",
+        ToastSystem.instance.SendDialogue("Don't get too excited. We need to keep moving or they'll catch us. Let?s go!",
         portraitLabel: "General", autoDismiss: false);
 
         yield return new WaitForSeconds(5f);

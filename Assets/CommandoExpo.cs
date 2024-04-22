@@ -22,11 +22,10 @@ public class CommandoExpo : MonoBehaviour
         Time.timeScale = 0f; // Pause Game
 
         Vector3 cameraStartPosition = Camera.main.transform.position;
-        Vector3 newCameraPosition = finalCameraPosition;
-        yield return StartCoroutine(ScrollCamera(cameraStartPosition, newCameraPosition, 3f));
+        yield return StartCoroutine(ScrollCamera(cameraStartPosition, finalCameraPosition, 2f));
         StartCoroutine(NotifyPlayerOfCommando());
-        yield return new WaitForSeconds(3f);
-        yield return StartCoroutine(ScrollCamera(cameraStartPosition, cameraStartPosition, 3f));
+        yield return StartCoroutine(WaitForRealSeconds(2f));
+        yield return StartCoroutine(ScrollCamera(finalCameraPosition, cameraStartPosition, 2f));
 
         Time.timeScale = 1f; // Unpause Game
     }
