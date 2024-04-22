@@ -72,11 +72,13 @@ public class MountainPassEndDialogue : MonoBehaviour {
 
             ToastSystem.instance.CompleteObjective(objectiveId);
 
-            ToastSystem.instance.SendDialogue("We made it!",
-            portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 6f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine13"));
+            
 
-            ToastSystem.instance.SendDialogue("Don’t get too excited. We need to keep moving or they’ll catch us. Let’s go!",
-            portraitLabel: "General", autoDismissTime: 5f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_15"));
+            ToastSystem.instance.SendDialogue("We’ve made it. Get ready to fight their main force!",
+            portraitLabel: "General", autoDismissTime: 5f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_17"));
+
+            ToastSystem.instance.SendDialogue("Yes sir!",
+            portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 6f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine15"));
             //ToastSystem.instance.SendDialogue("We made it!",
             //portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, portraitLabel: "Knight", autoDismissTime: 5f);
             //// yield return new WaitForSeconds(5f);

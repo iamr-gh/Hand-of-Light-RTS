@@ -24,17 +24,23 @@ public class MountainPassDialogue : MonoBehaviour {
 
         ToastSystem.instance.onDialogueAdvanced.AddListener(TickDialogue);
 
-        ToastSystem.instance.SendDialogue("Sir! We?ve been spotted by enemy forces! A massive army is approaching our location!",
-        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 6f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine11"));
+        ToastSystem.instance.SendDialogue("Sir! Enemy snipers line the mountains!",
+        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 6f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine14"));
 
-        ToastSystem.instance.SendDialogue("We need to retreat as fast as we can. Are our commando units in position?",
-        portraitLabel: "General", autoDismissTime: 5f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_14"));
+        ToastSystem.instance.SendDialogue("Damn it. And the enemy army is right on our tail.",
+        portraitLabel: "General", autoDismissTime: 5f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_16"));
+
+        ToastSystem.instance.SendDialogue("We have no choice but to move through this area to regroup with our main army.",
+        portraitLabel: "General", autoDismissTime: 5f);
+
+        ToastSystem.instance.SendDialogue("We can?t afford to lose more than half our men for the next battle. Commandos, mages. You?re up!",
+        portraitLabel: "General", autoDismissTime: 5f);
 
         ToastSystem.instance.SendDialogue("Yes sir!",
-        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 6f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine12"));
+        portraitLabel: "Super Commando", portraitColor: Color.yellow, portrait: GlobalUnitManager.singleton.GetPortrait("Commando").Item1, autoDismissTime: 2f, audioClip: Resources.Load<AudioClip>("Audio/Commando Lines/AmirNassiri_CommandoLinesFour"));
 
-        ToastSystem.instance.SendDialogue("Reporting in!",
-        portraitLabel: "Super Commando", portraitColor: Color.yellow, portrait: GlobalUnitManager.singleton.GetPortrait("Commando").Item1, autoDismissTime: 2f, audioClip: Resources.Load<AudioClip>("Audio/Commando Lines/AmirNassiri_CommandoLinesThree"));
+        ToastSystem.instance.SendDialogue("I read you.",
+        portraitLabel: "Mage", portrait: GlobalUnitManager.singleton.GetPortrait("Mage").Item1, autoDismissTime: 5f, audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Unit Selected Line 4-[AudioTrimmer.com]"));
 
         //ToastSystem.instance.SendDialogue("General, we're trapped on this mountain face! Our reports say this area is covered in powerful sniper nests!",
         //portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, portraitLabel: "Knight", autoDismissTime: 5f);
