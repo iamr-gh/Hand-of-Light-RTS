@@ -134,3 +134,36 @@
     margin-top: 10px;
     -unity-text-align: middle-center;
 }
+
+#unity-low-button {
+    display: none;
+}
+
+#unity-high-button {
+    display: none;
+}
+
+#unity-slider {
+    display: flex;
+    flex-grow: 1;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    width: 15px;
+    min-width: initial;
+}
+
+#unity-drag-container {
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#unity-dragger {
+    width: 9px;
+}
