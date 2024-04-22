@@ -38,7 +38,7 @@ public class Tutorial4Sequence : MonoBehaviour {
         cam_move.enabled = false;
 
         dialogueDismissed = false;
-        ToastSystem.instance.SendDialogue("Some special units have abilities, which will appear in an additional menu", autoDismissTime: 5f
+        ToastSystem.instance.SendDialogue("Some special units have abilities, which will appear in an additional menu", autoDismissTime: 7f
             , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 4 Line 1-[AudioTrimmer.com]"));
         while(!dialogueDismissed) {
             yield return null;
@@ -108,7 +108,7 @@ public class Tutorial4Sequence : MonoBehaviour {
         cam_move.enabled = true;
 
         dialogueDismissed = false;
-        ToastSystem.instance.SendDialogue("Recall can be used to get your units out of sticky situations.", autoDismissTime: 3.0f
+        ToastSystem.instance.SendDialogue("Recall can be used to get your units out of sticky situations.", autoDismissTime: 5f
             , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 4 Line 4-[AudioTrimmer.com]"));
         while(!dialogueDismissed) {
             yield return null;
@@ -131,7 +131,7 @@ public class Tutorial4Sequence : MonoBehaviour {
 
         //wait till death of this unit
         dialogueDismissed = false;
-        ToastSystem.instance.SendDialogue("As seen, this is a double edged sword.", autoDismissTime: 3.0f
+        ToastSystem.instance.SendDialogue("As seen, this is a double edged sword.", autoDismissTime: 5f
             , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 4 Line 6-[AudioTrimmer.com]"));
 
         while(!dialogueDismissed) {
@@ -188,6 +188,7 @@ public class Tutorial4Sequence : MonoBehaviour {
             }
             yield return null;
         }
+        ToastSystem.instance.AdvanceDialogue();
         
         //now force mages to do something
         //come up with a way to introduce mage
@@ -204,7 +205,7 @@ public class Tutorial4Sequence : MonoBehaviour {
         ToastSystem.instance.SendDialogue("Congratulations, you are now qualified to use spellcasters in the field!", autoDismiss: false
             , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 4 Line 10-[AudioTrimmer.com]"));
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(7f);
 
         //increment to next scene's build index
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);

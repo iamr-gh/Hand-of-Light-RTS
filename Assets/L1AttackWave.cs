@@ -32,6 +32,9 @@ public class L1AttackWave : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             Transform child = transform.GetChild(i);
+            if (!(child.TryGetComponent(out UnitAffiliation unitaff) && unitaff.affiliation == ControlSystem.instance.affiliation)) {
+                GlobalUnitManager.singleton.HideUnit(child.gameObject);
+            }
             child.gameObject.SetActive(true);
             Debug.Log("Child: " + child.name);
         }

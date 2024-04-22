@@ -88,9 +88,9 @@ public class L3BreakBorderDialogue : MonoBehaviour
 
         //level complete, move onto the next one
         ToastSystem.instance.SendDialogue("Copy that.",
-        portraitLabel: "Soldier", portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 2f, audioClip: Resources.Load<AudioClip>("Audio/soldier story voice lines/Copy_that_Soldier"));
+        portraitLabel: "Soldier", portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 4f, audioClip: Resources.Load<AudioClip>("Audio/soldier story voice lines/Copy_that_Soldier"));
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
 
         // ToastSystem.instance.SendDialogue("Congratulations, you have completed the game!", autoDismissTime: 5.0f);
         // yield return new WaitForSeconds(5f);

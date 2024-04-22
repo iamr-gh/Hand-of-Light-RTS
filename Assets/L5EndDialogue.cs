@@ -37,17 +37,17 @@ public class L5EndDialogue : MonoBehaviour {
         cam_move.enabled = false;
 
         ToastSystem.instance.SendDialogue("We made it!",
-        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 6f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine13"));
+        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 3f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine13"));
 
-        ToastSystem.instance.SendDialogue("Excellent work, let’s move to the next battlefront. We can clear the pass later once we have the troops to deal with it.",
-        portraitLabel: "General", autoDismissTime: 5f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_13"));
+        ToastSystem.instance.SendDialogue("Excellent work, let's move to the next battlefront. We can clear the pass later once we have the troops to deal with it.",
+        portraitLabel: "General", autoDismissTime: 9f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_13"));
 
         //ToastSystem.instance.SendDialogue("We are through the pass, General.",
         //portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f);
         //// yield return new WaitForSeconds(5f);
 
         //ToastSystem.instance.SendDialogue("Excellent work, let's get those reinforcements where they need to be. We can come back with commandos.", autoDismissTime: 5f);
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(12f);
         // yield return null;
 
         //advance level
