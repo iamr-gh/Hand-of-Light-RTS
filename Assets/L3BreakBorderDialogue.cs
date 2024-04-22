@@ -62,33 +62,33 @@ public class L3BreakBorderDialogue : MonoBehaviour
         //on win
 
         ToastSystem.instance.SendDialogue("Stellen scum! You'll pay for this treachery!",
-        portraitLabel: "Enemy Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f);
+        portraitLabel: "Enemy Knight", portrait: GlobalUnitManager.singleton.GetPortrait("EnemyMelee").Item1, autoDismissTime: 5f);
 
-        yield return new WaitForSeconds(5f);
+        //yield return new WaitForSeconds(5f);
 
         ToastSystem.instance.SendDialogue("Treachery?",
         portraitLabel: "General", autoDismissTime: 3f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_8"));
 
-        yield return new WaitForSeconds(3f);
+        //yield return new WaitForSeconds(3f);
 
         ToastSystem.instance.SendDialogue("General, what's our next move?",
-        portraitLabel: "Soldier", portrait: GlobalUnitManager.singleton.GetPortrait("Archer").Item1, autoDismissTime: 4f, audioClip: Resources.Load<AudioClip>("Audio/soldier story voice lines/General_whats_our_next_move_Soldier"));
+        portraitLabel: "Soldier", portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 4f, audioClip: Resources.Load<AudioClip>("Audio/soldier story voice lines/General_whats_our_next_move_Soldier"));
 
-        yield return new WaitForSeconds(4f);
+       //yield return new WaitForSeconds(4f);
 
         ToastSystem.instance.SendDialogue("For now, we regroup and join up with the rest of our forces.",
         portraitLabel: "General", autoDismissTime: 3f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_9"));
 
-        yield return new WaitForSeconds(3f);
+        //yield return new WaitForSeconds(3f);
 
         ToastSystem.instance.SendDialogue("They'll likely regroup and counterattack and we can't afford to be caught by a larger force.",
         portraitLabel: "General", autoDismissTime: 3f);
 
-        yield return new WaitForSeconds(3f);
+        //yield return new WaitForSeconds(3f);
 
         //level complete, move onto the next one
         ToastSystem.instance.SendDialogue("Copy that.",
-        portraitLabel: "Soldier", portrait: GlobalUnitManager.singleton.GetPortrait("Archer").Item1, autoDismissTime: 2f, audioClip: Resources.Load<AudioClip>("Audio/soldier story voice lines/Copy_that_Soldier"));
+        portraitLabel: "Soldier", portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 2f, audioClip: Resources.Load<AudioClip>("Audio/soldier story voice lines/Copy_that_Soldier"));
 
         yield return new WaitForSeconds(2f);
 
