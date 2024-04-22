@@ -73,7 +73,7 @@ public class Level2Sequence : MonoBehaviour
             , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 2 Line 7-[AudioTrimmer.com]"));
 
         var defeatEnemies = ToastSystem.instance.SendObjective("Defeat the enemy units");
-        while(enemyUnits.transform.childCount >= 0) {
+        while(enemyUnits.transform.childCount > 0) {
             yield return null;
         }
         ToastSystem.instance.CompleteObjective(defeatEnemies);
