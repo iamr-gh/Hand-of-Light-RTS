@@ -27,17 +27,17 @@ public class L3BreakBorderDialogue : MonoBehaviour
 
 
         ToastSystem.instance.SendDialogue("Commando and speeder unit, reporting for duty.",
-        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 4f);
+        portraitLabel: "Commando", portrait: GlobalUnitManager.singleton.GetPortrait("Commando").Item1, autoDismissTime: 4f, audioClip: Resources.Load<AudioClip>("Audio/Commando Lines/AmirNassiri_CommandoLinesOne"));
 
 
         //make general speaker
         ToastSystem.instance.SendDialogue("Alright, commandos, infiltrate the enemy base. There's a small clearing you can teleport units in from. Tear them apart from the inside.",
         //using ranged for general rn
-        portraitLabel: "General", autoDismissTime: 10f);
+        portraitLabel: "General", autoDismissTime: 10f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_7"));
 
 
         ToastSystem.instance.SendDialogue("Roger that.",
-        portraitLabel: "Commando", portrait: GlobalUnitManager.singleton.GetPortrait("Commando").Item1, autoDismissTime: 2f);
+        portraitLabel: "Commando", portrait: GlobalUnitManager.singleton.GetPortrait("Commando").Item1, autoDismissTime: 2f, audioClip: Resources.Load<AudioClip>("Audio/Commando Lines/AmirNassiri_CommandoLinesTwo"));
 
         input.actions.FindActionMap("Player").Enable();
         cam_move.enabled = true;
@@ -62,33 +62,33 @@ public class L3BreakBorderDialogue : MonoBehaviour
         //on win
 
         ToastSystem.instance.SendDialogue("Stellen scum! You'll pay for this treachery!",
-        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f);
+        portraitLabel: "Enemy Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f);
 
         yield return new WaitForSeconds(5f);
 
         ToastSystem.instance.SendDialogue("Treachery?",
-        portraitLabel: "Archer", portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 3f);
+        portraitLabel: "General", autoDismissTime: 3f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_8"));
 
         yield return new WaitForSeconds(3f);
 
         ToastSystem.instance.SendDialogue("General, what's our next move?",
-        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 4f);
+        portraitLabel: "Soldier", portrait: GlobalUnitManager.singleton.GetPortrait("Archer").Item1, autoDismissTime: 4f, audioClip: Resources.Load<AudioClip>("Audio/soldier story voice lines/General_whats_our_next_move_Soldier"));
 
         yield return new WaitForSeconds(4f);
 
         ToastSystem.instance.SendDialogue("For now, we retreat.",
-        portraitLabel: "Archer", portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 3f);
+        portraitLabel: "General", autoDismissTime: 3f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_9"));
 
         yield return new WaitForSeconds(3f);
 
         ToastSystem.instance.SendDialogue("They'll likely regroup and counterattack and we can't afford to be caught by a larger force.",
-        portraitLabel: "Archer", portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 3f);
+        portraitLabel: "General", autoDismissTime: 3f);
 
         yield return new WaitForSeconds(3f);
 
         //level complete, move onto the next one
-        ToastSystem.instance.SendDialogue("Understood.",
-        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 2f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine9"));
+        ToastSystem.instance.SendDialogue("Copy that.",
+        portraitLabel: "Soldier", portrait: GlobalUnitManager.singleton.GetPortrait("Archer").Item1, autoDismissTime: 2f, audioClip: Resources.Load<AudioClip>("Audio/soldier story voice lines/Copy_that_Soldier"));
 
         yield return new WaitForSeconds(2f);
 
