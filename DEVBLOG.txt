@@ -1,9 +1,9 @@
-Devblogs:
-	https://www.indiedb.com/games/hand-of-light/news/indie-rts-hand-of-light-devblog#articlesform
-	https://forums.tigsource.com/index.php?topic=75669.0
+https://www.indiedb.com/games/hand-of-light/news/indie-rts-hand-of-light-devblog#articlesform
+https://forums.tigsource.com/index.php?topic=75669.0
+
 Portfolios:
-	https://kari-naga.com/projects
-	https://iamr2003.github.io/site-v2/gamedev/
-	https://bsong19.github.io/
-	https://jainarayanan.github.io/
-	https://epdalessandro.github.io/
+https://iamr2003.github.io/site-v2/gamedev/
+https://bsong19.github.io/
+https://kari-naga.com/projects
+https://jainarayanan.github.io/
+https://epdalessandro.github.io/
