@@ -1068,6 +1068,7 @@ MonoBehaviour:
   - type: EnemySpeeder
     sprite: {fileID: 822444060, guid: a7b24cdcfed09434e900473a6722c4ed, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
+  hiddenEnemies: []
   allManaged: []
 --- !u!114 &281730187184124888
 MonoBehaviour:

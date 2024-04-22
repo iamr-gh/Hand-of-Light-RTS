@@ -31,7 +31,7 @@
                     <ui:VisualElement style="flex-grow: 1; flex-direction: row; overflow: visible; justify-content: center; align-items: center;">
                         <ui:Label tabindex="-1" text="Knight -" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 25px; color: rgb(255, 255, 255); -unity-text-outline-width: 0.5px; -unity-text-outline-color: rgb(0, 0, 0); -unity-text-align: middle-center; min-width: auto; min-height: auto; -unity-font-style: bold;" />
                         <ui:Label tabindex="-1" text="Teisha lou" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 25px; color: rgb(255, 255, 255); -unity-text-outline-width: 0.5px; -unity-text-outline-color: rgb(0, 0, 0); -unity-text-align: middle-center; min-width: auto; min-height: auto;" />
-                        <LinkButton text="Twitter" link="https://twitter.com/vocalouu" class="link-button" style="overflow: visible; width: 80px;" />
+                        <LinkButton text="Twitter" link="https://twitter.com/vocalouu" class="link-button" style="overflow: visible; width: auto;" />
                     </ui:VisualElement>
                     <ui:VisualElement style="flex-grow: 1; flex-direction: row; overflow: visible; justify-content: center; align-items: center;">
                         <ui:Label tabindex="-1" text="Archer -" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 25px; color: rgb(255, 255, 255); -unity-text-outline-width: 0.5px; -unity-text-outline-color: rgb(0, 0, 0); -unity-text-align: middle-center; min-width: auto; min-height: auto; -unity-font-style: bold;" />
@@ -57,6 +57,12 @@
                         <ui:Label tabindex="-1" text="Trailer -" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 25px; color: rgb(255, 255, 255); -unity-text-outline-width: 0.5px; -unity-text-outline-color: rgb(0, 0, 0); -unity-text-align: middle-center; min-width: auto; min-height: auto; -unity-font-style: bold;" />
                         <ui:Label tabindex="-1" text="Amir Aziz Nassiri" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 25px; color: rgb(255, 255, 255); -unity-text-outline-width: 0.5px; -unity-text-outline-color: rgb(0, 0, 0); -unity-text-align: middle-center; min-width: auto; min-height: auto;" />
                         <LinkButton text="Twitter" link="https://twitter.com/AmirAzizNassiri" class="link-button" style="overflow: visible;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-grow: 1;">
+                    <ui:Label tabindex="-1" text="Music" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-text-align: middle-center; font-size: 35px; -unity-font-style: bold-and-italic; color: rgb(255, 255, 255); -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0);" />
+                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; overflow: visible; justify-content: center; align-items: center;">
+                        <ui:Label tabindex="-1" text="Kari Naga" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 25px; color: rgb(255, 255, 255); -unity-text-outline-width: 0.5px; -unity-text-outline-color: rgb(0, 0, 0); -unity-text-align: middle-center; min-width: auto; min-height: auto;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-around;">
