@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class FinalBattleScript : MonoBehaviour {
     public GameObject goal;
     // Start is called before the first frame update
+    private ulong obj;
     void Start() {
 
         StartCoroutine(WaitForEnemiesDefeated());
@@ -25,10 +26,12 @@ public class FinalBattleScript : MonoBehaviour {
 
     IEnumerator WaitForEnemiesDefeated() {
         // Wait for all enemies to be defeated
+        obj = ToastSystem.instance.SendObjective("Defeat all enemies");
         while (true) {
             if (GetActiveChildCount() <= 0) { break; }
             yield return null;
         }
+        ToastSystem.instance.CompleteObjective(obj);
         StartCoroutine(win());
 
         goal.GetComponent<GoalScript>().SetAllEnemiesDefeated(true);
@@ -42,7 +45,7 @@ public class FinalBattleScript : MonoBehaviour {
         ToastSystem.instance.SendDialogue("Victory is ours!",
         portraitLabel: "General", autoDismissTime: 5f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_19"));
 
-        yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        yield return new WaitForSeconds(12f);
+        SceneManager.LoadScene(0);
     }
 }
