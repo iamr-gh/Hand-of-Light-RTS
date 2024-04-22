@@ -26,7 +26,7 @@ public class CommandoExpo : MonoBehaviour
         yield return StartCoroutine(ScrollCamera(cameraStartPosition, newCameraPosition, 3f));
         StartCoroutine(NotifyPlayerOfCommando());
         yield return new WaitForSeconds(3f);
-        yield return StartCoroutine(ScrollCamera(Camera.main.transform.position, cameraStartPosition, 3f));
+        yield return StartCoroutine(ScrollCamera(cameraStartPosition, cameraStartPosition, 3f));
 
         Time.timeScale = 1f; // Unpause Game
     }
@@ -43,9 +43,16 @@ public class CommandoExpo : MonoBehaviour
         Camera.main.transform.position = finalPosition;
     }
 
+    IEnumerator WaitForRealSeconds(float duration_sec) {
+        float initialTime = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup - initialTime < duration_sec) { yield return null; }
+    }
+
     IEnumerator NotifyPlayerOfCommando() {
         var commandoNotif = ToastSystem.instance.SendNotification("Commando arrived!", false);
-        yield return new WaitForSeconds(5f);
+        yield return StartCoroutine(WaitForRealSeconds(5f));
         ToastSystem.instance.DismissNotification(commandoNotif);
     }
+
+    
 }

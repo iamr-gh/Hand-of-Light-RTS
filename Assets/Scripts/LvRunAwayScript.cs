@@ -13,7 +13,7 @@ public class LvRunAwayScript : MonoBehaviour
     private int timesAdvanced = 0;
 
     // Start is called before the first frame update
-    void Start() {
+    void Awake() {
         StartCoroutine(dialogue());
     }
 
@@ -38,7 +38,7 @@ public class LvRunAwayScript : MonoBehaviour
 
         // Camera.main.transform.position = new Vector3(5.5f, 40f, 60f); // Move camera to correct spot
 
-        ToastSystem.instance.SendDialogue("Sir! We?ve been spotted by enemy forces! A massive army is approaching our location!",
+        ToastSystem.instance.SendDialogue("Sir! We have been spotted by enemy forces! A massive army is approaching our location!",
         portraitLabel: "Scout", portrait: GlobalUnitManager.singleton.GetPortrait("Cavalry").Item1, autoDismiss: false);
 
         ToastSystem.instance.SendDialogue("We need to retreat as fast as we can. Are our commando units in position?",
