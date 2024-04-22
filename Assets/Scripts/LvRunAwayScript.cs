@@ -39,16 +39,16 @@ public class LvRunAwayScript : MonoBehaviour
         // Camera.main.transform.position = new Vector3(5.5f, 40f, 60f); // Move camera to correct spot
 
         ToastSystem.instance.SendDialogue("Sir! We've been spotted by enemy forces! A massive army is approaching our location!",
-        portraitLabel: "Scout", portrait: GlobalUnitManager.singleton.GetPortrait("Cavalry").Item1, autoDismiss: false);
+        portraitLabel: "Scout", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine11"));
 
         ToastSystem.instance.SendDialogue("We need to retreat as fast as we can. Are our commando units in position?",
-        portraitLabel: "General", autoDismiss: false);
+        portraitLabel: "General", autoDismiss: false, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_14"));
 
         ToastSystem.instance.SendDialogue("Yes sir!",
-        portraitLabel: "Scout", portrait: GlobalUnitManager.singleton.GetPortrait("Cavalry").Item1, autoDismiss: false);
+        portraitLabel: "Scout", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false, autoDismissTime: 6f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine12"));
 
         ToastSystem.instance.SendDialogue("Reporting in!",
-        portraitLabel: "Commando", portrait: GlobalUnitManager.singleton.GetPortrait("Commando").Item1, autoDismiss: false);
+        portraitLabel: "Commando", portrait: GlobalUnitManager.singleton.GetPortrait("Commando").Item1, autoDismiss: false, audioClip: Resources.Load<AudioClip>("Audio/Commando Lines/AmirNassiri_CommandoLinesThree"));
 
         while (timesAdvanced < 4) { yield return null; } // Do nothing while dialogue hasn't finished
 
@@ -75,12 +75,12 @@ public class LvRunAwayScript : MonoBehaviour
         //on win
 
         ToastSystem.instance.SendDialogue("We've made it!",
-        portraitLabel: "Scout", portrait: GlobalUnitManager.singleton.GetPortrait("Cavalry").Item1, autoDismiss: false);
+        portraitLabel: "Scout", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine13"));
 
         ToastSystem.instance.SendDialogue("Don't get too excited. We need to keep moving or they'll catch us. Let?s go!",
-        portraitLabel: "General", autoDismiss: false);
+        portraitLabel: "General", autoDismiss: false, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_15"));
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(7f);
 
         ToastSystem.instance.onDialogueAdvanced.RemoveListener(TickDialogue);
 
