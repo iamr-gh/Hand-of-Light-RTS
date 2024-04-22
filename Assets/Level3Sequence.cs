@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Level3Sequence : MonoBehaviour
 {
+    public GameObject enemies;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,11 +27,15 @@ public class Level3Sequence : MonoBehaviour
             , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 3 Line 1-[AudioTrimmer.com]"));
         input.actions["Select"].Enable();
         input.actions["Select Type"].Enable();
+        
+        var select_archers_obj = ToastSystem.instance.SendObjective("Select the archers");
         while (controlSystem.controlledUnits.Count != 5)
         {
             yield return null;
             yield return new WaitForSeconds(0.01f);
         }
+        
+        ToastSystem.instance.CompleteObjective(select_archers_obj);
         
 
         yield return new WaitForSeconds(2f);
@@ -58,6 +63,8 @@ public class Level3Sequence : MonoBehaviour
         ToastSystem.instance.SendDialogue("Defeat the enemies at the top of the map to finish your promotion to general. Good luck commander.", autoDismiss: false
             , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 3 Line 6-[AudioTrimmer.com]"));
 
+        enemies.GetComponent<ClearEnemiesObjective>().enabled = true;
+    
         yield return new WaitForSeconds(4f);
     }
 }

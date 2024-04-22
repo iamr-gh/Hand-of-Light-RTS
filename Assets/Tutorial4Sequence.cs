@@ -47,6 +47,8 @@ public class Tutorial4Sequence : MonoBehaviour {
         var notif1 = ToastSystem.instance.SendNotification("Select the Commando at the top of the screen", autoDismiss: false
             , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 4 Line 2-[AudioTrimmer.com]"));
         input.actions["Select"].Enable();
+        
+        var select_commando_obj = ToastSystem.instance.SendObjective("Select the Commando");
 
         while (true) {
             yield return null;
@@ -61,6 +63,7 @@ public class Tutorial4Sequence : MonoBehaviour {
                 break;
             }
         }
+        ToastSystem.instance.CompleteObjective(select_commando_obj);
 
         ToastSystem.instance.DismissNotification(notif1);
 
@@ -82,6 +85,9 @@ public class Tutorial4Sequence : MonoBehaviour {
                 }
             }
         }
+        
+        ToastSystem.instance.RemoveObjective(select_commando_obj);
+        var recall_friend_obj = ToastSystem.instance.SendObjective("Recall your units over the ridge");
 
         while (true) {
             yield return null;
@@ -100,6 +106,7 @@ public class Tutorial4Sequence : MonoBehaviour {
                 break;
             }
         }
+        ToastSystem.instance.CompleteObjective(recall_friend_obj);
         ToastSystem.instance.DismissNotification(notif6);
 
         ToastSystem.instance.AdvanceDialogue();
@@ -117,6 +124,8 @@ public class Tutorial4Sequence : MonoBehaviour {
         //kill enemy unit
         ToastSystem.instance.SendDialogue("It also works on enemy units, use it to engage the one on the plateau", autoDismiss: false
             , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 4 Line 5-[AudioTrimmer.com]"));
+        
+        var recall_enemy_obj = ToastSystem.instance.SendObjective("Kill enemy on plateau");
 
 
         while(true) {
@@ -126,6 +135,8 @@ public class Tutorial4Sequence : MonoBehaviour {
                 break;
             }
         }
+        
+        ToastSystem.instance.CompleteObjective(recall_enemy_obj);
         
         ToastSystem.instance.AdvanceDialogue();
 
@@ -152,7 +163,7 @@ public class Tutorial4Sequence : MonoBehaviour {
         
 
         dialogueDismissed = false;
-        ToastSystem.instance.SendDialogue("These mages can blind archers, to stop them from attacking within a zone", autoDismiss: false
+        ToastSystem.instance.SendDialogue("These mages can blind archers, to stop them from attacking within a zone", autoDismissTime: 3.0f
             , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 4 Line 8-[AudioTrimmer.com]"));
         magesToUse.SetActive(true);
         commandoToUse.SetActive(false);
@@ -165,11 +176,12 @@ public class Tutorial4Sequence : MonoBehaviour {
         
         
         dialogueDismissed = false;
-        ToastSystem.instance.SendDialogue("Blind the archers on the plateau to protect your units", autoDismiss: false
+        var blindarchnot = ToastSystem.instance.SendNotification("Blind the archers on the plateau to protect your units", autoDismiss: false
             , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 4 Line 9-[AudioTrimmer.com]"));
         archersToUse.SetActive(true);
         GlobalUnitManager.singleton.Reindex();
         
+        var blind_archers_obj = ToastSystem.instance.SendObjective("Blind archers on plateau");
         while(true){
             //check if archers ever blinded
             //check if attack range is zero in archers to use children
@@ -188,6 +200,7 @@ public class Tutorial4Sequence : MonoBehaviour {
             }
             yield return null;
         }
+        ToastSystem.instance.CompleteObjective(blind_archers_obj);
         ToastSystem.instance.AdvanceDialogue();
         
         //now force mages to do something
@@ -202,6 +215,7 @@ public class Tutorial4Sequence : MonoBehaviour {
         // will be another tutorial??
 
         // should this have a portrait?
+        ToastSystem.instance.DismissNotification(blindarchnot);
         ToastSystem.instance.SendDialogue("Congratulations, you are now qualified to use spellcasters in the field!", autoDismiss: false
             , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 4 Line 10-[AudioTrimmer.com]"));
 

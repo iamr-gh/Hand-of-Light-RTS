@@ -87,7 +87,7 @@ public class Level1Sequence : MonoBehaviour
         ToastSystem.instance.SendDialogue("Move through the pass to the east to continue.", autoDismiss: false
             , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 1 Line 5-[AudioTrimmer.com]"));
 
-        finishObj = ToastSystem.instance.SendObjective("Move your troop onto the teleportation panel");
+        finishObj = ToastSystem.instance.SendObjective("Move your troop onto the teleport circle");
 
         nl.onAdvancing.AddListener(Finish);
         /*
