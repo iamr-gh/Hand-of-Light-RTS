@@ -46,8 +46,6 @@ public class FinalBattle : MonoBehaviour
         //    yield return null;
         //}
         //ToastSystem.instance.SendDialogue("Sir yes sir!", portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
-        //input.actions.FindActionMap("Player").Enable();
-        //cam_move.enabled = true;
 
         ToastSystem.instance.SendDialogue("That’s a lot of enemy troops.",
         portraitLabel: "General", autoDismissTime: 5f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_18"));
@@ -57,6 +55,12 @@ public class FinalBattle : MonoBehaviour
 
         ToastSystem.instance.SendDialogue("Yes sir!",
         portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 6f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine15"));
+        
+        var obj = ToastSystem.instance.SendObjective("Defeat all enemies");
+        //no way to catch completion of objective here, no fancy checkmark
+
+        input.actions.FindActionMap("Player").Enable();
+        cam_move.enabled = true;
 
         //give them some time to look at what they have
         yield return new WaitForSeconds(7f);
