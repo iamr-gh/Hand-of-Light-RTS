@@ -23,7 +23,8 @@ public class Level2Sequence : MonoBehaviour
         cam_move.enabled = false;
 
         
-        ToastSystem.instance.SendDialogue("Select a group of units by holding left click then dragging the mouse.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Select a group of units by holding left click then dragging the mouse.", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 2 Line 1-[AudioTrimmer.com]"));
         input.actions["Select"].Enable();
 
         while (controlSystem.controlledUnits.Count != 4)
@@ -36,13 +37,18 @@ public class Level2Sequence : MonoBehaviour
         ToastSystem.instance.AdvanceDialogue();
         cam_move.enabled = true;
 
-        ToastSystem.instance.SendDialogue("There are two types of movement commands.", autoDismiss: false);
-        ToastSystem.instance.SendDialogue("Move command with right click only moves your units.", autoDismiss: false);
-        ToastSystem.instance.SendDialogue("When given a move command, units will not attack until they either reach the given location or given an attack move command.", autoDismiss: false);
-        ToastSystem.instance.SendDialogue("When given an attack move command, your units will try to move to the location, but if they spot an enemy they will attack.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("There are two types of movement commands.", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 2 Line 2-[AudioTrimmer.com]"));
+        ToastSystem.instance.SendDialogue("Move command with right click only moves your units.", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 2 Line 3-[AudioTrimmer.com]"));
+        ToastSystem.instance.SendDialogue("When given a move command, units will not attack until they either reach the given location or given an attack move command.", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 2 Line 4-[AudioTrimmer.com]"));
+        ToastSystem.instance.SendDialogue("When given an attack move command, your units will try to move to the location, but if they spot an enemy they will attack.", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 2 Line 5-[AudioTrimmer.com]"));
 
 
-        ToastSystem.instance.SendDialogue("Give your units an attack move command by clicking 'Q' then left clicking the ground.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Give your units an attack move command by clicking 'Q' then left clicking the ground.", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 2 Line 6-[AudioTrimmer.com]"));
         
         input.actions["Activate Attack"].Enable();
 
@@ -59,6 +65,7 @@ public class Level2Sequence : MonoBehaviour
         input.actions.FindActionMap("Player").Enable();
         ToastSystem.instance.AdvanceDialogue();
 
-        ToastSystem.instance.SendDialogue("Defeat the enemy units to continue.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Defeat the enemy units to continue.", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 2 Line 7-[AudioTrimmer.com]"));
     }
 }

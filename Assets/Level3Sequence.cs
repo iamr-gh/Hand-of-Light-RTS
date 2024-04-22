@@ -22,7 +22,8 @@ public class Level3Sequence : MonoBehaviour
         input.actions.FindActionMap("Player").Disable();
         cam_move.enabled = false;
 
-        ToastSystem.instance.SendDialogue("Select a single unit type by holding control then clicking on a unit, or by double clicking. Select the archers.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Select a single unit type by holding control then clicking on a unit, or by double clicking. Select the archers.", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 3 Line 1-[AudioTrimmer.com]"));
         input.actions["Select"].Enable();
         input.actions["Select Type"].Enable();
         while (controlSystem.controlledUnits.Count != 5)
@@ -35,10 +36,14 @@ public class Level3Sequence : MonoBehaviour
         yield return new WaitForSeconds(2f);
         ToastSystem.instance.AdvanceDialogue();
 
-        ToastSystem.instance.SendDialogue("There is a technique known as kiting. Kiting is when you run away from your enemies then shoot, then repeat.", autoDismiss: false);
-        ToastSystem.instance.SendDialogue("This allows your ranged units to attack while staying out of reach of melee troops.", autoDismiss: false);
-        ToastSystem.instance.SendDialogue("You can achieve this by move commanding your units away then attack move commanding them back towards the enemy.", autoDismiss: false);
-        ToastSystem.instance.SendDialogue("Try this out in the next battle by selecting your archers then kiting with them.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("There is a technique known as kiting. Kiting is when you run away from your enemies then shoot, then repeat.", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 3 Line 2-[AudioTrimmer.com]"));
+        ToastSystem.instance.SendDialogue("This allows your ranged units to attack while staying out of reach of melee troops.", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 3 Line 3-[AudioTrimmer.com]"));
+        ToastSystem.instance.SendDialogue("You can achieve this by move commanding your units away then attack move commanding them back towards the enemy.", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 3 Line 4-[AudioTrimmer.com]"));
+        ToastSystem.instance.SendDialogue("Try this out in the next battle by selecting your archers then kiting with them.", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 3 Line 5-[AudioTrimmer.com]"));
 
         while (!Input.GetKeyDown(KeyCode.Space))
         {
@@ -50,7 +55,10 @@ public class Level3Sequence : MonoBehaviour
 
         cam_move.enabled = true;
 
-        ToastSystem.instance.SendDialogue("Defeat the enemies at the top of the map to finish your promotion to general. Good luck commander.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Defeat the enemies at the top of the map to finish your promotion to general. Good luck commander.", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 3 Line 6-[AudioTrimmer.com]"));
+
+        yield return new WaitForSeconds(4f);
     }
 }
 

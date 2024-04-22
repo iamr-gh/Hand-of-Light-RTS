@@ -27,8 +27,10 @@ public class Level1Sequence : MonoBehaviour
         input.actions.FindActionMap("Player").Disable();
         cam_move.enabled = false;
         yield return new WaitForSeconds(1f);
-        ToastSystem.instance.SendDialogue("Commander! You're running late for your promotion exam! Press space to advance dialogue.", autoDismiss: false, audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/tutorial-1-line-1_t178hwGV"));
-        ToastSystem.instance.SendDialogue("Use WASD or move your mouse to the edges of the screen to move the camera.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Commander! You're running late for your promotion exam! Press space to advance dialogue."
+            , autoDismiss: false, audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/tutorial-1-line-1_t178hwGV"));
+        ToastSystem.instance.SendDialogue("Use WASD or move your mouse to the edges of the screen to move the camera.", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 1 Line 2-[AudioTrimmer.com]"));
         var obj1 = ToastSystem.instance.SendObjective("Move the camera");
 
         cam_move.enabled = true;
@@ -43,7 +45,8 @@ public class Level1Sequence : MonoBehaviour
         ToastSystem.instance.CompleteObjective(obj1);
         ToastSystem.instance.AdvanceDialogue();
 
-        ToastSystem.instance.SendDialogue("Now select a troop with left click. You need to select units to issue orders.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Now select a troop with left click. You need to select units to issue orders.", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 1 Line 3-[AudioTrimmer.com]"));
 
         var obj2 = ToastSystem.instance.SendObjective("Select a troop");
 
@@ -57,7 +60,8 @@ public class Level1Sequence : MonoBehaviour
         yield return new WaitForSeconds(1f);
         ToastSystem.instance.CompleteObjective(obj2);
         ToastSystem.instance.AdvanceDialogue();
-        ToastSystem.instance.SendDialogue("Right click to issue a move command order. The unit will move to the location you right click.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Right click to issue a move command order. The unit will move to the location you right click.", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 1 Line 4-[AudioTrimmer.com]"));
         input.actions["Select"].Disable();
         input.actions["Move"].Enable();
         
@@ -80,7 +84,8 @@ public class Level1Sequence : MonoBehaviour
 
         input.actions["Select"].Enable();
 
-        ToastSystem.instance.SendDialogue("Move through the pass to the east to continue.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Move through the pass to the east to continue.", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 1 Line 5-[AudioTrimmer.com]"));
 
         finishObj = ToastSystem.instance.SendObjective("Move your troop into the green box");
 

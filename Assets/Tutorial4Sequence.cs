@@ -38,12 +38,14 @@ public class Tutorial4Sequence : MonoBehaviour {
         cam_move.enabled = false;
 
         dialogueDismissed = false;
-        ToastSystem.instance.SendDialogue("Some special units have abilities, which will appear in an additional menu", autoDismissTime: 5f);
+        ToastSystem.instance.SendDialogue("Some special units have abilities, which will appear in an additional menu", autoDismissTime: 5f
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 4 Line 1-[AudioTrimmer.com]"));
         while(!dialogueDismissed) {
             yield return null;
         }
 
-        var notif1 = ToastSystem.instance.SendNotification("Select the Commando at the top of the screen", autoDismiss: false);
+        var notif1 = ToastSystem.instance.SendNotification("Select the Commando at the top of the screen", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 4 Line 2-[AudioTrimmer.com]"));
         input.actions["Select"].Enable();
 
         while (true) {
@@ -67,7 +69,8 @@ public class Tutorial4Sequence : MonoBehaviour {
 
         // ToastSystem.instance.SendDialogue("Press 1 and click to use the Commando's ability to recall your units", autoDismiss: false);
 
-        var notif6 = ToastSystem.instance.SendNotification("Press 1 and click your units to use Commando's recall!", false);
+        var notif6 = ToastSystem.instance.SendNotification("Press 1 and click your units to use Commando's recall!", false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 4 Line 3-[AudioTrimmer.com]"));
 
         //get positions of existing non-commando units
         Dictionary<GameObject, Vector3> unitPositions = new();
@@ -105,13 +108,15 @@ public class Tutorial4Sequence : MonoBehaviour {
         cam_move.enabled = true;
 
         dialogueDismissed = false;
-        ToastSystem.instance.SendDialogue("Recall can be used to get your units out of sticky situations.", autoDismissTime: 3.0f);
+        ToastSystem.instance.SendDialogue("Recall can be used to get your units out of sticky situations.", autoDismissTime: 3.0f
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 4 Line 4-[AudioTrimmer.com]"));
         while(!dialogueDismissed) {
             yield return null;
         }
 
         //kill enemy unit
-        ToastSystem.instance.SendDialogue("It also works on enemy units, use it to engage the one on the plateau", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("It also works on enemy units, use it to engage the one on the plateau", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 4 Line 5-[AudioTrimmer.com]"));
 
 
         while(true) {
@@ -126,7 +131,8 @@ public class Tutorial4Sequence : MonoBehaviour {
 
         //wait till death of this unit
         dialogueDismissed = false;
-        ToastSystem.instance.SendDialogue("As seen, this is a double edged sword.", autoDismissTime: 3.0f);
+        ToastSystem.instance.SendDialogue("As seen, this is a double edged sword.", autoDismissTime: 3.0f
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 4 Line 6-[AudioTrimmer.com]"));
 
         while(!dialogueDismissed) {
             yield return null;
@@ -136,7 +142,8 @@ public class Tutorial4Sequence : MonoBehaviour {
 
         //maybe some camera pan
         dialogueDismissed = false;
-        ToastSystem.instance.SendDialogue("There are other units with abilities", autoDismissTime: 3.0f);
+        ToastSystem.instance.SendDialogue("There are other units with abilities", autoDismissTime: 3.0f
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 4 Line 7-[AudioTrimmer.com]"));
 
         
         while(!dialogueDismissed) {
@@ -145,7 +152,8 @@ public class Tutorial4Sequence : MonoBehaviour {
         
 
         dialogueDismissed = false;
-        ToastSystem.instance.SendDialogue("These mages can blind archers, to stop them from attacking within a zone", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("These mages can blind archers, to stop them from attacking within a zone", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 4 Line 8-[AudioTrimmer.com]"));
         magesToUse.SetActive(true);
         commandoToUse.SetActive(false);
         
@@ -157,7 +165,8 @@ public class Tutorial4Sequence : MonoBehaviour {
         
         
         dialogueDismissed = false;
-        ToastSystem.instance.SendDialogue("Blind the archers on the plateau to protect your units", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Blind the archers on the plateau to protect your units", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 4 Line 9-[AudioTrimmer.com]"));
         archersToUse.SetActive(true);
         GlobalUnitManager.singleton.Reindex();
         
@@ -192,7 +201,8 @@ public class Tutorial4Sequence : MonoBehaviour {
         // will be another tutorial??
 
         // should this have a portrait?
-        ToastSystem.instance.SendDialogue("Congratulations, you are now qualified to use spellcasters in the field!", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Congratulations, you are now qualified to use spellcasters in the field!", autoDismiss: false
+            , audioClip: Resources.Load<AudioClip>("Audio/Tutorial and Unit Lines/Tutorial 4 Line 10-[AudioTrimmer.com]"));
 
         yield return new WaitForSeconds(5f);
 
