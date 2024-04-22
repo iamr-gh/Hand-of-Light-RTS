@@ -29,6 +29,7 @@ public class RecallAbility : Ability {
         circle = Instantiate(circlePrefab, castData.targetPosition, Quaternion.identity);
         circle.transform.localScale = new Vector3(aoeRadius * 2, circle.transform.localScale.y, aoeRadius * 2);
         vfx = Instantiate(summoningVfx, new Vector3(castData.targetPosition.x, castData.targetPosition.y + 0.1f, castData.targetPosition.z), Quaternion.identity);
+        vfx.transform.localScale = new Vector3(aoeRadius * 2, vfx.transform.localScale.y, aoeRadius * 2);
         // let's teleport all units back to the caster
         foreach (GameObject unit in castData.friendlyUnitsHit) {
             if (unit != castData.caster) {
