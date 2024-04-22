@@ -35,7 +35,6 @@ public class GameOver : MonoBehaviour
         // Wait for all enemies to be defeated
         while (true)
         {
-            Debug.Log("AliveUnits: " + GetActiveChildCount());
             if (GetActiveChildCount() <= minimumAliveFriendlies) { break; }
             yield return null;
         }

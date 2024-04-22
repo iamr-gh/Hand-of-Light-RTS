@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class L2KingHillDialogue : MonoBehaviour
 {
     public GameObject enemy;
+    public GameObject enemyTracker;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +56,9 @@ public class L2KingHillDialogue : MonoBehaviour
 
         input.actions.FindActionMap("Player").Enable();
         cam_move.enabled = true;
+        
+        //could've put the stuff here instead, but I put it on another component
+        enemy.GetComponent<ClearEnemiesObjective>().enabled = true;
 
         while (enemy.transform.GetChild(0).childCount + enemy.transform.GetChild(1).childCount + enemy.transform.GetChild(2).childCount + enemy.transform.GetChild(3).childCount != 0)
         {
@@ -92,4 +96,16 @@ public class L2KingHillDialogue : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
     }
+
+    // private int nestedChildCount(Transform parent){
+    //     if(parent.childCount == 0){
+    //         return 1;
+    //     }
+    //     int count = 0;
+    //     foreach(Transform child in parent){
+    //         //just doing on level, instead of full recursion
+    //         count += child.childCount;
+    //     }
+    //     return count;
+    // }
 }

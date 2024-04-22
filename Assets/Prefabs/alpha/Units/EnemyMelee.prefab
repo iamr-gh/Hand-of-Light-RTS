@@ -267,11 +267,19 @@ MonoBehaviour:
   MovementSpeed: 4
   AttackCooldown: 0.5
   AttackDuration: 0.25
+  Mana: 100
+  HitboxSize: 1
   AggroRange: 10
   SightRange: 10
   AttackRange: 2
-  Mana: 100
-  HitboxSize: 1
+  SelectVoiceLines: []
+  SelectVoiceLineVolume: 1
+  MoveVoiceLines: []
+  MoveVoiceLineVolume: 1
+  AttackMoveVoiceLines: []
+  AttackMoveVoiceLineVolume: 1
+  DeathVoiceLines: []
+  DeathVoiceLineVolume: 1
 --- !u!114 &1740066768346494133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,7 +331,7 @@ MonoBehaviour:
   goal_leash_a_move: 1
   commandDelay: 1
   attacking: 1
-  social_radius: 7
+  social_radius: 10
   seenTarget: {fileID: 0}
 --- !u!136 &3203492544335117016
 CapsuleCollider:
