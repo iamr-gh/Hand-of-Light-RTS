@@ -36,7 +36,7 @@ public class MountainPassDialogue : MonoBehaviour
         portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 6f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine12"));
 
         ToastSystem.instance.SendDialogue("Reporting in!",
-        portraitLabel: "Commando", portrait: GlobalUnitManager.singleton.GetPortrait("Commando").Item1, autoDismissTime: 2f, audioClip: Resources.Load<AudioClip>("Audio/Commando Lines/AmirNassiri_CommandoLinesThree"));
+        portraitLabel: "Super Commando", portraitColor: Color.yellow, portrait: GlobalUnitManager.singleton.GetPortrait("Commando").Item1, autoDismissTime: 2f, audioClip: Resources.Load<AudioClip>("Audio/Commando Lines/AmirNassiri_CommandoLinesThree"));
 
         //ToastSystem.instance.SendDialogue("General, we're trapped on this mountain face! Our reports say this area is covered in powerful sniper nests!",
         //portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, portraitLabel: "Knight", autoDismissTime: 5f);
@@ -45,23 +45,23 @@ public class MountainPassDialogue : MonoBehaviour
         //portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, portraitLabel: "Knight", autoDismissTime: 5f);
 
         //var (commandoPortrait, commandoColor) = GlobalUnitManager.singleton.GetPortrait("Commando");
-        //ToastSystem.instance.SendDialogue("Don't worry! I can take a lot of damage and shepard our units across.",
-        //portrait: commandoPortrait, portraitColor: Color.yellow, portraitLabel: "Super Commando", autoDismissTime: 5f);
+        ToastSystem.instance.SendDialogue("Don't worry! I can take a lot of damage and shepard our units across.",
+        portrait: GlobalUnitManager.singleton.GetPortrait("Commando").Item1, portraitColor: Color.yellow, portraitLabel: "Super Commando", autoDismissTime: 5f);
 
-        //var (magePortrait, mageColor) = GlobalUnitManager.singleton.GetPortrait("Mage");
-        //ToastSystem.instance.SendDialogue("Remember last time? I can deal with any sniper nests.",
-        //portrait: magePortrait, portraitLabel: "Mage", autoDismissTime: 5f);
+        var (magePortrait, mageColor) = GlobalUnitManager.singleton.GetPortrait("Mage");
+        ToastSystem.instance.SendDialogue("Remember last time? I can deal with any sniper nests.",
+        portrait: magePortrait, portraitLabel: "Mage", autoDismissTime: 5f);
 
-        //ToastSystem.instance.SendDialogue("If we can make it to the green fog at the end of the pass, it should obscure us from the enemy!",
-        //portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, portraitLabel: "Knight", autoDismissTime: 5f);
+        ToastSystem.instance.SendDialogue("If we can make it to the green fog at the end of the pass, it should obscure us from the enemy!",
+        portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, portraitLabel: "Knight", autoDismissTime: 5f);
 
-        //ToastSystem.instance.SendDialogue("Get ready to run for your life!", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Get ready to run for your life!", autoDismiss: false);
 
         bool sentNoti = false;
         ulong prompt = 0;
-        while (timesAdvanced < 6) {
+        while (timesAdvanced < 8) {
             yield return null;
-            if (!sentNoti && timesAdvanced == 5) {
+            if (!sentNoti && timesAdvanced == 7) {
                 prompt = ToastSystem.instance.SendNotification("Press space to begin!", autoDismissTime: 5f);
                 sentNoti = true;
 
