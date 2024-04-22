@@ -774,6 +774,9 @@ public class ControlSystem : MonoBehaviour {
                             controlledUnits.Remove(obj);
                         }
                     } else {
+                        if (!toggle) {
+                            UnregisterUnits();
+                        }
                         controlledUnits.Add(obj);
                         RegisterUnit(obj);
                     }
@@ -801,7 +804,6 @@ public class ControlSystem : MonoBehaviour {
     float lastSelectedTime = -100f;
 
     IEnumerator Select() {
-        UnregisterUnits();
         var selectedOne = SelectOne();
         var selectedTime = Time.time;
         var mousePos = Mouse.current.position.ReadValue();
@@ -809,15 +811,20 @@ public class ControlSystem : MonoBehaviour {
         var initialCamPos = cam.transform.position;
         var initialPos = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cam.nearClipPlane));
         var finalPos = initialPos;
-        UpdateSelections(initialPos, finalPos, extend: selectedOne);
+        if (selectedOne) {
+            UpdateSelections(initialPos, finalPos, extend: selectedOne);
+        }
         while (input.actions["Select"].IsPressed()) {
             mousePos = Mouse.current.position.ReadValue();
             if (controlState == ControlState.SelectingUnits) {
+                selBox.SetActive(true);
                 finalPos = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cam.nearClipPlane));
                 UpdateSelections(initialPos + (cam.transform.position - initialCamPos), finalPos, extend: selectedOne);
             } else if (Vector2.Distance(mousePos, initialMousePos) >= minDragDistance) {
-                selBox.SetActive(true);
                 ProcessInput(ControlActions.StartDragging);
+                if (!selectedOne) {
+                    UnregisterUnits();
+                }
             }
             yield return null;
         }
