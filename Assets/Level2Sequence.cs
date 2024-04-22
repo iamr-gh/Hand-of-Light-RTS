@@ -38,8 +38,8 @@ public class Level2Sequence : MonoBehaviour
 
         ToastSystem.instance.SendDialogue("There are two types of movement commands.", autoDismiss: false);
         ToastSystem.instance.SendDialogue("Move command with right click only moves your units.", autoDismiss: false);
-        ToastSystem.instance.SendDialogue("When give a move command, units will not attack until they either reach the given location or given an attack move command.", autoDismiss: false);
-        ToastSystem.instance.SendDialogue("When give an attack move command, your units will try to move to the location, but if they spot an enemy they will attack.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("When given a move command, units will not attack until they either reach the given location or given an attack move command.", autoDismiss: false);
+        ToastSystem.instance.SendDialogue("When given an attack move command, your units will try to move to the location, but if they spot an enemy they will attack.", autoDismiss: false);
 
 
         ToastSystem.instance.SendDialogue("Give your units an attack move command by clicking 'Q' then left clicking the ground.", autoDismiss: false);
