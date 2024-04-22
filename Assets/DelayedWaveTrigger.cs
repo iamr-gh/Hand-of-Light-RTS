@@ -24,6 +24,13 @@ public class DelayedWaveTrigger : MonoBehaviour
 
     IEnumerator StartWave(float wait_seconds) {
         yield return new WaitForSeconds(wait_seconds);
+        StartCoroutine(NotifyPlayer());
         wave.start = true;
+    }
+
+    IEnumerator NotifyPlayer() {
+        var notif = ToastSystem.instance.SendNotification("Enemy army incoming!", false);
+        yield return new WaitForSeconds(5f);
+        ToastSystem.instance.DismissNotification(notif);
     }
 }
