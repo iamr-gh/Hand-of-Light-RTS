@@ -13,7 +13,7 @@ public class LvRunAwayScript : MonoBehaviour
     private int timesAdvanced = 0;
 
     // Start is called before the first frame update
-    void Start() {
+    void Awake() {
         StartCoroutine(dialogue());
     }
 
@@ -38,16 +38,19 @@ public class LvRunAwayScript : MonoBehaviour
 
         // Camera.main.transform.position = new Vector3(5.5f, 40f, 60f); // Move camera to correct spot
 
-        ToastSystem.instance.SendDialogue("Commander! Our scouts have found the enemy forces. Unfortunately, they also found us.",
-        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Sir! We've been spotted by enemy forces! A massive army is approaching our location!",
+        portraitLabel: "Scout", portrait: GlobalUnitManager.singleton.GetPortrait("Cavalry").Item1, autoDismiss: false);
 
-        ToastSystem.instance.SendDialogue("There's some commandos coming in later that will help you to move between the islands",
-        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
+        ToastSystem.instance.SendDialogue("We need to retreat as fast as we can. Are our commando units in position?",
+        portraitLabel: "General", autoDismiss: false);
 
-        ToastSystem.instance.SendDialogue("Get the scouts out and link up with the main army!",
-        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
+        ToastSystem.instance.SendDialogue("Yes sir!",
+        portraitLabel: "Scout", portrait: GlobalUnitManager.singleton.GetPortrait("Cavalry").Item1, autoDismiss: false);
 
-        while (timesAdvanced < 3) { yield return null; } // Do nothing while dialogue hasn't finished
+        ToastSystem.instance.SendDialogue("Reporting in!",
+        portraitLabel: "Commando", portrait: GlobalUnitManager.singleton.GetPortrait("Commando").Item1, autoDismiss: false);
+
+        while (timesAdvanced < 4) { yield return null; } // Do nothing while dialogue hasn't finished
 
         input.actions.FindActionMap("Player").Enable();
         cam_move.enabled = true;
@@ -71,11 +74,11 @@ public class LvRunAwayScript : MonoBehaviour
 
         //on win
 
-        ToastSystem.instance.SendDialogue("We've reached the main army, the intelligence gathered today will be critical in finding good terrain to engage them on",
-        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f);
+        ToastSystem.instance.SendDialogue("We've made it!",
+        portraitLabel: "Scout", portrait: GlobalUnitManager.singleton.GetPortrait("Cavalry").Item1, autoDismiss: false);
 
-        ToastSystem.instance.SendDialogue("Finally, we'll be able to destroy their main army!",
-        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 3f);
+        ToastSystem.instance.SendDialogue("Don't get too excited. We need to keep moving or they'll catch us. Let?s go!",
+        portraitLabel: "General", autoDismiss: false);
 
         yield return new WaitForSeconds(5f);
 

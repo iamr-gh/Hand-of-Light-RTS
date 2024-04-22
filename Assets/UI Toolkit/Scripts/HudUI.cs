@@ -422,7 +422,7 @@ public class HudUI : MonoBehaviour {
     }
 
     public void SetDialoguePortraitLabel(string label) {
-        if (label != null) {
+        if (label != null && label != "") {
             dialoguePortraitLabel.text = label;
             dialoguePortraitLabel.style.display = DisplayStyle.Flex;
         } else {
