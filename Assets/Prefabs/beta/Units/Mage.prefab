@@ -215,9 +215,14 @@ MonoBehaviour:
   AggroRange: 0
   SightRange: 10
   AttackRange: 10
-  SelectVoiceLines: []
+  SelectVoiceLines:
+  - {fileID: 8300000, guid: 29e42ff7cec7e453e8574e082207b15b, type: 3}
+  - {fileID: 8300000, guid: da1d52b4bf1fb474d9ebef0afa95a5de, type: 3}
+  - {fileID: 8300000, guid: 1c4412e851443401d9d0799afe4fbfcd, type: 3}
+  - {fileID: 8300000, guid: 4bd5fdb2d8f1b4febb53162f7ff1c1d5, type: 3}
   SelectVoiceLineVolume: 1
-  MoveVoiceLines: []
+  MoveVoiceLines:
+  - {fileID: 8300000, guid: a3c9439f273a6437988fafdf41f34fdd, type: 3}
   MoveVoiceLineVolume: 1
   AttackMoveVoiceLines: []
   AttackMoveVoiceLineVolume: 1
