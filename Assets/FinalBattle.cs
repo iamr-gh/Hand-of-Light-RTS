@@ -47,14 +47,14 @@ public class FinalBattle : MonoBehaviour
         //}
         //ToastSystem.instance.SendDialogue("Sir yes sir!", portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false);
 
-        ToastSystem.instance.SendDialogue("That’s a lot of enemy troops.",
-        portraitLabel: "General", autoDismissTime: 5f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_18"));
+        ToastSystem.instance.SendDialogue("That's a lot of enemy troops.",
+        portraitLabel: "General", autoDismissTime: 10f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_18"));
 
-        ToastSystem.instance.SendDialogue("Alright! Let’s utilize every tactic we’ve employed to make it this far! Let’s crush them and go home!",
+        ToastSystem.instance.SendDialogue("Alright! Let's utilize every tactic we've employed to make it this far! Let's crush them and go home!",
         portraitLabel: "General", autoDismissTime: 5f);
 
         ToastSystem.instance.SendDialogue("Yes sir!",
-        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 6f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine15"));
+        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 3f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine15"));
         
         var obj = ToastSystem.instance.SendObjective("Defeat all enemies");
         //no way to catch completion of objective here, no fancy checkmark
@@ -63,7 +63,7 @@ public class FinalBattle : MonoBehaviour
         cam_move.enabled = true;
 
         //give them some time to look at what they have
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(18f);
         
         //move all enemies to the player
         for(int i=0;i<allEnemies.transform.childCount;i++)

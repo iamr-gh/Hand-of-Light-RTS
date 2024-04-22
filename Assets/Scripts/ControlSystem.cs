@@ -944,7 +944,7 @@ public class ControlSystem : MonoBehaviour {
         }
         bool foundUnit = false;
         foreach (var unit in controlledUnits) {
-            if (unit != null) {
+            if (unit != null && unit.activeInHierarchy) {
                 foundUnit = true;
                 if (unit.TryGetComponent(out UnitAffiliation unitaff) && unit.TryGetComponent(out UnitParameters unitparams)) {
                     if (units.ContainsKey(unitaff.unit_type)) {
@@ -999,6 +999,7 @@ public class ControlSystem : MonoBehaviour {
             HudUI.instance.ShowAbilities();
         }
         if (!foundUnit) {
+            DestroyWaypointIndicator();
             ClearActionQueue();
         }
     }

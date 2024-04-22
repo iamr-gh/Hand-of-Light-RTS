@@ -25,7 +25,7 @@ public class GlobalUnitManager : MonoBehaviour {
     public Dictionary<string, List<GameObject>> units = new();
 
     private List<GameObject> visibleEnemies = new();
-    private List<GameObject> hiddenEnemies = new();
+    public List<GameObject> hiddenEnemies = new();
 
     public GameObject[] allManaged;
 
@@ -100,6 +100,8 @@ public class GlobalUnitManager : MonoBehaviour {
     }
 
     public void Reindex() {
+        hiddenEnemies.Clear();
+        visibleEnemies.Clear();
         allManaged = GameObject.FindGameObjectsWithTag("Managed");
         TryGetComponent(out ControlSystem controlSystem);
         foreach (GameObject obj in allManaged) {

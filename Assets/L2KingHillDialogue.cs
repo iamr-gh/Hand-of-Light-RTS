@@ -27,7 +27,7 @@ public class L2KingHillDialogue : MonoBehaviour
 
 
         ToastSystem.instance.SendDialogue("General. We've located an enemy encampment.",
-        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 6f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine6"));
+        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 9f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine6"));
 
         ToastSystem.instance.SendDialogue("We believe this is where their forces have been moving through to avoid detection.",
         portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 6f);
@@ -35,11 +35,11 @@ public class L2KingHillDialogue : MonoBehaviour
         //make general speaker
         ToastSystem.instance.SendDialogue("It's a good tactical location, but they've chosen a poor position for a fight.",
         //using ranged for general rn
-        portraitLabel: "General", autoDismissTime: 4f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_4"));
+        portraitLabel: "General", autoDismissTime: 9f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_4"));
 
 
         //make general speaker
-        ToastSystem.instance.SendDialogue("Archers, sieze the high ground and snipe them from afar.",
+        ToastSystem.instance.SendDialogue("Archers, seize the high ground and snipe them from afar.",
         //using ranged for general rn
         portraitLabel: "General", autoDismissTime: 5f);
 
@@ -78,18 +78,18 @@ public class L2KingHillDialogue : MonoBehaviour
         yield return new WaitForSeconds(5f);
 
         ToastSystem.instance.SendDialogue("We need to blitz through enemy territory and take that base out before the enemy can regroup and launch a counterattack.",
-        portraitLabel: "General", autoDismissTime: 7f);
+        portraitLabel: "General", autoDismissTime: 15f);
 
         ToastSystem.instance.SendDialogue("Call for a commando and speeder unit.",
-        portraitLabel: "General", autoDismissTime: 7f);
+        portraitLabel: "General", autoDismissTime: 5f);
 
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(15f);
 
         //level complete, move onto the next one
         ToastSystem.instance.SendDialogue("Understood.",
-        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 2f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine9"));
+        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine9"));
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
 
 
         //load next level

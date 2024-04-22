@@ -75,12 +75,12 @@ public class LvRunAwayScript : MonoBehaviour
         //on win
 
         ToastSystem.instance.SendDialogue("We've made it!",
-        portraitLabel: "Scout", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismiss: false, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine13"));
+        portraitLabel: "Scout", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 3f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine13"));
 
         ToastSystem.instance.SendDialogue("Don't get too excited. We need to keep moving or they'll catch us. Let?s go!",
-        portraitLabel: "General", autoDismiss: false, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_15"));
+        portraitLabel: "General", autoDismissTime: 7f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_15"));
 
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(10f);
 
         ToastSystem.instance.onDialogueAdvanced.RemoveListener(TickDialogue);
 
