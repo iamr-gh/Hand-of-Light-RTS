@@ -1042,7 +1042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c1cac59b5af14940afd744a1ff34599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minGroundHeight: -4
+  minGroundHeight: -3
   portraits:
   - type: Melee
     sprite: {fileID: -1065588696, guid: ffb1a99db2d614684b29a1d4448dda76, type: 3}
@@ -1058,6 +1058,15 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
   - type: Mage
     sprite: {fileID: 2074057733, guid: d37e7c306a863014dafaf23a4c1249d0, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - type: EnemyMelee
+    sprite: {fileID: -1469157317, guid: 1c02afae05f724b37bbab20e2a7a983d, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - type: EnemyArcher
+    sprite: {fileID: -1683166758, guid: 30b34802e02eb44d4b94808c5c775268, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - type: EnemySpeeder
+    sprite: {fileID: 822444060, guid: a7b24cdcfed09434e900473a6722c4ed, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
   allManaged: []
 --- !u!114 &281730187184124888
@@ -1114,7 +1123,7 @@ MonoBehaviour:
   menu: {fileID: 8812046268394244200}
   affiliation: White
   numSupportedAbilities: 4
-  minDragDistance: 0.5
+  minDragDistance: 10
   doubleClickPeriod: 0.5
   continuousMovementPeriod: 0.1
   selectVoiceLineCooldown: 2
@@ -1926,7 +1935,7 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: 4dd7aa47044406e45aa22fc9fe11ecb4, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: d9ee631bf116196418e86dbb8347059a, type: 3}
-  m_SortingOrder: 0
+  m_SortingOrder: 1
 --- !u!114 &7277891828316157494
 MonoBehaviour:
   m_ObjectHideFlags: 0

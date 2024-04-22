@@ -29,6 +29,7 @@ public class UnitJuice : MonoBehaviour {
 
     UnitParameters parameters;
     GameObject attackVFX;
+    GameObject createdSlash;
 
     private bool damageJuiceActive = false;
     private bool attackJuiceActive = false;
@@ -105,9 +106,9 @@ public class UnitJuice : MonoBehaviour {
     public IEnumerator AttackJuice() {
         attackJuiceActive = true;
         AudioManager.instance.PlayAudioClip(attackSound);
-        GameObject slash = Instantiate(attackVFX, transform.position, transform.rotation);
+        createdSlash = Instantiate(attackVFX, transform.position, transform.rotation);
         yield return new WaitForSeconds(parameters.getAttackDuration());
-        Destroy(slash);
+        Destroy(createdSlash);
         attackJuiceActive = false;
     }
 
@@ -136,5 +137,10 @@ public class UnitJuice : MonoBehaviour {
         transform.RotateAround(transform.position, transform.up, angle - deltaAngle);
 
         isTurning = false;
+    }
+
+    void OnDestroy() {
+        Debug.Log("Destroying Unit Juice");
+        if(createdSlash != null) { Destroy(createdSlash); }
     }
 }

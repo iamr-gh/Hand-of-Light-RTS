@@ -584,6 +584,50 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlindingSpell
       objectReference: {fileID: 0}
+    - target: {fileID: 29932112551961916, guid: eccb9e60a522e4054aadfe3683c5459c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 464175465022892729, guid: eccb9e60a522e4054aadfe3683c5459c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 464175465022892729, guid: eccb9e60a522e4054aadfe3683c5459c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 464175465022892729, guid: eccb9e60a522e4054aadfe3683c5459c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019439392487909164, guid: eccb9e60a522e4054aadfe3683c5459c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019439392487909164, guid: eccb9e60a522e4054aadfe3683c5459c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019439392487909164, guid: eccb9e60a522e4054aadfe3683c5459c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2351916584181641274, guid: eccb9e60a522e4054aadfe3683c5459c, type: 3}
+      propertyPath: m_MaxParticleSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827171092864869798, guid: eccb9e60a522e4054aadfe3683c5459c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827171092864869798, guid: eccb9e60a522e4054aadfe3683c5459c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827171092864869798, guid: eccb9e60a522e4054aadfe3683c5459c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2827171092864869798, guid: eccb9e60a522e4054aadfe3683c5459c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -623,6 +667,14 @@ PrefabInstance:
     - target: {fileID: 2827171092864869798, guid: eccb9e60a522e4054aadfe3683c5459c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7641589711637229169, guid: eccb9e60a522e4054aadfe3683c5459c, type: 3}
+      propertyPath: m_MaxParticleSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7893950659510561959, guid: eccb9e60a522e4054aadfe3683c5459c, type: 3}
+      propertyPath: m_MaxParticleSize
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

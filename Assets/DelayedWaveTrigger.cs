@@ -19,6 +19,7 @@ public class DelayedWaveTrigger : MonoBehaviour
         UnitAffiliation affil = other.gameObject.GetComponent<UnitAffiliation>();
         if (!triggered && affil != null && affil.affiliation == "White") {
             StartCoroutine(StartWave(wait_seconds));
+            triggered = true;
         }
     }
 

@@ -31,9 +31,10 @@ public class BlindingCloudAbility : Ability
     public override void OnCast(AbilityCastData castData) {
         // spawn a cloud at the target location after a delay
         var blinding_cloud = Instantiate(cloudPrefab, castData.targetPosition + cloud_height*Vector3.up, Quaternion.identity);
-        var blinding_cloud_vfx = Instantiate(cloudVfx, blinding_cloud.transform);
+        var vfx = Instantiate(cloudVfx, blinding_cloud.transform);
         //scale with radius
         blinding_cloud.transform.localScale = new Vector3(aoeRadius * 2, blinding_cloud.transform.localScale.y, aoeRadius * 2);
+        vfx.transform.localScale = new Vector3(aoeRadius * 2, vfx.transform.localScale.y, aoeRadius * 2);
         if(blinding_cloud.TryGetComponent(out ExpireWithTime expire)){
             expire.timeToLive = cloud_duration;
         }
