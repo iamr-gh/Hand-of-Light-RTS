@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AudioSource))]
 public class AudioManager : MonoBehaviour {
@@ -28,6 +29,11 @@ public class AudioManager : MonoBehaviour {
         TryGetComponent(out audioSource);
         transform.GetChild(0).TryGetComponent(out dialogueSource);
         bgmStatus = BGMStatus.Playing;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        dialogueSource.Stop();
     }
 
     private void Update() {
