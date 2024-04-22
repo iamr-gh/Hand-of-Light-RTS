@@ -76,7 +76,7 @@ public class L3BreakBorderDialogue : MonoBehaviour
 
         yield return new WaitForSeconds(4f);
 
-        ToastSystem.instance.SendDialogue("For now, we retreat.",
+        ToastSystem.instance.SendDialogue("For now, we regroup and join up with the rest of our forces.",
         portraitLabel: "General", autoDismissTime: 3f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_9"));
 
         yield return new WaitForSeconds(3f);
