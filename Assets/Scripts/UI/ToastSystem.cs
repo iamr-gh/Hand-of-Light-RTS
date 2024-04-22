@@ -107,7 +107,7 @@ public class ToastSystem : MonoBehaviour {
         currentDialogue = dialogue;
         yield return new WaitForSecondsRealtime(HudUI.instance.tweenDuration);
         if (dialogue.audioClip != null) {
-            AudioManager.instance.PlayAudioClip(dialogue.audioClip, dialogue.audioVolume);
+            AudioManager.instance.PlayDialogue(dialogue.audioClip, dialogue.audioVolume);
         }
         dialogueFullySent = false;
         dialogueAdvanced = false;
@@ -146,6 +146,7 @@ public class ToastSystem : MonoBehaviour {
             HudUI.instance.HideDialogue();
         }
         onDialogueAdvanced.Invoke();
+        AudioManager.instance.StopDialogue();
     }
 
     public ulong SendNotification(string message, bool autoDismiss = true, float autoDismissTime = 3f, Nullable<Color> boxColor = null, Nullable<Color> textColor = null, Nullable<Color> textOutlineColor = null, AudioClip audioClip = null, float audioVolume = 1f) {
