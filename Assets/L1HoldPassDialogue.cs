@@ -36,12 +36,12 @@ public class L1HoldPassDialogue : MonoBehaviour
         ToastSystem.instance.onDialogueAdvanced.AddListener(TickDialogue);
 
         ToastSystem.instance.SendDialogue("General! We've spotted movement, an advanced Seleneian force is marching on a nearby village.",
-        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f);
+        portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 5f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine1"));
 
         //make general speaker
         ToastSystem.instance.SendDialogue("What are we looking at exactly?",
         //using ranged for general rn
-        portraitLabel: "Archer", portrait: GlobalUnitManager.singleton.GetPortrait("Ranged").Item1, autoDismissTime: 5f);
+        portraitLabel: "General", autoDismissTime: 5f);
 
         ToastSystem.instance.SendDialogue("A few contingents of knights. No other support. Though, some of their advanced party have captured several villagers.",
         portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 7f);
