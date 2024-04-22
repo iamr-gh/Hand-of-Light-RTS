@@ -1059,6 +1059,15 @@ MonoBehaviour:
   - type: Mage
     sprite: {fileID: 2074057733, guid: d37e7c306a863014dafaf23a4c1249d0, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
+  - type: EnemyMelee
+    sprite: {fileID: -1469157317, guid: 1c02afae05f724b37bbab20e2a7a983d, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - type: EnemyArcher
+    sprite: {fileID: -1683166758, guid: 30b34802e02eb44d4b94808c5c775268, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - type: EnemySpeeder
+    sprite: {fileID: 822444060, guid: a7b24cdcfed09434e900473a6722c4ed, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
   allManaged: []
 --- !u!114 &281730187184124888
 MonoBehaviour:
