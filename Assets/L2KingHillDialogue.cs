@@ -34,7 +34,7 @@ public class L2KingHillDialogue : MonoBehaviour
         //make general speaker
         ToastSystem.instance.SendDialogue("It's a good tactical location, but they've chosen a poor position for a fight.",
         //using ranged for general rn
-        portraitLabel: "General", autoDismissTime: 4f);
+        portraitLabel: "General", autoDismissTime: 4f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_4"));
 
 
         //make general speaker
@@ -46,6 +46,10 @@ public class L2KingHillDialogue : MonoBehaviour
 
         ToastSystem.instance.SendDialogue("Yes sir.",
         portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 2f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine7"));
+
+        ToastSystem.instance.SendDialogue("Knights, forward!",
+        portraitLabel: "General", autoDismissTime: 4f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_5"));
+
 
         yield return new WaitForSeconds(5f);
 
@@ -65,7 +69,7 @@ public class L2KingHillDialogue : MonoBehaviour
         yield return new WaitForSeconds(5f);
 
         ToastSystem.instance.SendDialogue("We need to move fast. The unit here has likely already contacted the nearest base. \r\n",
-        portraitLabel: "General", autoDismissTime: 5f);
+        portraitLabel: "General", autoDismissTime: 5f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_6"));
 
         yield return new WaitForSeconds(5f);
 
