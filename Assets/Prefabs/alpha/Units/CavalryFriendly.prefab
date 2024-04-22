@@ -253,11 +253,24 @@ MonoBehaviour:
   MovementSpeed: 7
   AttackCooldown: 0.5
   AttackDuration: 0.25
+  Mana: 100
+  HitboxSize: 1
   AggroRange: 10
   SightRange: 10
   AttackRange: 2
-  Mana: 100
-  HitboxSize: 1
+  SelectVoiceLines:
+  - {fileID: 8300000, guid: 29e42ff7cec7e453e8574e082207b15b, type: 3}
+  - {fileID: 8300000, guid: da1d52b4bf1fb474d9ebef0afa95a5de, type: 3}
+  - {fileID: 8300000, guid: 1c4412e851443401d9d0799afe4fbfcd, type: 3}
+  - {fileID: 8300000, guid: 4bd5fdb2d8f1b4febb53162f7ff1c1d5, type: 3}
+  SelectVoiceLineVolume: 1
+  MoveVoiceLines:
+  - {fileID: 8300000, guid: a3c9439f273a6437988fafdf41f34fdd, type: 3}
+  MoveVoiceLineVolume: 1
+  AttackMoveVoiceLines: []
+  AttackMoveVoiceLineVolume: 1
+  DeathVoiceLines: []
+  DeathVoiceLineVolume: 1
 --- !u!114 &4172141171261938112
 MonoBehaviour:
   m_ObjectHideFlags: 0
