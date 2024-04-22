@@ -109,13 +109,13 @@ MonoBehaviour:
   AggroRange: 0
   SightRange: 10
   AttackRange: 10
-  SelectVoiceLine: {fileID: 0}
+  SelectVoiceLines: []
   SelectVoiceLineVolume: 1
-  MoveVoiceLine: {fileID: 0}
+  MoveVoiceLines: []
   MoveVoiceLineVolume: 1
-  AttackMoveVoiceLine: {fileID: 0}
+  AttackMoveVoiceLines: []
   AttackMoveVoiceLineVolume: 1
-  DeathVoiceLine: {fileID: 0}
+  DeathVoiceLines: []
   DeathVoiceLineVolume: 1
 --- !u!114 &2476804454073885305
 MonoBehaviour:
@@ -274,6 +274,7 @@ MonoBehaviour:
   type: 0
   aoeRadius: 3
   cloudPrefab: {fileID: 1343800599591229233, guid: 03511fb1ec2a51d499bd42f271f6b095, type: 3}
+  cloudVfx: {fileID: 29932112551961916, guid: eccb9e60a522e4054aadfe3683c5459c, type: 3}
   cast_delay: 0.5
   cloud_duration: 6
   cloud_height: 0.5

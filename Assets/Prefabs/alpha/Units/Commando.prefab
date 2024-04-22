@@ -109,13 +109,28 @@ MonoBehaviour:
   AggroRange: 0
   SightRange: 10
   AttackRange: 2
-  SelectVoiceLine: {fileID: 0}
+  SelectVoiceLines:
+  - {fileID: 8300000, guid: fe8463a9f6c4541509de710b67e99c32, type: 3}
+  - {fileID: 8300000, guid: 5ebe581ec283d4ff3a7e22f55ad50a75, type: 3}
+  - {fileID: 8300000, guid: 88ee42eca72cd46c29587c3452042eac, type: 3}
+  - {fileID: 8300000, guid: 560c3933fa1ee48f19f6242b106a09ae, type: 3}
+  - {fileID: 8300000, guid: 28f1798a7a87d4f36b8c9402a8ccbf57, type: 3}
   SelectVoiceLineVolume: 1
-  MoveVoiceLine: {fileID: 0}
+  MoveVoiceLines:
+  - {fileID: 8300000, guid: 4eaab35192cb14d18bc8835a59a3bf3a, type: 3}
+  - {fileID: 8300000, guid: d65cc20f28c424bb9b3e448955ccc89c, type: 3}
+  - {fileID: 8300000, guid: 2511c715220894f7ebe2e741b07f4ef2, type: 3}
   MoveVoiceLineVolume: 1
-  AttackMoveVoiceLine: {fileID: 0}
+  AttackMoveVoiceLines:
+  - {fileID: 8300000, guid: 50a0857af174040dfadf723adf23f725, type: 3}
+  - {fileID: 8300000, guid: 9ce61ea3287e44f06bccc8390a78bdc2, type: 3}
+  - {fileID: 8300000, guid: 2a94af21a7b7644608d7c28dd15937da, type: 3}
   AttackMoveVoiceLineVolume: 1
-  DeathVoiceLine: {fileID: 0}
+  DeathVoiceLines:
+  - {fileID: 8300000, guid: 9ddd575a2eca241829727a0f41e3024b, type: 3}
+  - {fileID: 8300000, guid: d321e13f31c7448e6a6544fffa248fce, type: 3}
+  - {fileID: 8300000, guid: aa4b60cdf9bbe4a37a586f8fee678bef, type: 3}
+  - {fileID: 8300000, guid: cd08f88d61e494fe6acc1e1263230a20, type: 3}
   DeathVoiceLineVolume: 1
 --- !u!114 &1006128000066160810
 MonoBehaviour:
@@ -267,12 +282,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Recall
-  abilityIcon: {fileID: 21300000, guid: 36e8a648acb9b994ea61aa233ef1f590, type: 3}
+  abilityIcon: {fileID: -1300925557, guid: 7fa0528db905fbb4b944524d4decfadd, type: 3}
   abilitySlot: 1
   cooldown: 2
   type: 0
   aoeRadius: 3
   delay: 1
+  circlePrefab: {fileID: 5471718417984487937, guid: dec6386d48a915541a6334d476d85ffd, type: 3}
+  summoningVfx: {fileID: 29932112551961916, guid: 2af31349f45884dda8f3204225a2a87a, type: 3}
 --- !u!1 &6622969027507383801
 GameObject:
   m_ObjectHideFlags: 0

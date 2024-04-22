@@ -6,6 +6,10 @@ using UnityEngine.AI;
 
 public class RecallAbility : Ability {
     public float delay = 1.0f;
+    public GameObject circlePrefab;
+
+    public GameObject summoningVfx;
+
     private Dictionary<GameObject, Color> unitColorMap = new();
     RecallAbility() : base() {
         abilityName = "Recall";
@@ -16,6 +20,12 @@ public class RecallAbility : Ability {
     }
 
     public override void OnCast(AbilityCastData castData) {
+        StartCoroutine(CastCoroutine(castData));
+    }
+
+    IEnumerator CastCoroutine(AbilityCastData castData) {
+        var circle = Instantiate(circlePrefab, castData.targetPosition, Quaternion.identity);
+        circle.transform.localScale = new Vector3(aoeRadius * 2, circle.transform.localScale.y, aoeRadius * 2);
         // let's teleport all units back to the caster
         foreach (GameObject unit in castData.friendlyUnitsHit) {
             if (unit != castData.caster) {
@@ -26,13 +36,15 @@ public class RecallAbility : Ability {
         foreach (GameObject unit in castData.enemyUnitsHit) {
             StartCoroutine(TeleportUnit(unit, castData.caster.transform.position + new Vector3(castData.targetPosition.x - unit.transform.position.x, 0, castData.targetPosition.z - unit.transform.position.z)));
         }
+        yield return new WaitForSeconds(delay);
+        Destroy(circle);
     }
 
     private IEnumerator TeleportUnit(GameObject unit, Vector3 newLoc) {
         //add some juice
         // set halo component to E64BD7
         // nope we can't do that for some reason?
-
+        var vfx = Instantiate(summoningVfx, unit.transform);
         //if we can, do sprite lerp to black
         if (unit.transform.childCount > 2 && unit.transform.GetChild(2).TryGetComponent(out SpriteRenderer sr)) {
             // sr.color = Color.black;
@@ -72,7 +84,7 @@ public class RecallAbility : Ability {
                 unit.transform.position = newLoc;
             }
         }
-
+        Destroy(vfx);
     }
     void OnDestroy() {
         Debug.Log("Destroying Recall Ability Resetting:" + unitColorMap.Count.ToString() + " sprites");

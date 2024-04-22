@@ -33,13 +33,13 @@ EditorBuildSettings:
     path: Assets/Scenes/beta/Levels/L5HighGroundWoes.unity
     guid: f1eba150d3e7f574b93521b6678fc752
   - enabled: 1
-    path: Assets/Scenes/beta/Levels/LvRunAway.unity
-    guid: 8e7de73d7a9514d7fb0e72e089b77f58
-  - enabled: 1
     path: Assets/Scenes/beta/Levels/L7MountainPass.unity
     guid: ff3fd56a89b23124cb1b2450453098de
   - enabled: 1
-    path: Assets/Scenes/beta/Levels/Final Battle.unity
+    path: Assets/Scenes/beta/Levels/LvRunAway.unity
+    guid: 8e7de73d7a9514d7fb0e72e089b77f58
+  - enabled: 1
+    path: Assets/Scenes/beta/Levels/L9Final Battle.unity
     guid: 5648e66622e454019b60377c8f5dcfd3
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: dec24f728498f6a47b97ce28c6187fed, type: 2}

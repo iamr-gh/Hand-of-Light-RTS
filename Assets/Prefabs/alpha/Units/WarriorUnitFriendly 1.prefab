@@ -258,13 +258,28 @@ MonoBehaviour:
   AggroRange: 5
   SightRange: 10
   AttackRange: 2
-  SelectVoiceLine: {fileID: 0}
+  SelectVoiceLines:
+  - {fileID: 8300000, guid: d492b3d56f37646d380dfeacef0eaad0, type: 3}
+  - {fileID: 8300000, guid: 195147cbe3dfe488e85904591869375d, type: 3}
+  - {fileID: 8300000, guid: f3bbe6f6578c74d3e8d05c7b5f5d1eef, type: 3}
+  - {fileID: 8300000, guid: 15a4fde9c868b4c458ddc09284f323cf, type: 3}
   SelectVoiceLineVolume: 1
-  MoveVoiceLine: {fileID: 0}
+  MoveVoiceLines:
+  - {fileID: 8300000, guid: afaeb8f8d57a7442bae4a3c9e0ce56b1, type: 3}
+  - {fileID: 8300000, guid: db77bafcb5e9b415ba9082621ca69e6e, type: 3}
+  - {fileID: 8300000, guid: 55b3dfcf0ef4a46ee9b675327821cef0, type: 3}
+  - {fileID: 8300000, guid: f5ec5d1a5df444e4393d84c8fade9dd9, type: 3}
   MoveVoiceLineVolume: 1
-  AttackMoveVoiceLine: {fileID: 0}
+  AttackMoveVoiceLines:
+  - {fileID: 8300000, guid: 52f9d53f3b1ef4ed9b6e3f89d8f473ac, type: 3}
+  - {fileID: 8300000, guid: 35e7220b9814748748c03f398ca896a9, type: 3}
+  - {fileID: 8300000, guid: 210615daa882d4aa4927b7caf8300c41, type: 3}
   AttackMoveVoiceLineVolume: 1
-  DeathVoiceLine: {fileID: 0}
+  DeathVoiceLines:
+  - {fileID: 8300000, guid: b4bd68d6e2a9a489c9409875ccdfa51a, type: 3}
+  - {fileID: 8300000, guid: 4f2ed16c7338e482eac86557a6096665, type: 3}
+  - {fileID: 8300000, guid: d4f75a677f6e94efe8fe99631fe67419, type: 3}
+  - {fileID: 8300000, guid: c4988f4f095fa443aafbcd8fc9781197, type: 3}
   DeathVoiceLineVolume: 1
 --- !u!114 &4172141171261938112
 MonoBehaviour:

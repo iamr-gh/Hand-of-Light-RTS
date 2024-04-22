@@ -30939,6 +30939,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7698887029191654454, guid: e50e54d7ea96da04cac221c48975a98a, type: 3}
+      propertyPath: aoeRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698887029191654454, guid: e50e54d7ea96da04cac221c48975a98a, type: 3}
       propertyPath: abilitySlot
       value: 2
       objectReference: {fileID: 0}
@@ -32364,6 +32368,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 592552242}
     m_Modifications:
+    - target: {fileID: 2095507570222873873, guid: 4ad6547a9223cdd439f3ed615e042b80, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2095507570222873873, guid: 4ad6547a9223cdd439f3ed615e042b80, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2095507570222873873, guid: 4ad6547a9223cdd439f3ed615e042b80, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2095507570222873873, guid: 4ad6547a9223cdd439f3ed615e042b80, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3667016034640214812, guid: 4ad6547a9223cdd439f3ed615e042b80, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -32427,6 +32447,18 @@ PrefabInstance:
     - target: {fileID: 6135211731946127410, guid: 4ad6547a9223cdd439f3ed615e042b80, type: 3}
       propertyPath: m_Name
       value: Commando
+      objectReference: {fileID: 0}
+    - target: {fileID: 6502231428377099805, guid: 4ad6547a9223cdd439f3ed615e042b80, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6502231428377099805, guid: 4ad6547a9223cdd439f3ed615e042b80, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6502231428377099805, guid: 4ad6547a9223cdd439f3ed615e042b80, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7877020439672429823, guid: 4ad6547a9223cdd439f3ed615e042b80, type: 3}
       propertyPath: aoeRadius

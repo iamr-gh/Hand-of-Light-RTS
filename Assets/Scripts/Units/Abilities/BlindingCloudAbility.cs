@@ -6,6 +6,7 @@ using UnityEngine;
 public class BlindingCloudAbility : Ability
 {
     public GameObject cloudPrefab;
+    public GameObject cloudVfx;
     public float cast_delay = 0.5f;
     public float cloud_duration = 5.0f;
     public float cloud_height = 0.5f;
@@ -30,6 +31,7 @@ public class BlindingCloudAbility : Ability
     public override void OnCast(AbilityCastData castData) {
         // spawn a cloud at the target location after a delay
         var blinding_cloud = Instantiate(cloudPrefab, castData.targetPosition + cloud_height*Vector3.up, Quaternion.identity);
+        var blinding_cloud_vfx = Instantiate(cloudVfx, blinding_cloud.transform);
         //scale with radius
         blinding_cloud.transform.localScale = new Vector3(aoeRadius * 2, blinding_cloud.transform.localScale.y, aoeRadius * 2);
         if(blinding_cloud.TryGetComponent(out ExpireWithTime expire)){

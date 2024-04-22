@@ -348,6 +348,55 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1004283851069630305
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 229225552937691533}
+  - component: {fileID: 7579269596780882769}
+  m_Layer: 9
+  m_Name: PostProcessingVolume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &229225552937691533
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004283851069630305}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1327907549076384526}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7579269596780882769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004283851069630305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: d23da837af174e0418c27855ae2fb13e, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!1 &1445832070146669121
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,6 +708,7 @@ Transform:
   - {fileID: 5587475655302506449}
   - {fileID: 4004448931919465867}
   - {fileID: 5022353888995121510}
+  - {fileID: 229225552937691533}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3232630855311774224
@@ -1067,9 +1117,9 @@ MonoBehaviour:
   minDragDistance: 0.5
   doubleClickPeriod: 0.5
   continuousMovementPeriod: 0.1
-  selectVoiceLineCooldown: 1
-  moveVoiceLineCooldown: 1
-  attackMoveVoiceLineCooldown: 1
+  selectVoiceLineCooldown: 2
+  moveVoiceLineCooldown: 2
+  attackMoveVoiceLineCooldown: 2
   controlledUnits: []
 --- !u!114 &2560267422574346734
 MonoBehaviour:
@@ -1215,6 +1265,7 @@ GameObject:
   - component: {fileID: 4665537075129464552}
   - component: {fileID: 5010075975754014770}
   - component: {fileID: 722267207065457516}
+  - component: {fileID: 7687656612872470105}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -1313,7 +1364,8 @@ MonoBehaviour:
   zoomSpeed: 5
   zoomSensitivity: 50
   maxZoomDistance: 5
-  maxMoveDist: 40
+  maxMoveDistX: {x: -15, y: 15}
+  maxMoveDistZ: {x: -15, y: 15}
   targetObject: {fileID: 0}
 --- !u!114 &722267207065457516
 MonoBehaviour:
@@ -1328,6 +1380,66 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetAspect: {x: 16, y: 9}
+--- !u!114 &7687656612872470105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5996908438413732657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 6468525527439202335}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 3
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!1 &6845771133821284682
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class UnitJuice : MonoBehaviour
-{
+public class UnitJuice : MonoBehaviour {
     private NavMeshAgent navAgent;
 
     // For Audio Juice
@@ -36,8 +35,7 @@ public class UnitJuice : MonoBehaviour
     private bool movementJuiceActive = false;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         attackSound = Resources.Load<AudioClip>(attackAudio);
         damageSound = Resources.Load<AudioClip>(damageAudio);
         deathSound = Resources.Load<AudioClip>(deathAudio);
@@ -48,53 +46,48 @@ public class UnitJuice : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (!movementJuiceActive && navAgent.velocity.magnitude >= movementSpeedThresholdForAudio ) {
+    void Update() {
+        if (!movementJuiceActive && navAgent.velocity.magnitude >= movementSpeedThresholdForAudio) {
             //StartCoroutine(MovementJuice()); // Commented out because it's really loud and poorly implemented rn
         }
 
         // Sprite 'Hopping'
         if (doHop) {
-            if (navAgent.velocity.magnitude < 0.5f)
-            { // Randomize the start time so they all "hop" differently
+            if (navAgent.velocity.magnitude < 0.5f) { // Randomize the start time so they all "hop" differently
                 moveStartTime = Time.time + Random.Range(0f, 0.3f); // Update the start time
-            }
-            else
-            {
+            } else {
                 float positionInCycle = Mathf.Abs(Mathf.Sin(2 * Mathf.PI * (Time.time - moveStartTime)));
                 transform.position = transform.parent.position + hopHeight * transform.up * positionInCycle;
             }
         }
-        
+
         // Sprite Rotation: Only start a turn after one is finished and not attacking
-        if (!isTurning && !attackJuiceActive) { 
-            if (facing == "Left" && navAgent.velocity.x > 0)
-            {
+        if (!isTurning && !attackJuiceActive) {
+            if (facing == "Left" && navAgent.velocity.x > 0) {
                 facing = "Right";
                 StartCoroutine(RotateObject(180f, turnDuration));
-            }
-            else if (facing == "Right" && navAgent.velocity.x < 0)
-            {
+            } else if (facing == "Right" && navAgent.velocity.x < 0) {
                 facing = "Left";
                 StartCoroutine(RotateObject(180f, turnDuration));
             }
-        } 
+        }
     }
 
     // Update is called once per frame
-    private void LateUpdate()
-    {
+    private void LateUpdate() {
         // Destroy dead unit
-        if (parameters.getHP() <= 0)
-        {
-            AudioManager.instance.PlayAudioClip(deathSound);
+        if (parameters.getHP() <= 0) {
+            var deathSounds = parameters.getDeathVoiceLines();
+            if (deathSounds != null && deathSounds.Count > 0) {
+                AudioManager.instance.PlayAudioClip(deathSounds[Random.Range(0, deathSounds.Count)], parameters.getDeathVoiceLineVolume());
+            } else {
+                AudioManager.instance.PlayAudioClip(deathSound);
+            }
             Destroy(transform.parent.gameObject);
         }
     }
 
-    public void TakeDamage(float damage)
-    {
+    public void TakeDamage(float damage) {
         parameters.setHP(parameters.getHP() - damage);
         StartCoroutine(DamageJuice());
     }
@@ -130,14 +123,12 @@ public class UnitJuice : MonoBehaviour
 
     IEnumerator RecallJuice() { yield break; }
 
-    IEnumerator RotateObject(float angle, float duration_sec)
-    {
+    IEnumerator RotateObject(float angle, float duration_sec) {
         isTurning = true;
         float initialTime = Time.time;
         float angularVelocity = angle / duration_sec;
         float deltaAngle = 0;
-        while (Mathf.Abs(Time.time - initialTime) < duration_sec)
-        {
+        while (Mathf.Abs(Time.time - initialTime) < duration_sec) {
             transform.RotateAround(transform.position, transform.up, angularVelocity * Time.deltaTime);
             deltaAngle += angularVelocity * Time.deltaTime;
             yield return null;

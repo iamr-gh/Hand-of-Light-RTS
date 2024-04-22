@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour {
     public static AudioManager instance;
 
     private AudioSource audioSource;
+    private AudioSource dialogueSource;
 
     private enum BGMStatus {
         Playing,
@@ -25,6 +26,7 @@ public class AudioManager : MonoBehaviour {
         }
         DontDestroyOnLoad(gameObject);
         TryGetComponent(out audioSource);
+        transform.GetChild(0).TryGetComponent(out dialogueSource);
         bgmStatus = BGMStatus.Playing;
     }
 
@@ -72,7 +74,18 @@ public class AudioManager : MonoBehaviour {
         return bgmStatus == BGMStatus.Playing;
     }
 
-    public void PlayAudioClip(AudioClip clip, float volume = 1) {
+    public void PlayAudioClip(AudioClip clip, float volume = 0.05f) {
         audioSource.PlayOneShot(clip, volume);
+    }
+
+    public void PlayDialogue(AudioClip clip, float volume = 1f) {
+        dialogueSource.Stop();
+        dialogueSource.volume = volume;
+        dialogueSource.clip = clip;
+        dialogueSource.Play();
+    }
+
+    public void StopDialogue() {
+        dialogueSource.Stop();
     }
 }

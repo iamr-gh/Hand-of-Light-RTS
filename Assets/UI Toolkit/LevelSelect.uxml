@@ -7,13 +7,13 @@
                 <LevelButton level="1" text="Tutorial A" class="level-button" />
                 <LevelButton level="2" text="Tutorial B" class="level-button" />
                 <LevelButton level="3" text="Tutorial C" class="level-button" />
-                <LevelButton level="4" text="Tutorial D" class="level-button" />
-                <LevelButton level="5" text="Hold the Pass" class="level-button" />
-                <LevelButton level="6" text="King of the Hill" class="level-button" />
+                <LevelButton level="4" text="Hold the Pass" class="level-button" />
+                <LevelButton level="5" text="King of the Hill" class="level-button" />
+                <LevelButton level="6" text="Tutorial D" class="level-button" />
                 <LevelButton level="7" text="Break the Border" class="level-button" />
                 <LevelButton level="8" text="High Ground Woes" class="level-button" />
-                <LevelButton level="9" text="Run Away" class="level-button" />
-                <LevelButton level="10" text="Mountain Pass" class="level-button" />
+                <LevelButton level="9" text="Mountain Pass" class="level-button" />
+                <LevelButton level="10" text="Run Away" class="level-button" />
                 <LevelButton level="11" text="Final Battle" class="level-button" />
             </ui:ScrollView>
             <ui:Button text="Return to Main Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ReturnToMainMenuButton" class="menu-button" />

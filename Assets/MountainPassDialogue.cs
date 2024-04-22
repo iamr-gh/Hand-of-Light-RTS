@@ -34,7 +34,7 @@ public class MountainPassDialogue : MonoBehaviour
         
         var (commandoPortrait, commandoColor) = GlobalUnitManager.singleton.GetPortrait("Commando");
         ToastSystem.instance.SendDialogue("Don't worry! I can take a lot of damage and shepard our units across.",
-        portrait: commandoPortrait, portraitColor: commandoColor, portraitLabel: "Commando", autoDismissTime: 5f);
+        portrait: commandoPortrait, portraitColor: Color.yellow, portraitLabel: "Super Commando", autoDismissTime: 5f);
         
         var (magePortrait, mageColor) = GlobalUnitManager.singleton.GetPortrait("Mage");
         ToastSystem.instance.SendDialogue("Remember last time? I can deal with any sniper nests.",
