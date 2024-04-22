@@ -1042,7 +1042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c1cac59b5af14940afd744a1ff34599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minGroundHeight: -4
+  minGroundHeight: -3
   portraits:
   - type: Melee
     sprite: {fileID: -1065588696, guid: ffb1a99db2d614684b29a1d4448dda76, type: 3}
@@ -1114,7 +1114,7 @@ MonoBehaviour:
   menu: {fileID: 8812046268394244200}
   affiliation: White
   numSupportedAbilities: 4
-  minDragDistance: 0.5
+  minDragDistance: 10
   doubleClickPeriod: 0.5
   continuousMovementPeriod: 0.1
   selectVoiceLineCooldown: 2

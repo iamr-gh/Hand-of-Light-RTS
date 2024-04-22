@@ -41,13 +41,13 @@ public class L1HoldPassDialogue : MonoBehaviour
         //make general speaker
         ToastSystem.instance.SendDialogue("What are we looking at exactly?",
         //using ranged for general rn
-        portraitLabel: "General", autoDismissTime: 5f);
+        portraitLabel: "General", autoDismissTime: 5f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_1"));
 
         ToastSystem.instance.SendDialogue("A contingent of knights. No other support. Though, some of their advanced party have captured several villagers.",
         portraitLabel: "Knight", portrait: GlobalUnitManager.singleton.GetPortrait("Melee").Item1, autoDismissTime: 7f, audioClip: Resources.Load<AudioClip>("Audio/Scout Lines/ScoutLine2"));
 
         ToastSystem.instance.SendDialogue("Those bastards...",
-        portraitLabel: "General", autoDismissTime: 5f);
+        portraitLabel: "General", autoDismissTime: 5f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_20"));
 
         ToastSystem.instance.SendDialogue("Right. Our first priority is to hold the mountain passes until reinforcements arrive.",
         portraitLabel: "General", autoDismissTime: 7f);
@@ -126,7 +126,7 @@ public class L1HoldPassDialogue : MonoBehaviour
         yield return new WaitForSeconds(5f);
 
         ToastSystem.instance.SendDialogue("Good. Now, we need to find out where this force came from.",
-        portraitLabel: "General", autoDismissTime: 3f);
+        portraitLabel: "General", autoDismissTime: 3f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_2"));
 
         yield return new WaitForSeconds(3f);
 
@@ -147,7 +147,7 @@ public class L1HoldPassDialogue : MonoBehaviour
 
         //level complete, move onto the next one
         ToastSystem.instance.SendDialogue("Move out.",
-        portraitLabel: "General", autoDismissTime: 5f);
+        portraitLabel: "General", autoDismissTime: 5f, audioClip: Resources.Load<AudioClip>("Audio/general lines/General_3"));
 
         yield return new WaitForSeconds(5f);
 
