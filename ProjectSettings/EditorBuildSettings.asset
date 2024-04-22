@@ -30,8 +30,8 @@ EditorBuildSettings:
     path: Assets/Scenes/beta/Levels/L3BreakBorder.unity
     guid: dfc6599dc41d66f4ead7c55ef4ae257e
   - enabled: 1
-    path: Assets/Scenes/beta/Levels/BROKENL5HighGroundWoes.unity
-    guid: f1eba150d3e7f574b93521b6678fc752
+    path: Assets/Scenes/beta/Levels/L5HighGroundWoes.unity
+    guid: 9211698e8b892244fb3f540ae315164d
   - enabled: 1
     path: Assets/Scenes/beta/Levels/L7MountainPass.unity
     guid: ff3fd56a89b23124cb1b2450453098de
